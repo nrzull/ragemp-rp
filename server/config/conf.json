@@ -1,0 +1,10 @@
+{
+  "maxplayers": 100,
+  "name": "Aquamarine Project",
+  "gamemode": "roleplay",
+  "stream-distance": 500.0,
+  "announce": false,
+  "csharp": "enabled",
+  "enable-nodejs": false,
+  "port": 22005
+}
