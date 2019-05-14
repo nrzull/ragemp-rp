@@ -1,4 +1,3 @@
-@echo off
 rm -rf mp/client_packages/*
 rm -rf mp/bridge/resources/*
 cd server && dotnet build && cd ..
