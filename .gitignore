@@ -448,3 +448,4 @@ MigrationBackup/
 /temp*
 /client/csharp/client.csproj
 Aquamarine-Project.sln
+/server/compiled

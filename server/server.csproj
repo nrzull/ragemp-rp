@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <OutputPath>../mp/bridge/resources</OutputPath>
+        <OutputPath>compiled</OutputPath>
         <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>

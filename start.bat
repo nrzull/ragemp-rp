@@ -2,6 +2,7 @@
 rm -rf mp/client_packages/*
 rm -rf mp/bridge/resources/*
 cd server && dotnet build && cd ..
+cp -r server/compiled/* mp/bridge/resources
 cp -r client/javascript/* mp/client_packages
 cp -r client/csharp mp/client_packages/cs_packages
 cp server/config/conf.json mp/conf.json
