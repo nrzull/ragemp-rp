@@ -9,7 +9,7 @@
 - Скопировать с мультиплеера папку `server-files` в корень репозитория и переименовать в `mp`
 - Зайти в `bash` в корне репозитория
 - Ввести в терминале `bash init.sh`
-- Создать `client.csproj` в папке `client` и заполнить следующим:
+- Создать `Aquamarine.Client.csproj` в папке `client` и заполнить следующим:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
