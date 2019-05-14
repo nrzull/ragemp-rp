@@ -2,7 +2,7 @@ using RAGE;
 
 namespace Aquamarine.Client
 {
-    public class Main : RAGE.Events.Script
+    public class Main : Events.Script
     {
         public Main()
         {
