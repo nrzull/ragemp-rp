@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="RAGE">
+            <HintPath>A:/RAGEMP/dotnet/rage-sharp.dll</HintPath>
+        </Reference>
+
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>A:/RAGEMP/dotnet/Newtonsoft.Json.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+</Project>
