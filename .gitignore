@@ -446,6 +446,6 @@ MigrationBackup/
 /server-files
 /mp
 /temp*
-/client/csharp/client.csproj
+/client/csharp/*.csproj
 Aquamarine-Project.sln
 /server/compiled
