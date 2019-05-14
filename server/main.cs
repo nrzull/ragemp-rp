@@ -1,8 +1,8 @@
-﻿using NAPI;
+using GTANetworkAPI;
 
 namespace Aquamarine.Server
 {
-    public class Main
+    public class Main : Script
     {
         public Main()
         {
