@@ -1,17 +1,10 @@
-using GTANetworkAPI;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using GTANetworkAPI;
 
 namespace Aquamarine.Server
 {
     public class Main : Script
     {
-        public Main()
-        {
-
-        }
-
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
         {
