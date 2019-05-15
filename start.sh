@@ -7,7 +7,7 @@ cp -r client/csharp mp/client_packages/cs_packages
 rm -rf mp/client_packages/cs_packages/*.csproj
 rm -rf mp/client_packages/cs_packages/bin
 rm -rf mp/client_packages/cs_packages/obj
-cp server/config/conf.json mp/conf.json
-cp server/config/settings.xml mp/bridge/settings.xml
-cp server/config/meta.xml mp/bridge/resources/netcoreapp2.0/meta.xml
+cp server/Config/conf.json mp/conf.json
+cp server/Config/settings.xml mp/bridge/settings.xml
+cp server/Config/meta.xml mp/bridge/resources/netcoreapp2.0/meta.xml
 cd mp && start server.exe && cd ..
