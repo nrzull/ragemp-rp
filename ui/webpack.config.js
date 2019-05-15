@@ -1,6 +1,7 @@
 const { resolve } = require("path");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const { NODE_ENV = "development" } = process.env;
 
@@ -21,10 +22,18 @@ const config = {
         test: /\.tsx?$/,
         include: SRC,
         use: "ts-loader"
+      },
+
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       }
     ]
   },
-  plugins: [new HtmlPlugin({ template: resolve(SRC, "index.html") })]
+  plugins: [
+    new HtmlPlugin({ template: resolve(SRC, "index.html") }),
+    new MiniCssExtractPlugin()
+  ]
 };
 
 module.exports = config;
