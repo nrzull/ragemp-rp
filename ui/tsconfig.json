@@ -1,0 +1,15 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "jsx": "react",
+    "lib": ["dom", "es2017"],
+    "module": "es2015",
+    "target": "es2017",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
