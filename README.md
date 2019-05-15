@@ -12,30 +12,7 @@
 - Зайти в `bash` в корне репозитория
 - Ввести в терминале `bash init.sh`
 - Создать `Aquamarine.Client.csproj` в папке `client` и заполнить следующим:
-
-### База данных
-
-- Скачать и установить PostgreSQL https://www.postgresql.org/download/windows/
-- Создать `Secret.cs` по пути `server/Config/` и вставить туда следующий код:
-
-```csharp
-namespace Aquamarine.Server.Config
-{
-    class Secret
-    {
-        public const string Database = "";
-        public const string Username = "";
-        public const string Password = "";
-    }
-}
-```
-
-- Зайти в директорию `server` и создать базу данных введя в терминал следующее:
-
-```batch
-dotnet ef database update
-```
-
+ 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
@@ -54,6 +31,37 @@ dotnet ef database update
         </Reference>
     </ItemGroup>
 </Project>
+```
+
+- Создать `Secret.cs` по пути `server/Config/` и вставить туда следующий код:
+
+```csharp
+namespace Aquamarine.Server.Config
+{
+    class Secret
+    {   
+        class Database
+        {
+        public const string NAME = "";
+        public const string USERNAME = "";
+        public const string PASSWORD = "";
+        }
+
+        class Core
+        {
+          public const bool DEBUG = false;
+        }
+    }
+}
+```
+
+### База данных и дебаг
+
+- Скачать и установить PostgreSQL https://www.postgresql.org/download/windows/
+- Зайти в директорию `server` и создать базу данных введя в терминал следующее:
+
+```batch
+dotnet ef database update
 ```
 
 ## Запуск
