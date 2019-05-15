@@ -449,3 +449,4 @@ MigrationBackup/
 /client/csharp/*.csproj
 *.sln
 /server/compiled
+/server/Config/Secret.cs
