@@ -4,41 +4,15 @@
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="Bootstrapper">
             <HintPath>../mp/bridge/runtime/Bootstrapper.dll</HintPath>
         </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="config\database.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>database.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Config\Secret.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Secret.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Update="config\database.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>database.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Config\Secret.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Secret.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
