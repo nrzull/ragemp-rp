@@ -8,8 +8,7 @@ namespace Aquamarine.Server
 {
     class Database : DbContext
     {
-        // Define models here
-        // public DbSet<Account> Accounts { get; set; }
+        public DbSet<Account.Entity> Accounts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
