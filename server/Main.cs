@@ -9,9 +9,15 @@ namespace Aquamarine.Server
     {
         public Main()
         {
+
+        }
+
+        [ServerEvent(Event.ResourceStart)]
+        public void OnResourceStart()
+        {
             using (var database = new Database())
             {
-                Console.WriteLine($"Connected to database: {database.Database.EnsureCreated()}");
+                Console.WriteLine($"Connected to database: {database.Database.CanConnect()}");
             }
         }
     }
