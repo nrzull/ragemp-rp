@@ -32,6 +32,11 @@ const config = {
       {
         test: /\.(ttf|woff|png|jpe?g|gif)$/,
         use: "file-loader"
+      },
+
+      {
+        test: /\.svg$/,
+        use: "react-svg-loader"
       }
     ]
   },
