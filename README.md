@@ -38,7 +38,7 @@
 
 ## Настройка базы данных
 
-- Скачать и установить Posgresql https://www.postgresql.org/download/windows/
+- Скачать и установить PostgreSQL https://www.postgresql.org/download/windows/
 - Создать `Secret.cs` по пути `server/Config/`
 - Вставить туда следующий код:
 
