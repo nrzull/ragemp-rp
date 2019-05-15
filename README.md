@@ -1,6 +1,7 @@
 ## Зависимости
 
 - .NET Core
+- PostgreSQL
 - bash (идёт вместе с git)
 
 ## Установка
@@ -55,7 +56,7 @@ namespace Aquamarine.Server.Config
 }
 ```
 
-### База данных и дебаг
+### База данных
 
 - Скачать и установить PostgreSQL https://www.postgresql.org/download/windows/
 - Зайти в директорию `server` и создать базу данных введя в терминал следующее:
