@@ -13,7 +13,7 @@ namespace Aquamarine.Server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database={Secret.Database};Username={Secret.Username};Password={Secret.Password}");
+            optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database={Secret.DATABASE};Username={Secret.USERNAME};Password={Secret.PASSWORD}");
         }
     }
 }
