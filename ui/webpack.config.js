@@ -27,6 +27,11 @@ const config = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"]
+      },
+
+      {
+        test: /\.(ttf|woff|png|jpe?g|gif)$/,
+        use: "file-loader"
       }
     ]
   },
