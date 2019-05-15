@@ -447,5 +447,6 @@ MigrationBackup/
 /mp
 /temp*
 /client/csharp/*.csproj
-Aquamarine-Project.sln
+*.sln
 /server/compiled
+/server/Config/Secret.cs
