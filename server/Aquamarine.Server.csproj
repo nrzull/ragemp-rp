@@ -3,6 +3,9 @@
         <TargetFramework>netcoreapp2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
+      <Compile Include="..\client\csharp\Shared\Events.cs" Link="Shared\Events.cs" />
+    </ItemGroup>
+    <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
 
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4" />
