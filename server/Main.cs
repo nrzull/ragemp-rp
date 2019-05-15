@@ -9,7 +9,10 @@ namespace Aquamarine.Server
     {
         public Main()
         {
-
+            using (var database = new Database())
+            {
+                Console.WriteLine($"Connected to database: {database.Database.EnsureCreated()}");
+            }
         }
     }
 }
