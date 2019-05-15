@@ -35,3 +35,21 @@
 
 - Зайти в bash в корне репозитория
 - Ввести `bash start.sh`
+
+## Настройка базы данных
+
+- Скачать и установить Posgresql https://www.postgresql.org/download/windows/
+- Создать `Secret.cs` по пути `server/Config/`
+- Вставить туда следующий код:
+
+```csharp
+namespace Aquamarine.Server.Config
+{
+    class Secret
+    {
+        public const string Database = "";
+        public const string Username = "";
+        public const string Password = "";
+    }
+}
+```
