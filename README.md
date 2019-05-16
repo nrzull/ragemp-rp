@@ -12,7 +12,7 @@
 - Скопировать с мультиплеера папку `server-files` в корень репозитория и переименовать в `mp`
 - Зайти в `bash` в корне репозитория
 - Ввести в терминале `bash init.sh`
-- Создать `Aquamarine.Client.csproj` в папке `client` и заполнить следующим:
+- Создать `Project.Client.csproj` в папке `client` и заполнить следующим:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -37,7 +37,7 @@
 - Создать `Secret.cs` по пути `server/Config/` и вставить туда следующий код:
 
 ```csharp
-namespace Aquamarine.Server.Config
+namespace Project.Server.Config
 {
     static class Secret
     {

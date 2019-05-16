@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GTANetworkAPI;
 
-namespace Aquamarine.Server.Account.Login
+namespace Project.Server.Account.Login
 {
     class Events : Script
     {

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Aquamarine.Server.Config;
+using Project.Server.Config;
 
-namespace Aquamarine.Server
+namespace Project.Server
 {
     class Database : DbContext
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using GTANetworkAPI;
 
-namespace Aquamarine.Server.Account.Register
+namespace Project.Server.Account.Register
 {
     class Events : Script
     {
