@@ -16,7 +16,7 @@ namespace Project.Server.Account.Register
             string login,
             string password,
             string repeatPassword,
-            string promoCode)
+            string promoCode = null)
         {
             Dictionary<string, string> result = ValidateFields(
                                                 email,
@@ -48,7 +48,7 @@ namespace Project.Server.Account.Register
                     email: email,
                     login: login,
                     password: BCrypt.Net.BCrypt.HashPassword(password),
-                    promoCode: null
+                    promoCode: promoCode
                 );
 
                 database.Accounts.Add(account);
@@ -84,7 +84,7 @@ namespace Project.Server.Account.Register
             {
                 errors.Add("password", result);
             }
-            else if (password.Equals(repeatPassword))
+            else if (!password.Equals(repeatPassword))
             {
                 errors.Add("password", Resources.ERROR_PASSWORD_DONT_MATCH);
             }
