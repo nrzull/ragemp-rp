@@ -13,7 +13,7 @@
 - Зайти в `bash` в корне репозитория
 - Ввести в терминале `bash init.sh`
 - Создать `Aquamarine.Client.csproj` в папке `client` и заполнить следующим:
- 
+
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
@@ -39,18 +39,18 @@
 ```csharp
 namespace Aquamarine.Server.Config
 {
-    class Secret
-    {   
-        class Database
+    static class Secret
+    {
+        public static class Database
         {
-        public const string NAME = "";
-        public const string USERNAME = "";
-        public const string PASSWORD = "";
+            public const string NAME = "aquamarine";
+            public const string USERNAME = "postgres";
+            public const string PASSWORD = "postgres";
         }
 
-        class Core
+        public static class Core
         {
-          public const bool DEBUG = false;
+            public const bool DEBUG = false;
         }
     }
 }
