@@ -42,8 +42,20 @@ namespace Aquamarine.Server.Account.Register
                 return;
             }
 
-            // TODO: continue logic
-            player.SendChatMessage("SUCCESSFULLY REGISTERED!");
+            using (var database = new Database())
+            {
+                Account.Entity account = new Account.Entity(
+                    email: email,
+                    login: login,
+                    password: BCrypt.Net.BCrypt.HashPassword(password),
+                    promoCode: null
+                );
+
+                database.Accounts.Add(account);
+                database.SaveChanges();
+                // TODO: continue logic
+                player.SendChatMessage("SUCCESSFULLY REGISTERED!");
+            }
         }
 
         // return a list of errors if at least one of the fields is invalid
