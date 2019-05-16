@@ -26,7 +26,7 @@ namespace Aquamarine.Server.Account.Login
                 return;
             }
 
-            if (VerifyPassword(account, password) == false)
+            if (!BCrypt.Net.BCrypt.Verify(password, account.Password))
             {
                 player.TriggerEvent(Shared.Events.LOGIN_ERROR, Resources.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
                 return;
@@ -53,12 +53,6 @@ namespace Aquamarine.Server.Account.Login
 
             if (errors.Count > 0) return errors;
             return null;
-        }
-
-        // TODO use Bcrypt for verifying
-        static bool VerifyPassword(Account.Entity account, string input)
-        {
-            return account.Password == input;
         }
     }
 }
