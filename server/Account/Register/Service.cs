@@ -18,33 +18,39 @@ namespace Aquamarine.Server.Account.Register
             string repeatPassword,
             string promoCode)
         {
-            string fieldsErrors = CheckFieldsForErrors(
-                                                player,
+            Dictionary<string, string> result = ValidateFields(
                                                 email,
                                                 login,
                                                 password,
                                                 repeatPassword);
-            if (fieldsErrors != null)
+            if (result != null)
             {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, fieldsErrors);
+                var errors = string.Join("\n", result.ToArray());
+                player.TriggerEvent(Shared.Events.REGISTER_ERROR, errors);
                 return;
             }
 
-            if (!IsEmailValid(email))
+            if (!result.ContainsKey("login"))
             {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_EMAIL_INVALID);
+                player.TriggerEvent(Shared.Events.REGISTER_ERROR, result.GetValueOrDefault("login"));
                 return;
             }
 
-            if (!IsLoginValid(login))
+            if (!result.ContainsKey("email"))
             {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_LOGIN_INVALID);
+                player.TriggerEvent(Shared.Events.REGISTER_ERROR, result.GetValueOrDefault("email"));
                 return;
             }
 
-            if (!IsPasswordValid(password))
+            if (!result.ContainsKey("password"))
             {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_PASSWORD_INVALID);
+                player.TriggerEvent(Shared.Events.REGISTER_ERROR, result.GetValueOrDefault("password"));
+                return;
+            }
+
+            if (Account.Service.IsLoginExists(login))
+            {
+                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_LOGIN_EXISTS);
                 return;
             }
 
@@ -54,117 +60,72 @@ namespace Aquamarine.Server.Account.Register
                 return;
             }
 
-
-            if (IsLoginExists(login))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_LOGIN_EXISTS);
-                return;
-            }
-
             // TODO: insert data to database.
             player.SendChatMessage("SUCCESSFULLY REGISTERED!");
         }
 
         // return a list of errors if at least one of the fields is invalid
-        private static string CheckFieldsForErrors(
-                                        Client player,
+        static Dictionary<string, string> ValidateFields(
                                         string email,
                                         string login,
                                         string password,
                                         string repeatPassword)
         {
-            List<string> errors = new List<string>();
+            Dictionary<string, string> errors = new Dictionary<string, string>();
 
-            if (string.IsNullOrEmpty(email))
+            string result = ValidateEmail(email);
+            if (result is string)
             {
-                errors.Add(Resources.ERROR_EMAIL_EMPTY);
+                errors.Add("email", result);
             }
 
-            if (string.IsNullOrEmpty(login))
+            result = Account.Service.ValidateLogin(login);
+            if (result is string)
             {
-                errors.Add(Resources.ERROR_LOGIN_EMPTY);
+                errors.Add("login", result);
             }
 
-            if (string.IsNullOrEmpty(password))
+            result = Account.Service.ValidatePassword(password);
+            if (result is string)
             {
-                errors.Add(Resources.ERROR_PASSWORD_EMPTY);
+                errors.Add("password", result);
             }
-            else
+            else if (password.Equals(repeatPassword))
             {
-                if (!password.Equals(repeatPassword))
-                {
-                    errors.Add(Resources.ERROR_PASSWORD_DONT_MATCH);
-                }
+                errors.Add("password", Resources.ERROR_PASSWORD_DONT_MATCH);
             }
 
             if (errors.Count > 0)
             {
-                string result = string.Join("\n", errors.ToArray());
-                return result;
+                return errors;
             }
 
             return null;
         }
 
-        // return true if email is valid
-        private static bool IsEmailValid(string email)
+        static string ValidateEmail(string email)
         {
-            // WARNING! Probably need to use regex
+            if (string.IsNullOrEmpty(email))
+            {
+                return Resources.ERROR_EMAIL_EMPTY;
+            }
+
             try
             {
                 MailAddress m = new MailAddress(email);
-                return true;
+                return null;
             }
             catch (FormatException)
             {
-                return false;
+                return Resources.ERROR_EMAIL_INVALID;
             }
         }
 
-        // return true if login is valid
-        private static bool IsLoginValid(string login)
-        {
-            Regex regex = new Regex(Resources.LOGIN_REGEX);
-            if (regex.IsMatch(login))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        // return true if password is valid
-        private static bool IsPasswordValid(string password)
-        {
-            int length = password.Length;
-            int minLenght = Resources.PASSWORD_MIN_LENGTH;
-            int maxLenght = Resources.PASSWORD_MAX_LENGTH;
-            if (length >= minLenght && length <= maxLenght)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        // return true if email exists in database
-        private static bool IsEmailExists(string email)
+        static bool IsEmailExists(string email)
         {
             using (var database = new Database())
             {
                 var account = database.Accounts.SingleOrDefault(a => a.Email.Equals(email));
-                if (account != null)
-                    return true;
-            }
-            return false;
-        }
-
-        // return true if login exists in database
-        private static bool IsLoginExists(string login)
-        {
-            using (var database = new Database())
-            {
-                var account = database.Accounts.SingleOrDefault(a => a.Login.Equals(login));
                 if (account != null)
                     return true;
             }
