@@ -19,7 +19,7 @@ namespace Project.Server.Account.Register
             string promoCode = null)
         {
             // return if the player is already authorized
-            if (player.HasData(Account.Resources.ATTACHMENT_KEY)) return;
+            if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
 
             Dictionary<string, string> result = ValidateFields(
                                                 email,
