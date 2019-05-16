@@ -28,13 +28,8 @@ const config = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              config: { path: "./postcss.config.js" }
-            }
-          }
+          { loader: "css-loader", options: { importLoaders: 1 } },
+          "postcss-loader"
         ]
       },
 
