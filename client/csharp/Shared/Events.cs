@@ -11,5 +11,6 @@ namespace Project.Shared
 
         // TODO maybe use the same name of variable for value?
         public const string UI_LOADED = "UI_LOADED";
+        public const string UI_LOGIN_SHOW = "UI_LOGIN_SHOW";
     }
 }
