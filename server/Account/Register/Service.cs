@@ -51,7 +51,8 @@ namespace Project.Server.Account.Register
                     email: email,
                     login: login,
                     password: BCrypt.Net.BCrypt.HashPassword(password),
-                    promoCode: promoCode
+                    promoCode: promoCode,
+                    registerDate: Utils.DateTimeNow
                 );
 
                 database.Accounts.Add(account);
@@ -91,7 +92,7 @@ namespace Project.Server.Account.Register
             {
                 errors.Add("password", result);
             }
-            else if (!password.Equals(repeatPassword))
+            else if (password != repeatPassword)
             {
                 errors.Add("password", Resources.ERROR_PASSWORD_DONT_MATCH);
             }
@@ -126,7 +127,7 @@ namespace Project.Server.Account.Register
         {
             using (var database = new Database())
             {
-                return database.Accounts.SingleOrDefault(a => a.Email.Equals(email));
+                return database.Accounts.SingleOrDefault(a => a.Email == email);
             }
         }
     }
