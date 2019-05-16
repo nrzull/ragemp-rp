@@ -1,4 +1,4 @@
-namespace Aquamarine.Server.Account.Register
+namespace Project.Server.Account.Register
 {
     class Resources
     {

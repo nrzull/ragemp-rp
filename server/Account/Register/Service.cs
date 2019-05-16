@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
 
-namespace Aquamarine.Server.Account.Register
+namespace Project.Server.Account.Register
 {
     class Service : Script
     {

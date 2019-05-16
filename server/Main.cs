@@ -1,7 +1,7 @@
 using System;
 using GTANetworkAPI;
 
-namespace Aquamarine.Server
+namespace Project.Server
 {
     public class Main : Script
     {

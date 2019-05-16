@@ -1,6 +1,6 @@
 using RAGE;
 
-namespace Aquamarine.Client
+namespace Project.Client
 {
     public class Main : Events.Script
     {
