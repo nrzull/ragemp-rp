@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using GTANetworkAPI;
 
 namespace Project.Server.Account.Login
@@ -8,9 +9,9 @@ namespace Project.Server.Account.Login
     class Events : Script
     {
         [RemoteEvent(Shared.Events.LOGIN_ACCOUNT)]
-        public void OnLoginAccount(Client player)
+        public void OnLoginAccount(Client player, string login, string password)
         {
-            // TODO
+            Task.Run(() => Service.LogIn(player, login, password));
         }
     }
 }

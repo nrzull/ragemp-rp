@@ -39,18 +39,18 @@
 ```csharp
 namespace Project.Server.Config
 {
-    class Secret
+    static class Secret
     {
-        class Database
+        public static class Database
         {
-        public const string NAME = "";
-        public const string USERNAME = "";
-        public const string PASSWORD = "";
+            public const string NAME = "aquamarine";
+            public const string USERNAME = "postgres";
+            public const string PASSWORD = "postgres";
         }
 
-        class Core
+        public static class Core
         {
-          public const bool DEBUG = false;
+            public const bool DEBUG = false;
         }
     }
 }
