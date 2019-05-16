@@ -20,6 +20,12 @@
         </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>../mp/bridge/runtime/Newtonsoft.Json.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <OutputPath>compiled</OutputPath>
         <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
