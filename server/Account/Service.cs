@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Aquamarine.Server.Account
+namespace Project.Server.Account
 {
     public static class Service
     {

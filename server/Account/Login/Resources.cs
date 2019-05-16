@@ -1,4 +1,4 @@
-namespace Aquamarine.Server.Account.Login
+namespace Project.Server.Account.Login
 {
     public static class Resources
     {
