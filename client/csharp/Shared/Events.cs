@@ -8,5 +8,8 @@ namespace Project.Shared
         public const string LOGIN_ERROR = "LoginError";
 
         public const string PLAYER_CONNECT = "PlayerConnect";
+
+        // TODO maybe use the same name of variable for value?
+        public const string UI_LOADED = "UI_LOADED";
     }
 }

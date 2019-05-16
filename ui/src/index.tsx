@@ -5,6 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
 import { store, Store, bus } from "@/core";
+import { shared } from "@/shared";
 
 import { Login } from "@/modules/login";
 
@@ -21,3 +22,5 @@ function App() {
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
+
+bus.triggerServer(shared.events.UI_LOADED);

@@ -20,6 +20,12 @@ namespace Project.Server.Account
         {
             // Stop timers
         }
+
+        [RemoteEvent(Shared.Events.UI_LOADED)]
+        public void OnUiLoaded(Client player)
+        {
+            // TODO continue logic
+        }
     }
 }
 
