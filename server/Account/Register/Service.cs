@@ -53,8 +53,12 @@ namespace Project.Server.Account.Register
 
                 database.Accounts.Add(account);
                 database.SaveChanges();
-                // TODO: continue logic
+
+                player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
+
                 player.SendChatMessage("SUCCESSFULLY REGISTERED!");
+
+                // TODO: Show character menu
             }
         }
 

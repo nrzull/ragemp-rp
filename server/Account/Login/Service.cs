@@ -14,6 +14,7 @@ namespace Project.Server.Account.Login
 
             if (result != null)
             {
+                // TODO refactoring
                 var errors = string.Join("\n", result.ToArray());
                 player.TriggerEvent(Shared.Events.LOGIN_ERROR, errors);
                 return;
@@ -32,7 +33,11 @@ namespace Project.Server.Account.Login
                 return;
             }
 
-            // TODO continue logic
+            player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
+
+            player.SendChatMessage("SUCCESSFULLY AUTHORIZED!");
+
+            // TODO: Show character menu
         }
 
         static Dictionary<string, string> ValidateFields(string login, string password)
