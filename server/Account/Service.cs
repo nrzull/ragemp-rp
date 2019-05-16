@@ -5,16 +5,12 @@ namespace Aquamarine.Server.Account
 {
     public static class Service
     {
-        public static bool IsLoginExists(string login)
+        public static Account.Entity GetAccountEntityByLogin(string login)
         {
             using (var database = new Database())
             {
-                var account = database.Accounts.SingleOrDefault(a => a.Login == login);
-
-                if (account != null) return true;
+                return database.Accounts.SingleOrDefault(a => a.Login == login);
             }
-
-            return false;
         }
 
         public static string ValidateLogin(string login)

@@ -30,37 +30,19 @@ namespace Aquamarine.Server.Account.Register
                 return;
             }
 
-            if (!result.ContainsKey("login"))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, result.GetValueOrDefault("login"));
-                return;
-            }
-
-            if (!result.ContainsKey("email"))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, result.GetValueOrDefault("email"));
-                return;
-            }
-
-            if (!result.ContainsKey("password"))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, result.GetValueOrDefault("password"));
-                return;
-            }
-
-            if (Account.Service.IsLoginExists(login))
+            if (Account.Service.GetAccountEntityByLogin(login) != null)
             {
                 player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_LOGIN_EXISTS);
                 return;
             }
 
-            if (IsEmailExists(email))
+            if (GetAccountEntityByEmail(email) != null)
             {
                 player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_EMAIL_EXISTS);
                 return;
             }
 
-            // TODO: insert data to database.
+            // TODO: continue logic
             player.SendChatMessage("SUCCESSFULLY REGISTERED!");
         }
 
@@ -121,15 +103,12 @@ namespace Aquamarine.Server.Account.Register
             }
         }
 
-        static bool IsEmailExists(string email)
+        static Account.Entity GetAccountEntityByEmail(string email)
         {
             using (var database = new Database())
             {
-                var account = database.Accounts.SingleOrDefault(a => a.Email.Equals(email));
-                if (account != null)
-                    return true;
+                return database.Accounts.SingleOrDefault(a => a.Email.Equals(email));
             }
-            return false;
         }
     }
 }
