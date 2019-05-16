@@ -16,159 +16,119 @@ namespace Project.Server.Account.Register
             string login,
             string password,
             string repeatPassword,
-            string promoCode)
+            string promoCode = null)
         {
-            string fieldsErrors = CheckFieldsForErrors(
-                                                player,
+            // return if the player is already authorized
+            if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
+
+            Dictionary<string, string> result = ValidateFields(
                                                 email,
                                                 login,
                                                 password,
                                                 repeatPassword);
-            if (fieldsErrors != null)
+            if (result != null)
             {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, fieldsErrors);
+                var errors = string.Join("\n", result.ToArray());
+                player.TriggerEvent(Shared.Events.REGISTER_ERROR, errors);
                 return;
             }
 
-            if (!IsEmailValid(email))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_EMAIL_INVALID);
-                return;
-            }
-
-            if (!IsLoginValid(login))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_LOGIN_INVALID);
-                return;
-            }
-
-            if (!IsPasswordValid(password))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_PASSWORD_INVALID);
-                return;
-            }
-
-            if (IsEmailExists(email))
-            {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_EMAIL_EXISTS);
-                return;
-            }
-
-
-            if (IsLoginExists(login))
+            if (Account.Service.GetAccountEntityByLogin(login) != null)
             {
                 player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_LOGIN_EXISTS);
                 return;
             }
 
-            // TODO: insert data to database.
-            player.SendChatMessage("SUCCESSFULLY REGISTERED!");
+            if (GetAccountEntityByEmail(email) != null)
+            {
+                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_EMAIL_EXISTS);
+                return;
+            }
+
+            using (var database = new Database())
+            {
+                Account.Entity account = new Account.Entity(
+                    email: email,
+                    login: login,
+                    password: BCrypt.Net.BCrypt.HashPassword(password),
+                    promoCode: promoCode,
+                    registerDate: Utils.DateTimeNow
+                );
+
+                database.Accounts.Add(account);
+                database.SaveChanges();
+
+                player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
+
+                player.SendChatMessage("SUCCESSFULLY REGISTERED!");
+
+                // TODO: Show character menu
+            }
         }
 
         // return a list of errors if at least one of the fields is invalid
-        private static string CheckFieldsForErrors(
-                                        Client player,
+        static Dictionary<string, string> ValidateFields(
                                         string email,
                                         string login,
                                         string password,
                                         string repeatPassword)
         {
-            List<string> errors = new List<string>();
+            Dictionary<string, string> errors = new Dictionary<string, string>();
 
-            if (string.IsNullOrEmpty(email))
+            string result = ValidateEmail(email);
+            if (result is string)
             {
-                errors.Add(Resources.ERROR_EMAIL_EMPTY);
+                errors.Add("email", result);
             }
 
-            if (string.IsNullOrEmpty(login))
+            result = Account.Service.ValidateLogin(login);
+            if (result is string)
             {
-                errors.Add(Resources.ERROR_LOGIN_EMPTY);
+                errors.Add("login", result);
             }
 
-            if (string.IsNullOrEmpty(password))
+            result = Account.Service.ValidatePassword(password);
+            if (result is string)
             {
-                errors.Add(Resources.ERROR_PASSWORD_EMPTY);
+                errors.Add("password", result);
             }
-            else
+            else if (password != repeatPassword)
             {
-                if (!password.Equals(repeatPassword))
-                {
-                    errors.Add(Resources.ERROR_PASSWORD_DONT_MATCH);
-                }
+                errors.Add("password", Resources.ERROR_PASSWORD_DONT_MATCH);
             }
 
             if (errors.Count > 0)
             {
-                string result = string.Join("\n", errors.ToArray());
-                return result;
+                return errors;
             }
 
             return null;
         }
 
-        // return true if email is valid
-        private static bool IsEmailValid(string email)
+        static string ValidateEmail(string email)
         {
-            // WARNING! Probably need to use regex
+            if (string.IsNullOrEmpty(email))
+            {
+                return Resources.ERROR_EMAIL_EMPTY;
+            }
+
             try
             {
                 MailAddress m = new MailAddress(email);
-                return true;
+                return null;
             }
             catch (FormatException)
             {
-                return false;
+                return Resources.ERROR_EMAIL_INVALID;
             }
         }
 
-        // return true if login is valid
-        private static bool IsLoginValid(string login)
-        {
-            Regex regex = new Regex(Resources.LOGIN_REGEX);
-            if (regex.IsMatch(login))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        // return true if password is valid
-        private static bool IsPasswordValid(string password)
-        {
-            int length = password.Length;
-            int minLenght = Resources.PASSWORD_MIN_LENGTH;
-            int maxLenght = Resources.PASSWORD_MAX_LENGTH;
-            if (length >= minLenght && length <= maxLenght)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        // return true if email exists in database
-        private static bool IsEmailExists(string email)
+        static Account.Entity GetAccountEntityByEmail(string email)
         {
             using (var database = new Database())
             {
-                var account = database.Accounts.SingleOrDefault(a => a.Email.Equals(email));
-                if (account != null)
-                    return true;
+                return database.Accounts.SingleOrDefault(a => a.Email == email);
             }
-            return false;
-        }
-
-        // return true if login exists in database
-        private static bool IsLoginExists(string login)
-        {
-            using (var database = new Database())
-            {
-                var account = database.Accounts.SingleOrDefault(a => a.Login.Equals(login));
-                if (account != null)
-                    return true;
-            }
-            return false;
         }
     }
 }

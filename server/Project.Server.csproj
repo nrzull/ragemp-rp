@@ -6,6 +6,7 @@
       <Compile Include="..\client\csharp\Shared\Events.cs" Link="Shared\Events.cs" />
     </ItemGroup>
     <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
 
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4" />
