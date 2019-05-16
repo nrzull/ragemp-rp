@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Aquamarine.Server.Config;
+using Project.Server.Config;
 
-namespace Aquamarine.Server
+namespace Project.Server
 {
     class Database : DbContext
     {
-        // Define models here
-        // public DbSet<Account> Accounts { get; set; }
+        public DbSet<Account.Entity> Accounts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database={Secret.Database};Username={Secret.Username};Password={Secret.Password}");
+            optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database={Secret.Database.NAME};Username={Secret.Database.USERNAME};Password={Secret.Database.PASSWORD}");
         }
     }
 }
