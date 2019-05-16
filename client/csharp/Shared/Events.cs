@@ -1,4 +1,4 @@
-namespace Aquamarine.Shared
+namespace Project.Shared
 {
     class Events
     {

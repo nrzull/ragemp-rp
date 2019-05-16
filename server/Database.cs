@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Aquamarine.Server.Config;
+using Project.Server.Config;
 
-namespace Aquamarine.Server
+namespace Project.Server
 {
     class Database : DbContext
     {
@@ -12,7 +12,7 @@ namespace Aquamarine.Server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database={Secret.DATABASE};Username={Secret.USERNAME};Password={Secret.PASSWORD}");
+            optionsBuilder.UseNpgsql($"Host=localhost;Port=5432;Database={Secret.Database.NAME};Username={Secret.Database.USERNAME};Password={Secret.Database.PASSWORD}");
         }
     }
 }

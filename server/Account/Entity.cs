@@ -1,4 +1,4 @@
-namespace Aquamarine.Server.Account
+namespace Project.Server.Account
 {
     class Entity
     {

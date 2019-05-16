@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Aquamarine.Server.Migrations
+namespace Project.Server.Migrations
 {
     public partial class InitialAccount : Migration
     {
