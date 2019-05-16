@@ -1,11 +1,15 @@
 {
   "dependencies": {
+    "mitt": "^1.1.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.9",
     "autoprefixer": "^9.5.1",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
