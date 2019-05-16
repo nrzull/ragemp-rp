@@ -18,6 +18,9 @@ namespace Project.Server.Account.Register
             string repeatPassword,
             string promoCode = null)
         {
+            // return if the player is already authorized
+            if (player.HasData(Account.Resources.ATTACHMENT_KEY)) return;
+
             Dictionary<string, string> result = ValidateFields(
                                                 email,
                                                 login,

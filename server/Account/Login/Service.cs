@@ -10,6 +10,9 @@ namespace Project.Server.Account.Login
     {
         public static void LogIn(Client player, string login, string password)
         {
+            // return if the player is already authorized
+            if (player.HasData(Account.Resources.ATTACHMENT_KEY)) return;
+
             Dictionary<string, string> result = ValidateFields(login, password);
 
             if (result != null)
