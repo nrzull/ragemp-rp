@@ -2,6 +2,8 @@ namespace Project.Server.Account
 {
     public static class Resources
     {
+        public const string ATTACHMENT_KEY = "Account";
+
         public const string LOGIN_REGEX = "^[a-zA-Z0-9]+$";
 
         public const string ERROR_LOGIN_INVALID = "Логин не по формату 4";

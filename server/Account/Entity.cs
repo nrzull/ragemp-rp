@@ -1,3 +1,5 @@
+using System;
+
 namespace Project.Server.Account
 {
     public class Entity
@@ -7,13 +9,15 @@ namespace Project.Server.Account
         public string Login { get; set; }
         public string Password { get; set; }
         public string PromoCode { get; set; }
+        public DateTime RegisterDate { get; set; }
 
-        public Entity(string email, string login, string password, string promoCode)
+        public Entity(string email, string login, string password, string promoCode, DateTime registerDate)
         {
             Email = email;
             Login = login;
             Password = password;
             PromoCode = promoCode;
+            RegisterDate = registerDate;
         }
     }
 }

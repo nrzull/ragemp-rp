@@ -16,8 +16,11 @@ namespace Project.Server.Account.Register
             string login,
             string password,
             string repeatPassword,
-            string promoCode)
+            string promoCode = null)
         {
+            // return if the player is already authorized
+            if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
+
             Dictionary<string, string> result = ValidateFields(
                                                 email,
                                                 login,
@@ -48,13 +51,18 @@ namespace Project.Server.Account.Register
                     email: email,
                     login: login,
                     password: BCrypt.Net.BCrypt.HashPassword(password),
-                    promoCode: null
+                    promoCode: promoCode,
+                    registerDate: Utils.DateTimeNow
                 );
 
                 database.Accounts.Add(account);
                 database.SaveChanges();
-                // TODO: continue logic
+
+                player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
+
                 player.SendChatMessage("SUCCESSFULLY REGISTERED!");
+
+                // TODO: Show character menu
             }
         }
 
@@ -84,7 +92,7 @@ namespace Project.Server.Account.Register
             {
                 errors.Add("password", result);
             }
-            else if (password.Equals(repeatPassword))
+            else if (password != repeatPassword)
             {
                 errors.Add("password", Resources.ERROR_PASSWORD_DONT_MATCH);
             }
@@ -119,7 +127,7 @@ namespace Project.Server.Account.Register
         {
             using (var database = new Database())
             {
-                return database.Accounts.SingleOrDefault(a => a.Email.Equals(email));
+                return database.Accounts.SingleOrDefault(a => a.Email == email);
             }
         }
     }

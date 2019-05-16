@@ -6,53 +6,61 @@ using GTANetworkAPI;
 
 namespace Project.Server.Account.Login
 {
-    class Service
+  class Service
+  {
+    public static void LogIn(Client player, string login, string password)
     {
-        public static void LogIn(Client player, string login, string password)
-        {
-            Dictionary<string, string> result = ValidateFields(login, password);
+      // return if the player is already authorized
+      if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
 
-            if (result != null)
-            {
-                var errors = string.Join("\n", result.ToArray());
-                player.TriggerEvent(Shared.Events.LOGIN_ERROR, errors);
-                return;
-            }
+      Dictionary<string, string> result = ValidateFields(login, password);
 
-            Account.Entity account = Account.Service.GetAccountEntityByLogin(login);
-            if (account == null)
-            {
-                player.TriggerEvent(Shared.Events.LOGIN_ERROR, Resources.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
-                return;
-            }
+      if (result != null)
+      {
+        // TODO refactoring
+        var errors = string.Join("\n", result.ToArray());
+        player.TriggerEvent(Shared.Events.LOGIN_ERROR, errors);
+        return;
+      }
 
-            if (!BCrypt.Net.BCrypt.Verify(password, account.Password))
-            {
-                player.TriggerEvent(Shared.Events.LOGIN_ERROR, Resources.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
-                return;
-            }
+      Account.Entity account = Account.Service.GetAccountEntityByLogin(login);
+      if (account == null)
+      {
+        player.TriggerEvent(Shared.Events.LOGIN_ERROR, Resources.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
+        return;
+      }
 
-            // TODO continue logic
-        }
+      if (!BCrypt.Net.BCrypt.Verify(password, account.Password))
+      {
+        player.TriggerEvent(Shared.Events.LOGIN_ERROR, Resources.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
+        return;
+      }
 
-        static Dictionary<string, string> ValidateFields(string login, string password)
-        {
-            var errors = new Dictionary<string, string>();
+      player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
 
-            var error = Account.Service.ValidateLogin(login);
-            if (error is string)
-            {
-                errors.Add("login", error);
-            }
+      player.SendChatMessage("SUCCESSFULLY AUTHORIZED!");
 
-            error = Account.Service.ValidatePassword(password);
-            if (error is string)
-            {
-                errors.Add("password", error);
-            }
-
-            if (errors.Count > 0) return errors;
-            return null;
-        }
+      // TODO: Show character menu
     }
+
+    static Dictionary<string, string> ValidateFields(string login, string password)
+    {
+      var errors = new Dictionary<string, string>();
+
+      var error = Account.Service.ValidateLogin(login);
+      if (error is string)
+      {
+        errors.Add("login", error);
+      }
+
+      error = Account.Service.ValidatePassword(password);
+      if (error is string)
+      {
+        errors.Add("password", error);
+      }
+
+      if (errors.Count > 0) return errors;
+      return null;
+    }
+  }
 }

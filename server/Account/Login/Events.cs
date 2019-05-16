@@ -13,5 +13,11 @@ namespace Project.Server.Account.Login
         {
             Task.Run(() => Service.LogIn(player, login, password));
         }
+
+        //[Command("login")]
+        //public void Login(Client player, string login, string password)
+        //{
+        //    Service.LogIn(player, login, password);
+        //}
     }
 }

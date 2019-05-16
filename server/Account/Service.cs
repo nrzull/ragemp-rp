@@ -40,7 +40,7 @@ namespace Project.Server.Account
             int minLenght = Resources.PASSWORD_MIN_LENGTH;
             int maxLenght = Resources.PASSWORD_MAX_LENGTH;
 
-            if (length >= minLenght && length <= maxLenght)
+            if (length < minLenght || length > maxLenght)
             {
                 return Resources.ERROR_PASSWORD_INVALID;
             }
