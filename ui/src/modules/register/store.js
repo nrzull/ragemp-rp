@@ -4,7 +4,14 @@ const initialState = {
   username: "",
   password: "",
   repeatPassword: "",
-  promoCode: ""
+  promoCode: "",
+  loading: false,
+  errors: {
+    email: "",
+    username: "",
+    password: "",
+    repeatPassword: ""
+  }
 };
 
 const types = {
@@ -13,7 +20,9 @@ const types = {
   SET_USERNAME: "REGISTER_SET_USERNAME",
   SET_PASSWORD: "REGISTER_SET_PASSWORD",
   SET_REPEAT_PASSWORD: "REGISTER_SET_REPEAT_PASSWORD",
-  SET_PROMO_CODE: "REGISTER_SET_PROMO_CODE"
+  SET_PROMO_CODE: "REGISTER_SET_PROMO_CODE",
+  SET_LOADING: "REGISTER_SET_LOADING",
+  SET_ERRORS: "REGISTER_SET_ERRORS"
 };
 
 const actions = {
@@ -39,6 +48,14 @@ const actions = {
 
   setPromoCode(payload) {
     return { type: types.SET_PROMO_CODE, payload };
+  },
+
+  setLoading(payload) {
+    return { type: types.SET_LOADING, payload };
+  },
+
+  setErrors(payload) {
+    return { type: types.SET_ERRORS, payload };
   }
 };
 
@@ -56,6 +73,10 @@ function reducer(state = initialState, { type, payload }) {
       return { ...state, repeatPassword: payload };
     case types.SET_PROMO_CODE:
       return { ...state, promoCode: payload };
+    case types.SET_LOADING:
+      return { ...state, loading: payload };
+    case types.SET_ERRORS:
+      return { ...state, errors: payload };
 
     default:
       return state;
