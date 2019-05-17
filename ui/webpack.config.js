@@ -44,10 +44,7 @@ const config = {
       }
     ]
   },
-  plugins: [
-    new HtmlPlugin({ template: resolve(SRC, "index.html") }),
-    new MiniCssExtractPlugin()
-  ],
+  plugins: [new HtmlPlugin({ template: resolve(SRC, "index.html") })],
   stats: { modules: false, children: false }
 };
 

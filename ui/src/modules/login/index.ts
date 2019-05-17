@@ -1,2 +1,2 @@
 export { State, reducer } from "./store";
-export { Login } from "./view";
+export { Container as Login } from "./container";
