@@ -6,15 +6,15 @@ namespace Project.Server.Account
     {
         public int Id { get; set; }
         public string Email { get; set; }
-        public string Login { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
         public string PromoCode { get; set; }
         public DateTime RegisterDate { get; set; }
 
-        public Entity(string email, string login, string password, string promoCode, DateTime registerDate)
+        public Entity(string email, string username, string password, string promoCode, DateTime registerDate)
         {
             Email = email;
-            Login = login;
+            Username = username;
             Password = password;
             PromoCode = promoCode;
             RegisterDate = registerDate;
