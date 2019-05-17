@@ -20,6 +20,13 @@ namespace Project.Server.Account
         {
             // Stop timers
         }
+
+        [RemoteEvent(Shared.Events.UI_LOADED)]
+        public void OnUiLoaded(Client player)
+        {
+            // Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SHOW, true);
+            // TODO continue logic
+        }
     }
 }
 
