@@ -1,4 +1,4 @@
-import "./index.css";
+import "./index.scss";
 import "@/core/events";
 
 import React from "react";
