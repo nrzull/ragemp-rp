@@ -1,0 +1,35 @@
+.register {
+  width: max-content;
+  display: block;
+  margin: 100px auto;
+
+  &__field {
+    width: 200px;
+    height: 30px;
+    padding: 7px;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid blue;
+  }
+
+  &__error {
+    font-size: 14px;
+    color: red;
+  }
+
+  &__submit {
+    width: 200px;
+    height: 40px;
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid blue;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.7);
+
+    &:hover {
+      background-color: blue;
+    }
+  }
+}
