@@ -13,5 +13,10 @@ namespace Project.Server
                 payload = payload
             }));
         }
+
+        public static void TriggerClient(Client player, string ev, object payload = null)
+        {
+            player.TriggerEvent(ev, JsonConvert.SerializeObject(payload));
+        }
     }
 }
