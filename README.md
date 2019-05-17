@@ -3,6 +3,7 @@
 - .NET Core
 - PostgreSQL
 - bash (идёт вместе с git)
+- NodeJS
 
 ## Установка
 
@@ -68,5 +69,4 @@ dotnet ef database update
 
 ## Запуск
 
-- Зайти в bash в корне репозитория
-- Ввести `bash start.sh`
+- Ввести `npm run watch`

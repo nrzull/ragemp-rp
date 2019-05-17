@@ -7,3 +7,6 @@ cp -r temp/bridge/runtime/* mp/bridge/runtime
 cp -r temp/_runtime/* mp/bridge/runtime
 cp -r temp/bridge/vehicleData.json mp/bridge/vehicleData.json
 rm -rf temp
+npm install
+cd ui && npm install && cd ..
+cd server && dotnet restore && cd ..

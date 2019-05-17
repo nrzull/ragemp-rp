@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "watch": "node scripts/watch.js"
+  },
+  "devDependencies": {
+    "chokidar": "^2.1.6",
+    "find-process": "^1.4.1",
+    "shelljs": "^0.8.3"
+  }
+}
