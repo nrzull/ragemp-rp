@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View } from "./view";
 import { actions } from "./store";
+import { service } from "./service";
 
 class Container extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Container extends Component {
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeRepeatPassword = this.onChangeRepeatPassword.bind(this);
     this.onChangePromoCode = this.onChangePromoCode.bind(this);
+    this.onClickSubmit = this.onClickSubmit.bind(this);
   }
 
   onChangeEmail(event) {
@@ -34,6 +36,10 @@ class Container extends Component {
     this.props.setPromoCode(event.target.value);
   }
 
+  onClickSubmit() {
+    service.Register();
+  }
+
   render() {
     return (
       <View
@@ -42,11 +48,14 @@ class Container extends Component {
         password={this.props.password}
         repeatPassword={this.props.repeatPassword}
         promoCode={this.props.promoCode}
+        loading={this.props.loading}
+        errors={this.props.errors}
         onChangeEmail={this.onChangeEmail}
         onChangeUsername={this.onChangeUsername}
         onChangePassword={this.onChangePassword}
         onChangeRepeatPassword={this.onChangeRepeatPassword}
         onChangePromoCode={this.onChangePromoCode}
+        onClickSubmit={this.onClickSubmit}
       />
     );
   }
@@ -58,7 +67,9 @@ function mapStateToProps({ register }) {
     username: register.username,
     password: register.password,
     repeatPassword: register.repeatPassword,
-    promoCode: register.promoCode
+    promoCode: register.promoCode,
+    loading: register.loading,
+    errors: register.errors
   };
 }
 
