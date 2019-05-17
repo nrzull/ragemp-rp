@@ -1,7 +1,6 @@
 const { resolve } = require("path");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const { NODE_ENV = "development" } = process.env;
 
@@ -25,11 +24,12 @@ const config = {
       },
 
       {
-        test: /\.css$/,
+        test: /\.s?css$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          { loader: "css-loader", options: { importLoaders: 1 } },
-          "postcss-loader"
+          "style-loader",
+          { loader: "css-loader", options: { importLoaders: 2 } },
+          "postcss-loader",
+          "sass-loader"
         ]
       },
 
