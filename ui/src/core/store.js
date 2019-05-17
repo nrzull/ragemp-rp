@@ -1,12 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import * as login from "@/modules/login";
-
-interface Store {
-  login: login.State;
-}
+import { reducer as login } from "@/modules/login";
 
 const reducer = combineReducers({
-  login: login.reducer
+  login
 });
 
 const middlewares = [];
@@ -19,4 +15,4 @@ const store = createStore(
   applyMiddleware(...middlewares)
 );
 
-export { Store, store };
+export { store };

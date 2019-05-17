@@ -1,8 +1,4 @@
-interface State {
-  show: boolean;
-}
-
-const initialState: State = {
+const initialState = {
   show: false
 };
 
@@ -11,12 +7,12 @@ const types = new (class {
 })();
 
 const actions = new (class {
-  show(payload: State["show"]) {
+  show(payload) {
     return { type: types.SHOW, payload };
   }
 })();
 
-function reducer(state = initialState, { type, payload }): State {
+function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case types.SHOW:
       return { ...state, show: payload };
@@ -26,4 +22,4 @@ function reducer(state = initialState, { type, payload }): State {
   }
 }
 
-export { State, actions, reducer };
+export { actions, reducer };
