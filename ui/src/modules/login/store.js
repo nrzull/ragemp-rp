@@ -1,12 +1,4 @@
-interface State {
-  show: boolean;
-  loading: boolean;
-  username: string;
-  password: string;
-  remember: boolean;
-}
-
-const initialState: State = {
+const initialState = {
   show: false,
   loading: false,
   username: "",
@@ -23,24 +15,24 @@ const types = {
 };
 
 const actions = {
-  setShow(payload: State["show"]) {
+  setShow(payload) {
     return { type: types.SET_SHOW, payload };
   },
 
-  setUsername(payload: State["username"]) {
+  setUsername(payload) {
     return { type: types.SET_USERNAME, payload };
   },
 
-  setPassword(payload: State["password"]) {
+  setPassword(payload) {
     return { type: types.SET_PASSWORD, payload };
   },
 
-  setRemember(payload: State["remember"]) {
+  setRemember(payload) {
     return { type: types.SET_REMEMBER, payload };
   }
 };
 
-function reducer(state = initialState, { type, payload }): State {
+function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case types.SET_SHOW:
       return { ...state, show: payload };
@@ -59,4 +51,4 @@ function reducer(state = initialState, { type, payload }): State {
   }
 }
 
-export { State, actions, reducer };
+export { actions, reducer };
