@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "webpack --watch"
+  },
   "dependencies": {
     "core-js": "^3.0.1",
     "mitt": "^1.1.3",
