@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using GTANetworkAPI;
+using Newtonsoft.Json;
 
 namespace Project.Server.Account.Login
 {
     class Events : Script
     {
-        [RemoteEvent(Shared.Events.LOGIN_ACCOUNT)]
-        public void OnLoginAccount(Client player, string login, string password)
+        [RemoteEvent(Shared.Events.UI_LOGIN_SUBMIT)]
+        public void OnLoginAccount(Client player, string data)
         {
-            Task.Run(() => Service.LogIn(player, login, password));
-        }
+            var payload = JsonConvert.DeserializeObject<Misc.SubmitPayload>(data);
 
-        //[Command("login")]
-        //public void Login(Client player, string login, string password)
-        //{
-        //    Service.LogIn(player, login, password);
-        //}
+            Task.Run(() => Service.LogIn(player, payload));
+        }
     }
 }

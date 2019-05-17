@@ -1,5 +1,6 @@
 using GTANetworkAPI;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Project.Server
 {

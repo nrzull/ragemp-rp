@@ -19,6 +19,10 @@ const actions = {
     return { type: types.SET_SHOW, payload };
   },
 
+  setLoading(payload) {
+    return { type: types.SET_LOADING, payload };
+  },
+
   setUsername(payload) {
     return { type: types.SET_USERNAME, payload };
   },
@@ -36,6 +40,9 @@ function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case types.SET_SHOW:
       return { ...state, show: payload };
+
+    case types.SET_LOADING:
+      return { ...state, loading: payload };
 
     case types.SET_USERNAME:
       return { ...state, username: payload };

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View } from "./view";
 import { connect } from "react-redux";
 import { actions } from "./store";
+import { service } from "./service";
 
 class Container extends Component {
   onChangeUsername = ev => this.props.setUsername(ev.currentTarget.value);
@@ -17,6 +18,7 @@ class Container extends Component {
         onChangeUsername={this.onChangeUsername}
         onChangePassword={this.onChangePassword}
         onChangeRemember={this.onChangeRemember}
+        onClickSubmit={service.logIn}
       />
     );
   }
