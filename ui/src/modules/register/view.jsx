@@ -53,9 +53,33 @@ function View(props) {
           placeholder="Promo-code"
         />
       </div>
+
       <div>
-        <button className="register__submit" onClick={props.onClickSubmit}>
-          Зарегистрироваться
+        <input
+          type="checkbox"
+          checked={props.agreement}
+          onChange={props.onChangeAgreement}
+        />
+        Я согласен с правилами сервера
+      </div>
+
+      <p className="register__error">{props.errors.agreement}</p>
+
+      <div>
+        <button
+          disabled={props.loading}
+          className="register__submit"
+          onClick={props.onClickSubmit}
+        >
+          {props.loading ? "Загрузка" : "Зарегистрироваться"}
+        </button>
+
+        <button
+          disabled={props.loading}
+          className="register__submit"
+          onClick={props.onClickGoLogin}
+        >
+          Уже есть Аккаунт? Кликни здесь
         </button>
       </div>
     </div>

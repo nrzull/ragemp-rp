@@ -13,6 +13,7 @@ namespace Project.Server.Account.Register
             public string Password { get; set; }
             public string RepeatPassword { get; set; }
             public string PromoCode { get; set; }
+            public bool Agreement { get; set; }
         }
     }
 }

@@ -8,7 +8,8 @@ const Register = () => {
     username,
     password,
     repeatPassword,
-    promoCode
+    promoCode,
+    agreement
   } = store.getState().register;
 
   store.dispatch(actions.setLoading(true));
@@ -18,7 +19,8 @@ const Register = () => {
     username,
     password,
     repeatPassword,
-    promoCode
+    promoCode,
+    agreement
   });
 };
 

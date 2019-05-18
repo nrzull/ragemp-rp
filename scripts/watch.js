@@ -3,6 +3,7 @@ const find = require("find-process");
 const childProcess = require("child_process");
 const chokidar = require("chokidar");
 const fs = require("fs");
+const chalk = require("chalk");
 
 // Не выключает ноду мгновенно, а дает возможность выполниться process.on("exit", cb)
 process.stdin.resume();
@@ -16,10 +17,9 @@ const cache = {};
 exec("chcp 65001");
 
 cleanServer();
-buildUi();
 buildClient();
 buildServer();
-startServer();
+buildUi();
 
 chokidar.watch("./server/**/*.cs").on("all", (event, path) => {
   if (canContinue(event, path)) _buildServer();
@@ -29,19 +29,25 @@ chokidar.watch("./client/**/*.*").on("all", (event, path) => {
   if (canContinue(event, path)) _buildClient();
 });
 
-chokidar.watch("./ui/src/**/*.*").on("all", (event, path) => {
-  if (canContinue(event, path)) closeServer().then(() => startServer());
-});
-
 function buildUi() {
   uiProcess = childProcess.exec("cd ui && npx webpack --watch");
   uiProcess.unref();
-  uiProcess.stdout.on("data", data => console.log(data.toString()));
-  uiProcess.stderr.on("data", data => console.log(data.toString()));
+
+  uiProcess.stdout.on("data", data => {
+    data = data.toString();
+
+    console.log(chalk.cyan(data));
+
+    if (data.includes("Version: webpack")) {
+      closeServer().then(() => startServer());
+    }
+  });
+
+  uiProcess.stderr.on("data", data => console.log(chalk.red(data.toString())));
 }
 
 function buildClient() {
-  rm("-rf", "mp/client_packages/*");
+  cleanClient();
   cp("-r", "client/javascript/*", "mp/client_packages");
   cp("-r", "client/csharp", "mp/client_packages/cs_packages");
   rm("-rf", "mp/client_packages/cs_packages/*.csproj");
@@ -82,7 +88,13 @@ function startServer() {
     'cd mp && start "RAGESERVER" /B server.exe && cd ..'
   );
 
-  mpProcess.stdout.on("data", data => console.log(data.toString()));
+  mpProcess.stdout.on("data", data =>
+    console.log(chalk.magenta(data.toString()))
+  );
+
+  mpProcess.stderr.on("data", data => {
+    console.log(chalk.red(data.toString()));
+  });
 }
 
 function closeServer() {
@@ -93,6 +105,14 @@ function closeServer() {
 
 function cleanServer() {
   rm("-rf", "mp/bridge/resources/*");
+}
+
+function cleanClient() {
+  fs.readdirSync("mp/client_packages")
+    .filter(path => !path.includes("ui"))
+    .map(path => {
+      rm("-rf", `mp/client_packages/${path}`);
+    });
 }
 
 function canContinue(event, path) {

@@ -3,42 +3,41 @@ import { connect } from "react-redux";
 import { View } from "./view";
 import { actions } from "./store";
 import { service } from "./service";
+import { actions as loginActions } from "@/modules/login/store";
 
 class Container extends Component {
-  constructor(props) {
-    super(props);
+  onChangeEmail = ev => {
+    this.props.setEmail(ev.currentTarget.value);
+  };
 
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeRepeatPassword = this.onChangeRepeatPassword.bind(this);
-    this.onChangePromoCode = this.onChangePromoCode.bind(this);
-    this.onClickSubmit = this.onClickSubmit.bind(this);
-  }
+  onChangeUsername = ev => {
+    this.props.setUsername(ev.currentTarget.value);
+  };
 
-  onChangeEmail(event) {
-    this.props.setEmail(event.target.value);
-  }
+  onChangePassword = ev => {
+    this.props.setPassword(ev.currentTarget.value);
+  };
 
-  onChangeUsername(event) {
-    this.props.setUsername(event.target.value);
-  }
+  onChangeRepeatPassword = ev => {
+    this.props.setRepeatPassword(ev.currentTarget.value);
+  };
 
-  onChangePassword(event) {
-    this.props.setPassword(event.target.value);
-  }
+  onChangePromoCode = ev => {
+    this.props.setPromoCode(ev.currentTarget.value);
+  };
 
-  onChangeRepeatPassword(event) {
-    this.props.setRepeatPassword(event.target.value);
-  }
+  onChangeAgreement = ev => {
+    this.props.setAgreement(ev.currentTarget.checked);
+  };
 
-  onChangePromoCode(event) {
-    this.props.setPromoCode(event.target.value);
-  }
-
-  onClickSubmit() {
+  onClickSubmit = () => {
     service.Register();
-  }
+  };
+
+  onClickGoLogin = () => {
+    this.props.setShow(false);
+    this.props.loginSetShow(true);
+  };
 
   render() {
     return (
@@ -50,12 +49,15 @@ class Container extends Component {
         promoCode={this.props.promoCode}
         loading={this.props.loading}
         errors={this.props.errors}
+        agreement={this.props.agreement}
         onChangeEmail={this.onChangeEmail}
         onChangeUsername={this.onChangeUsername}
         onChangePassword={this.onChangePassword}
         onChangeRepeatPassword={this.onChangeRepeatPassword}
         onChangePromoCode={this.onChangePromoCode}
+        onChangeAgreement={this.onChangeAgreement}
         onClickSubmit={this.onClickSubmit}
+        onClickGoLogin={this.onClickGoLogin}
       />
     );
   }
@@ -69,12 +71,14 @@ function mapStateToProps({ register }) {
     repeatPassword: register.repeatPassword,
     promoCode: register.promoCode,
     loading: register.loading,
-    errors: register.errors
+    errors: register.errors,
+    agreement: register.agreement
   };
 }
 
 const mapDispatchToProps = {
-  ...actions
+  ...actions,
+  loginSetShow: loginActions.setShow
 };
 
 const ConnectedContainer = connect(

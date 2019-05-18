@@ -29,15 +29,27 @@ function View(props) {
           <input
             className="login__checkbox"
             type="checkbox"
-            defaultChecked={props.remember}
+            checked={props.remember}
             onChange={props.onChangeRemember}
           />
           Запомнить меня
         </label>
       </div>
       <div>
-        <button className="login__submit" onClick={props.onClickSubmit}>
-          Войти
+        <button
+          disabled={props.loading}
+          className="login__submit"
+          onClick={props.onClickSubmit}
+        >
+          {props.loading ? "Загрузка" : "Войти"}
+        </button>
+
+        <button
+          disabled={props.loading}
+          className="login__submit"
+          onClick={props.onClickGoRegister}
+        >
+          Нету аккаунта? Кликни здесь!
         </button>
       </div>
     </div>
