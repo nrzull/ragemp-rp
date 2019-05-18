@@ -13,61 +13,46 @@ namespace Project.Server.Account.Login
             // return if the player is already authorized
             if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
 
-            Dictionary<string, string> result = ValidateFields(payload.Username, payload.Password);
+            Dictionary<string, string> errors = ValidateFields(payload.Username, payload.Password);
 
-            if (result != null)
+            if (errors.Count > 0)
             {
-                // TODO refactoring
-                var errors = string.Join("\n", result.ToArray());
-
-                Console.WriteLine(errors);
-
-                player.TriggerEvent(Shared.Events.UI_LOGIN_SUBMIT_ERROR, errors);
-
+                Bus.TriggerUi(player, Shared.Events.UI_LOGIN_ERROR, errors);
                 return;
             }
 
-            Account.Entity account = Account.Service.GetAccountEntityByLogin(payload.Username);
-            if (account == null)
+            Account.Entity account = Account.Service.GetAccountEntityByUsername(payload.Username);
+            if (account == null || !BCrypt.Net.BCrypt.Verify(payload.Password, account.Password))
             {
-                player.TriggerEvent(Shared.Events.UI_LOGIN_SUBMIT_ERROR, Resources.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
+                errors.Add("username", Resources.ERROR_INCORRECT_USERNAME_OR_PASSWORD);
+                Bus.TriggerUi(player, Shared.Events.UI_LOGIN_ERROR, errors);
                 return;
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(payload.Password, account.Password))
-            {
-                player.TriggerEvent(Shared.Events.UI_LOGIN_SUBMIT_ERROR, Resources.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
-                return;
-            }
-
-            Account.Attachment attachment = player.GetData(Account.Resources.ATTACHMENT_KEY);
-
-            attachment.Entity = account;
+            player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
 
             player.SendChatMessage("SUCCESSFULLY AUTHORIZED!");
-            Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_OK);
 
             // TODO: Show character menu
         }
 
-        static Dictionary<string, string> ValidateFields(string login, string password)
+        static Dictionary<string, string> ValidateFields(string username, string password)
         {
             var errors = new Dictionary<string, string>();
 
-            var error = Account.Service.ValidateLogin(login);
-            if (error is string)
+            string result = Account.Service.ValidateUsername(username);
+            if (result is string)
             {
-                errors.Add("login", error);
+                errors.Add("username", result);
             }
 
-            error = Account.Service.ValidatePassword(password);
-            if (error is string)
+            result = Account.Service.ValidatePassword(password);
+            if (result is string)
             {
-                errors.Add("password", error);
+                errors.Add("password", result);
             }
 
-            if (errors.Count > 0) return errors;
-            return null;
+            return errors;
         }
     }
 }

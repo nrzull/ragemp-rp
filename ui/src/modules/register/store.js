@@ -1,27 +1,37 @@
 const initialState = {
   show: false,
+  email: "",
   username: "",
   password: "",
-  remember: false,
+  repeatPassword: "",
+  promoCode: "",
   loading: false,
   errors: {
+    email: "",
     username: "",
-    password: ""
+    password: "",
+    repeatPassword: ""
   }
 };
 
 const types = {
-  SHOW: "LOGIN_SHOW",
-  SET_USERNAME: "LOGIN_SET_USERNAME",
-  SET_PASSWORD: "LOGIN_SET_PASSWORD",
-  SET_REMEMBER: "LOGIN_SET_REMEMBER",
-  SET_LOADING: "LOGIN_SET_LOADING",
-  SET_ERRORS: "LOGIN_SET_ERRORS"
+  SHOW: "REGISTER_SET_SHOW",
+  SET_EMAIL: "REGISTER_SET_EMAIL",
+  SET_USERNAME: "REGISTER_SET_USERNAME",
+  SET_PASSWORD: "REGISTER_SET_PASSWORD",
+  SET_REPEAT_PASSWORD: "REGISTER_SET_REPEAT_PASSWORD",
+  SET_PROMO_CODE: "REGISTER_SET_PROMO_CODE",
+  SET_LOADING: "REGISTER_SET_LOADING",
+  SET_ERRORS: "REGISTER_SET_ERRORS"
 };
 
 const actions = {
   show(payload) {
     return { type: types.SHOW, payload };
+  },
+
+  setEmail(payload) {
+    return { type: types.SET_EMAIL, payload };
   },
 
   setUsername(payload) {
@@ -32,8 +42,12 @@ const actions = {
     return { type: types.SET_PASSWORD, payload };
   },
 
-  setRemember(payload) {
-    return { type: types.SET_REMEMBER, payload };
+  setRepeatPassword(payload) {
+    return { type: types.SET_REPEAT_PASSWORD, payload };
+  },
+
+  setPromoCode(payload) {
+    return { type: types.SET_PROMO_CODE, payload };
   },
 
   setLoading(payload) {
@@ -47,30 +61,22 @@ const actions = {
 
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
-    case types.SET_SHOW:
+    case types.SHOW:
       return { ...state, show: payload };
+    case types.SET_EMAIL:
+      return { ...state, email: payload };
     case types.SET_USERNAME:
       return { ...state, username: payload };
     case types.SET_PASSWORD:
       return { ...state, password: payload };
-    case types.SET_REMEMBER:
-      return { ...state, remember: payload };
+    case types.SET_REPEAT_PASSWORD:
+      return { ...state, repeatPassword: payload };
+    case types.SET_PROMO_CODE:
+      return { ...state, promoCode: payload };
     case types.SET_LOADING:
       return { ...state, loading: payload };
     case types.SET_ERRORS:
       return { ...state, errors: payload };
-
-    case types.SET_LOADING:
-      return { ...state, loading: payload };
-
-    case types.SET_USERNAME:
-      return { ...state, username: payload };
-
-    case types.SET_PASSWORD:
-      return { ...state, password: payload };
-
-    case types.SET_REMEMBER:
-      return { ...state, remember: payload };
 
     default:
       return state;

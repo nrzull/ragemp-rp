@@ -10,48 +10,43 @@ namespace Project.Server.Account.Register
 {
     class Service : Script
     {
-        public static void RegisterAccount(
-            Client player,
-            string email,
-            string login,
-            string password,
-            string repeatPassword,
-            string promoCode = null)
+        public static void RegisterAccount(Client player, Misc.SubmitPayload payload)
         {
             // return if the player is already authorized
             if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
 
-            Dictionary<string, string> result = ValidateFields(
-                                                email,
-                                                login,
-                                                password,
-                                                repeatPassword);
-            if (result != null)
+            Dictionary<string, string>  errors = ValidateFields(
+                                                                payload.Email,
+                                                                payload.Username,
+                                                                payload.Password,
+                                                                payload.RepeatPassword);
+            if (errors.Count > 0)
             {
-                var errors = string.Join("\n", result.ToArray());
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, errors);
+                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_ERROR, errors);
                 return;
             }
 
-            if (Account.Service.GetAccountEntityByLogin(login) != null)
+            if (Account.Service.GetAccountEntityByUsername(payload.Username) != null)
             {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_LOGIN_EXISTS);
+                errors.Add("username", Resources.ERROR_USERNAME_EXISTS);
+                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_ERROR, errors);
                 return;
             }
 
-            if (GetAccountEntityByEmail(email) != null)
+            if (GetAccountEntityByEmail(payload.Email) != null)
             {
-                player.TriggerEvent(Shared.Events.REGISTER_ERROR, Resources.ERROR_EMAIL_EXISTS);
+                errors.Add("email", Resources.ERROR_EMAIL_EXISTS);
+                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_ERROR, errors);
                 return;
             }
 
             using (var database = new Database())
             {
                 Account.Entity account = new Account.Entity(
-                    email: email,
-                    login: login,
-                    password: BCrypt.Net.BCrypt.HashPassword(password),
-                    promoCode: promoCode,
+                    email: payload.Email,
+                    username: payload.Username,
+                    password: BCrypt.Net.BCrypt.HashPassword(payload.Password),
+                    promoCode: payload.PromoCode,
                     registerDate: Utils.DateTimeNow
                 );
 
@@ -69,11 +64,11 @@ namespace Project.Server.Account.Register
         // return a list of errors if at least one of the fields is invalid
         static Dictionary<string, string> ValidateFields(
                                         string email,
-                                        string login,
+                                        string username,
                                         string password,
                                         string repeatPassword)
         {
-            Dictionary<string, string> errors = new Dictionary<string, string>();
+            var errors = new Dictionary<string, string>();
 
             string result = ValidateEmail(email);
             if (result is string)
@@ -81,10 +76,10 @@ namespace Project.Server.Account.Register
                 errors.Add("email", result);
             }
 
-            result = Account.Service.ValidateLogin(login);
+            result = Account.Service.ValidateUsername(username);
             if (result is string)
             {
-                errors.Add("login", result);
+                errors.Add("username", result);
             }
 
             result = Account.Service.ValidatePassword(password);
@@ -94,15 +89,10 @@ namespace Project.Server.Account.Register
             }
             else if (password != repeatPassword)
             {
-                errors.Add("password", Resources.ERROR_PASSWORD_DONT_MATCH);
+                errors.Add("repeatPassword", Resources.ERROR_PASSWORD_DONT_MATCH);
             }
 
-            if (errors.Count > 0)
-            {
-                return errors;
-            }
-
-            return null;
+            return errors;
         }
 
         static string ValidateEmail(string email)

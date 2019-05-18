@@ -13,3 +13,7 @@ bus.on(shared.events.UI_LOGIN_SUBMIT_OK, () => {
 bus.on(shared.events.UI_LOGIN_SUBMIT_ERROR, e => {
   console.log("LOGIN SUBMIT ERROR", e);
 });
+
+bus.on(shared.events.UI_LOGIN_ERROR, payload => {
+  store.dispatch(actions.setErrors(payload));
+});

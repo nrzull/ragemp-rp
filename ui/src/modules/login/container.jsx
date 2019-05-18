@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View } from "./view";
 import { connect } from "react-redux";
+import { View } from "./view";
 import { actions } from "./store";
 import { service } from "./service";
 
@@ -14,22 +14,35 @@ class Container extends Component {
       <View
         username={this.props.username}
         password={this.props.password}
-        remember={this.props.remember}
+        remember={this.props.rememebr}
+        loading={this.props.loading}
+        errors={this.props.errors}
         onChangeUsername={this.onChangeUsername}
         onChangePassword={this.onChangePassword}
         onChangeRemember={this.onChangeRemember}
-        onClickSubmit={service.logIn}
+        onClickSubmit={this.onClickSubmit}
       />
     );
   }
 }
 
-const mapStateToProps = ({ login }) => ({ ...login });
-const mapActionsToProps = { ...actions };
+function mapStateToProps({ login }) {
+  return {
+    username: login.username,
+    password: login.password,
+    remember: login.remember,
+    loading: login.loading,
+    errors: login.errors
+  };
+}
+
+const mapDispatchToProps = {
+  ...actions
+};
 
 const ConnectedContainer = connect(
   mapStateToProps,
-  mapActionsToProps
+  mapDispatchToProps
 )(Container);
 
 export { ConnectedContainer as Container };

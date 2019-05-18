@@ -10,15 +10,30 @@ import { store, bus } from "@/core";
 import { shared } from "@/shared";
 
 import { Login } from "@/modules/login";
+import { Register } from "@/modules/register";
 
-const Container = connect(s => ({ login: s.login.show }))(p => (
-  <>{p.login && <Login />}</>
-));
+function mapStateToProps({ login, register }) {
+  return {
+    login: login.show,
+    register: register.show
+  };
+}
+
+function Container(props) {
+  return (
+    <>
+      {props.login && <Login />}
+      {props.register && <Register />}
+    </>
+  );
+}
+
+const ConnectedContainer = connect(mapStateToProps)(Container);
 
 function App() {
   return (
     <Provider store={store}>
-      <Container />
+      <ConnectedContainer />
     </Provider>
   );
 }
