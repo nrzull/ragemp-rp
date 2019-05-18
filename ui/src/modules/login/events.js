@@ -7,13 +7,10 @@ bus.on(shared.events.UI_LOGIN_SHOW, payload => {
 });
 
 bus.on(shared.events.UI_LOGIN_SUBMIT_OK, () => {
-  console.log("LOGIN SUBMIT OK");
+  store.dispatch(actions.setShow(false));
 });
 
-bus.on(shared.events.UI_LOGIN_SUBMIT_ERROR, e => {
-  console.log("LOGIN SUBMIT ERROR", e);
-});
-
-bus.on(shared.events.UI_LOGIN_ERROR, payload => {
+bus.on(shared.events.UI_LOGIN_SUBMIT_ERROR, payload => {
+  store.dispatch(actions.setLoading(false));
   store.dispatch(actions.setErrors(payload));
 });

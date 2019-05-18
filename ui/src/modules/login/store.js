@@ -49,28 +49,21 @@ function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case types.SET_SHOW:
       return { ...state, show: payload };
+
     case types.SET_USERNAME:
       return { ...state, username: payload };
+
     case types.SET_PASSWORD:
       return { ...state, password: payload };
+
     case types.SET_REMEMBER:
       return { ...state, remember: payload };
+
     case types.SET_LOADING:
       return { ...state, loading: payload };
+
     case types.SET_ERRORS:
       return { ...state, errors: payload };
-
-    case types.SET_LOADING:
-      return { ...state, loading: payload };
-
-    case types.SET_USERNAME:
-      return { ...state, username: payload };
-
-    case types.SET_PASSWORD:
-      return { ...state, password: payload };
-
-    case types.SET_REMEMBER:
-      return { ...state, remember: payload };
 
     default:
       return state;

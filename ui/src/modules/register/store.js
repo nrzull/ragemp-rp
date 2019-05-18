@@ -5,29 +5,32 @@ const initialState = {
   password: "",
   repeatPassword: "",
   promoCode: "",
+  agreement: false,
   loading: false,
   errors: {
     email: "",
     username: "",
     password: "",
-    repeatPassword: ""
+    repeatPassword: "",
+    agreement: ""
   }
 };
 
 const types = {
-  SHOW: "REGISTER_SET_SHOW",
+  SET_SHOW: "REGISTER_SET_SHOW",
   SET_EMAIL: "REGISTER_SET_EMAIL",
   SET_USERNAME: "REGISTER_SET_USERNAME",
   SET_PASSWORD: "REGISTER_SET_PASSWORD",
   SET_REPEAT_PASSWORD: "REGISTER_SET_REPEAT_PASSWORD",
+  SET_AGREEMENT: "REGISTER_SET_AGREEMENT",
   SET_PROMO_CODE: "REGISTER_SET_PROMO_CODE",
   SET_LOADING: "REGISTER_SET_LOADING",
   SET_ERRORS: "REGISTER_SET_ERRORS"
 };
 
 const actions = {
-  show(payload) {
-    return { type: types.SHOW, payload };
+  setShow(payload) {
+    return { type: types.SET_SHOW, payload };
   },
 
   setEmail(payload) {
@@ -54,6 +57,10 @@ const actions = {
     return { type: types.SET_LOADING, payload };
   },
 
+  setAgreement(payload) {
+    return { type: types.SET_AGREEMENT, payload };
+  },
+
   setErrors(payload) {
     return { type: types.SET_ERRORS, payload };
   }
@@ -61,20 +68,30 @@ const actions = {
 
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
-    case types.SHOW:
+    case types.SET_SHOW:
       return { ...state, show: payload };
+
     case types.SET_EMAIL:
       return { ...state, email: payload };
+
     case types.SET_USERNAME:
       return { ...state, username: payload };
+
     case types.SET_PASSWORD:
       return { ...state, password: payload };
+
     case types.SET_REPEAT_PASSWORD:
       return { ...state, repeatPassword: payload };
+
     case types.SET_PROMO_CODE:
       return { ...state, promoCode: payload };
+
     case types.SET_LOADING:
       return { ...state, loading: payload };
+
+    case types.SET_AGREEMENT:
+      return { ...state, agreement: payload };
+
     case types.SET_ERRORS:
       return { ...state, errors: payload };
 

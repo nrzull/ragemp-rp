@@ -15,11 +15,8 @@ namespace Project.Server.Account.Register
             // return if the player is already authorized
             if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
 
-            Dictionary<string, string>  errors = ValidateFields(
-                                                                payload.Email,
-                                                                payload.Username,
-                                                                payload.Password,
-                                                                payload.RepeatPassword);
+            Dictionary<string, string> errors = ValidateFields(payload);
+
             if (errors.Count > 0)
             {
                 Bus.TriggerUi(player, Shared.Events.UI_REGISTER_SUBMIT_ERROR, errors);
@@ -53,43 +50,40 @@ namespace Project.Server.Account.Register
                 database.Accounts.Add(account);
                 database.SaveChanges();
 
-                player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
-
-                player.SendChatMessage("SUCCESSFULLY REGISTERED!");
-
-                // TODO: Show character menu
+                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_SUBMIT_OK);
             }
         }
 
         // return a list of errors if at least one of the fields is invalid
-        static Dictionary<string, string> ValidateFields(
-                                        string email,
-                                        string username,
-                                        string password,
-                                        string repeatPassword)
+        static Dictionary<string, string> ValidateFields(Misc.SubmitPayload payload)
         {
             var errors = new Dictionary<string, string>();
 
-            string result = ValidateEmail(email);
+            string result = ValidateEmail(payload.Email);
             if (result is string)
             {
-                errors.Add("email", result);
+                errors.Add(nameof(payload.Email), result);
             }
 
-            result = Account.Service.ValidateUsername(username);
+            result = Account.Service.ValidateUsername(payload.Username);
             if (result is string)
             {
-                errors.Add("username", result);
+                errors.Add(nameof(payload.Username), result);
             }
 
-            result = Account.Service.ValidatePassword(password);
+            result = Account.Service.ValidatePassword(payload.Password);
             if (result is string)
             {
-                errors.Add("password", result);
+                errors.Add(nameof(payload.Password), result);
             }
-            else if (password != repeatPassword)
+            else if (payload.Password != payload.RepeatPassword)
             {
-                errors.Add("repeatPassword", Resources.ERROR_PASSWORD_DONT_MATCH);
+                errors.Add(nameof(payload.RepeatPassword), Resources.ERROR_PASSWORD_DONT_MATCH);
+            }
+
+            if (!payload.Agreement)
+            {
+                errors.Add(nameof(payload.Agreement), Resources.ERROR_AGREEMENT_NOT_SATISFIED);
             }
 
             return errors;
