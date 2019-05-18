@@ -10,7 +10,7 @@ mp.events.add("JS_ACCOUNT_SEND_CREDENTIALS", () => {
 });
 
 mp.events.add("JS_ACCOUNT_STORE_CREDENTIALS", payload => {
-  if (!payload && !mp.storage) return;
+  if (!payload || !mp.storage) return;
 
   mp.storage.data.credentials = {
     username: payload.Username,
