@@ -135,3 +135,4 @@ function canContinue(event, path) {
 
 process.on("exit", () => closeServer().then(process.exit));
 process.on("SIGINT", () => closeServer().then(process.exit));
+process.on("uncaughtException", () => closeServer().then(process.exit));
