@@ -47,7 +47,7 @@ function buildUi() {
 }
 
 function buildClient() {
-  rm("-rf", "mp/client_packages/*");
+  cleanClient();
   cp("-r", "client/javascript/*", "mp/client_packages");
   cp("-r", "client/csharp", "mp/client_packages/cs_packages");
   rm("-rf", "mp/client_packages/cs_packages/*.csproj");
@@ -105,6 +105,14 @@ function closeServer() {
 
 function cleanServer() {
   rm("-rf", "mp/bridge/resources/*");
+}
+
+function cleanClient() {
+  fs.readdirSync("mp/client_packages")
+    .filter(path => !path.includes("ui"))
+    .map(path => {
+      rm("-rf", `mp/client_packages/${path}`);
+    });
 }
 
 function canContinue(event, path) {
