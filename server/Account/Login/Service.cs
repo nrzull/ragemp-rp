@@ -13,7 +13,7 @@ namespace Project.Server.Account.Login
             // return if the player is already authorized
             if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
 
-            Dictionary<string, string> errors = ValidateFields(payload.Username, payload.Password);
+            Dictionary<string, string> errors = ValidateFields(payload);
 
             if (errors.Count > 0)
             {
@@ -29,28 +29,29 @@ namespace Project.Server.Account.Login
                 return;
             }
 
-            player.SetData(Account.Resources.ATTACHMENT_KEY, new Account.Attachment { Entity = account });
+            Account.Attachment attachment = player.GetData(Account.Resources.ATTACHMENT_KEY);
 
-            player.SendChatMessage("SUCCESSFULLY AUTHORIZED!");
+            attachment.Entity = account;
 
             Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_OK);
+
             // TODO: Show character menu
         }
 
-        static Dictionary<string, string> ValidateFields(string username, string password)
+        static Dictionary<string, string> ValidateFields(Misc.SubmitPayload payload)
         {
             var errors = new Dictionary<string, string>();
 
-            string result = Account.Service.ValidateUsername(username);
+            string result = Account.Service.ValidateUsername(payload.Username);
             if (result is string)
             {
-                errors.Add("username", result);
+                errors.Add(nameof(payload.Username), result);
             }
 
-            result = Account.Service.ValidatePassword(password);
+            result = Account.Service.ValidatePassword(payload.Password);
             if (result is string)
             {
-                errors.Add("password", result);
+                errors.Add(nameof(payload.Password), result);
             }
 
             return errors;
