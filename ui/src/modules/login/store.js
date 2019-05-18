@@ -11,7 +11,7 @@ const initialState = {
 };
 
 const types = {
-  SHOW: "LOGIN_SHOW",
+  SET_SHOW: "LOGIN_SET_SHOW",
   SET_USERNAME: "LOGIN_SET_USERNAME",
   SET_PASSWORD: "LOGIN_SET_PASSWORD",
   SET_REMEMBER: "LOGIN_SET_REMEMBER",
@@ -20,8 +20,8 @@ const types = {
 };
 
 const actions = {
-  show(payload) {
-    return { type: types.SHOW, payload };
+  setShow(payload) {
+    return { type: types.SET_SHOW, payload };
   },
 
   setUsername(payload) {
