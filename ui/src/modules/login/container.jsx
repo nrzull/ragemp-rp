@@ -9,6 +9,10 @@ class Container extends Component {
   onChangePassword = ev => this.props.setPassword(ev.currentTarget.value);
   onChangeRemember = ev => this.props.setRemember(ev.currentTarget.checked);
 
+  onClickSubmit = () => {
+    service.logIn();
+  };
+
   render() {
     return (
       <View
