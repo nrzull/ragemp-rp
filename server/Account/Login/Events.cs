@@ -17,7 +17,7 @@ namespace Project.Server.Account.Login
                 // For data != invalid json, because JsonConvert throw an error
                 try
                 {
-                    Misc.SubmitPayload payload = JsonConvert.DeserializeObject<Misc.SubmitPayload>(data);
+                    Shared.Payload.UiLoginSubmit payload = JsonConvert.DeserializeObject<Shared.Payload.UiLoginSubmit>(data);
                     Service.LogIn(player, payload);
                 }
                 catch (JsonException jex)

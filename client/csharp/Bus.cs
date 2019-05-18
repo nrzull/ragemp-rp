@@ -12,12 +12,12 @@ namespace Project.Client
             Events.Add("server=>ui", OnServerToUi);
         }
 
-        public static void TriggerUi(string ev, object payload)
+        public static void TriggerUi(string ev, object payload = null)
         {
             Browser.Service.Browser.ExecuteJs($"bus.emit(\"{ev}\", {JsonConvert.SerializeObject(payload)})");
         }
 
-        public static void TriggerServer(string ev, object payload)
+        public static void TriggerServer(string ev, object payload = null)
         {
             RAGE.Events.CallRemote(ev, JsonConvert.SerializeObject(payload));
         }

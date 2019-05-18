@@ -14,3 +14,11 @@ bus.on(shared.events.UI_LOGIN_SUBMIT_ERROR, payload => {
   store.dispatch(actions.setLoading(false));
   store.dispatch(actions.setErrors(payload));
 });
+
+bus.on(shared.events.UI_LOGIN_CREDENTIALS_GET, payload => {
+  if (!payload) return;
+
+  store.dispatch(actions.setUsername(payload.username));
+  store.dispatch(actions.setPassword(payload.password));
+  store.dispatch(actions.setRemember(true));
+});

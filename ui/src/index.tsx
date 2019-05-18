@@ -41,4 +41,4 @@ function App() {
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
-bus.triggerServer(shared.events.UI_LOADED);
+bus.triggerClient(shared.events.UI_LOADED);
