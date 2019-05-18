@@ -1,7 +1,21 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import "./styles.scss";
+import { TState } from "./store";
 
-function View(props) {
+interface TProps {
+  username: TState["username"];
+  password: TState["password"];
+  errors: TState["errors"];
+  loading: TState["loading"];
+  remember: TState["remember"];
+  onChangeUsername: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeRemember: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickSubmit: () => void;
+  onClickGoRegister: () => void;
+}
+
+function View(props: TProps) {
   return (
     <div className="login">
       <div>

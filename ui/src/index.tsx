@@ -1,4 +1,5 @@
-import "core-js";
+// TODO adapt polyfills for typescript
+// import "core-js";
 
 import "./index.scss";
 import "@/core/events";
@@ -6,16 +7,16 @@ import "@/core/events";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
-import { store, bus } from "@/core";
+import { store, bus, TGlobalState } from "@/core";
 import { shared } from "@/shared";
 
 import { Login } from "@/modules/login";
 import { Register } from "@/modules/register";
 
-function mapStateToProps({ login, register }) {
+function mapStateToProps(state: TGlobalState) {
   return {
-    login: login.show,
-    register: register.show
+    login: state.login.show,
+    register: state.register.show
   };
 }
 

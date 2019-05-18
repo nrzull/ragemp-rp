@@ -1,7 +1,27 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import "./styles.scss";
+import { TState } from "./store";
 
-function View(props) {
+interface TProps {
+  username: TState["username"];
+  email: TState["email"];
+  errors: TState["errors"];
+  loading: TState["loading"];
+  password: TState["password"];
+  repeatPassword: TState["repeatPassword"];
+  promoCode: TState["promoCode"];
+  agreement: TState["agreement"];
+  onChangeUsername: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeRepeatPassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePromoCode: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAgreement: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickSubmit: () => void;
+  onClickGoLogin: () => void;
+}
+
+function View(props: TProps) {
   return (
     <div className="register">
       <div>

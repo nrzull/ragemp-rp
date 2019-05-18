@@ -4,7 +4,7 @@ import { actions } from "@/modules/register/store";
 import * as login from "@/modules/login";
 
 bus.on(shared.events.UI_REGISTER_SHOW, payload => {
-  store.dispatch(actions.show(payload));
+  store.dispatch(actions.setShow(payload));
 });
 
 bus.on(shared.events.UI_REGISTER_SUBMIT_OK, () => {

@@ -2,7 +2,7 @@ import { store, bus } from "@/core";
 import { actions } from "./store";
 import { shared } from "@/shared";
 
-const logIn = () => {
+export function logIn() {
   const { username, password, remember } = store.getState().login;
 
   store.dispatch(actions.setLoading(true));
@@ -12,8 +12,4 @@ const logIn = () => {
     password,
     remember
   });
-};
-
-const service = { logIn };
-
-export { service };
+}

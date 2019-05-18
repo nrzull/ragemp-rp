@@ -1,25 +1,58 @@
 const { resolve } = require("path");
 const HtmlPlugin = require("html-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const ForkTsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
+const ModuleDependencyWarning = require("webpack/lib/ModuleDependencyWarning");
 
 const { NODE_ENV = "development" } = process.env;
 
 const SRC = resolve(__dirname, "src");
 const DIST = resolve(__dirname, "..", "mp", "client_packages", "ui");
 
+class IgnoreNotFoundExportPlugin {
+  apply(compiler) {
+    const messageRegExp = /export '.*'( \(reexported as '.*'\))? was not found in/;
+    function doneHook(stats) {
+      stats.compilation.warnings = stats.compilation.warnings.filter(function(
+        warn
+      ) {
+        if (
+          warn instanceof ModuleDependencyWarning &&
+          messageRegExp.test(warn.message)
+        ) {
+          return false;
+        }
+        return true;
+      });
+    }
+    if (compiler.hooks) {
+      compiler.hooks.done.tap("IgnoreNotFoundExportPlugin", doneHook);
+    } else {
+      compiler.plugin("done", doneHook);
+    }
+  }
+}
+
 const config = {
   mode: NODE_ENV,
   resolve: {
-    extensions: [".jsx", ".js"],
-    alias: { "@": SRC }
+    extensions: [".tsx", ".ts", ".js"],
+    plugins: [new TsconfigPathsPlugin()]
   },
   entry: SRC,
-  output: { path: DIST, publicPath: "package://ui/" },
+  output: {
+    path: DIST,
+    publicPath: "package://ui/"
+  },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         include: SRC,
-        use: "babel-loader"
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true
+        }
       },
 
       {
@@ -43,8 +76,15 @@ const config = {
       }
     ]
   },
-  plugins: [new HtmlPlugin({ template: resolve(SRC, "index.html") })],
-  stats: { modules: false, children: false }
+  plugins: [
+    new HtmlPlugin({ template: resolve(SRC, "index.html") }),
+    new ForkTsCheckerPlugin(),
+    new IgnoreNotFoundExportPlugin()
+  ],
+  stats: {
+    modules: false,
+    children: false
+  }
 };
 
 module.exports = config;

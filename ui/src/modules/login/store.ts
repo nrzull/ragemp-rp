@@ -1,4 +1,16 @@
-const initialState = {
+interface TState {
+  show: boolean;
+  username: string;
+  password: string;
+  remember: boolean;
+  loading: boolean;
+  errors: {
+    username: string;
+    password: string;
+  };
+}
+
+const initialState: TState = {
   show: false,
   username: "",
   password: "",
@@ -45,7 +57,7 @@ const actions = {
   }
 };
 
-function reducer(state = initialState, { type, payload }) {
+function reducer(state = initialState, { type, payload }): TState {
   switch (type) {
     case types.SET_SHOW:
       return { ...state, show: payload };
@@ -70,4 +82,4 @@ function reducer(state = initialState, { type, payload }) {
   }
 }
 
-export { actions, reducer };
+export { TState, actions, reducer };

@@ -2,7 +2,7 @@ import { store, bus } from "@/core";
 import { actions } from "./store";
 import { shared } from "@/shared";
 
-const Register = () => {
+export function register() {
   const {
     email,
     username,
@@ -22,8 +22,4 @@ const Register = () => {
     promoCode,
     agreement
   });
-};
-
-const service = { Register };
-
-export { service };
+}
