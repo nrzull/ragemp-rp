@@ -11,6 +11,7 @@ namespace Project.Client
 
         public static void OnConnect(object[] args)
         {
+            Chat.Output("DELETE IT");
             Browser.Service.CreateBrowser();
         }
     }

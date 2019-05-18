@@ -5,25 +5,25 @@ namespace Project.Server.Account
 {
     public static class Service
     {
-        public static Account.Entity GetAccountEntityByLogin(string login)
+        public static Account.Entity GetAccountEntityByUsername(string username)
         {
             using (var database = new Database())
             {
-                return database.Accounts.SingleOrDefault(a => a.Login == login);
+                return database.Accounts.SingleOrDefault(a => a.Username == username);
             }
         }
 
-        public static string ValidateLogin(string login)
+        public static string ValidateUsername(string username)
         {
-            if (string.IsNullOrEmpty(login))
+            if (string.IsNullOrEmpty(username))
             {
-                return Resources.ERROR_LOGIN_EMPTY;
+                return Resources.ERROR_USERNAME_EMPTY;
             }
 
-            Regex regex = new Regex(Resources.LOGIN_REGEX);
-            if (regex.IsMatch(login) == false)
+            Regex regex = new Regex(Resources.USERNAME_REGEX);
+            if (regex.IsMatch(username) == false)
             {
-                return Resources.ERROR_LOGIN_INVALID;
+                return Resources.ERROR_USERNAME_INVALID;
             }
 
             return null;

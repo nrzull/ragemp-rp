@@ -26,13 +26,13 @@ namespace Project.Server.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("Login");
-
                     b.Property<string>("Password");
 
                     b.Property<string>("PromoCode");
 
                     b.Property<DateTime>("RegisterDate");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 

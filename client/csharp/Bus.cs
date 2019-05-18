@@ -1,10 +1,16 @@
 using RAGE;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Project.Client
 {
     public class Bus : Events.Script
     {
+        static JsonSerializerSettings Settings = new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        };
+
         public Bus()
         {
             Events.Add("ui=>server", OnUiToServer);
@@ -13,7 +19,7 @@ namespace Project.Client
 
         public static void TriggerUi(string ev, object payload)
         {
-            Browser.Service.Browser.ExecuteJs($"bus.emit(\"{ev}\", {JsonConvert.SerializeObject(payload)})");
+            Browser.Service.Browser.ExecuteJs($"bus.emit(\"{ev}\", {JsonConvert.SerializeObject(payload, Settings)})");
         }
 
         public static void TriggerServer(string ev, object payload)

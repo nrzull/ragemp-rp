@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Project.Server.Migrations
@@ -14,9 +15,10 @@ namespace Project.Server.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Email = table.Column<string>(nullable: true),
-                    Login = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    PromoCode = table.Column<string>(nullable: true)
+                    PromoCode = table.Column<string>(nullable: true),
+                    RegisterDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
