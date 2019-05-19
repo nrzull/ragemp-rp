@@ -8,24 +8,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
 import { store, bus, TGlobalState } from "@/core";
-import { shared } from "@/shared";
-
+import * as shared from "@/shared";
 import * as auth from "./modules/auth";
 
-function mapStateToProps(state: TGlobalState) {
+interface TStoreProps {
+  auth: TGlobalState["auth"]["show"];
+}
+
+function mapStateToProps(state: TGlobalState): TStoreProps {
   return {
-    login: state.login.show,
-    register: state.register.show
+    auth: state.auth.show
   };
 }
 
-function Container(props) {
-  return (
-    <>
-      {props.login && <auth.login.Login />}
-      {props.register && <auth.register.Register />}
-    </>
-  );
+function Container(props: TStoreProps) {
+  return <>{props.auth && <auth.Auth />}</>;
 }
 
 const ConnectedContainer = connect(mapStateToProps)(Container);

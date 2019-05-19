@@ -5,6 +5,7 @@ namespace Project.Shared
         public const string PLAYER_CONNECT = "PLAYER_CONNECT";
 
         public const string UI_LOADED = "UI_LOADED";
+        public const string UI_AUTH_SHOW = "UI_AUTH_SHOW";
 
         public const string UI_LOGIN_SHOW = "UI_LOGIN_SHOW";
         public const string UI_LOGIN_SUBMIT = "UI_LOGIN_SUBMIT";
