@@ -1,19 +1,41 @@
+@import "~@/assets/styles/variables";
+
 .web {
   height: 100vh;
   display: flex;
 
   &__navigation {
-    width: 20%;
-    border-right: 1px solid red;
+    width: 20vh;
+    background-color: #333;
+    border-right: 2px solid $color__primary;
   }
 
   &__link {
     display: block;
     text-align: center;
-    padding: 2rem;
+    padding: 2vh;
+    text-decoration: none;
+    color: #fff;
+
+    &_active {
+      background-color: rgba(#fff, 0.1);
+    }
   }
 
   &__main {
     width: 100%;
+  }
+
+  &__view {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center center;
+
+    &_welcome {
+      background-image: url("~@/assets/images/welcome__background.jpg");
+    }
   }
 }
