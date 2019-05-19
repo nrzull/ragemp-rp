@@ -34,49 +34,99 @@ function View(props: TProps) {
 
         <div className="auth__input-block">
           <label className="auth__label">Логин</label>
-          <input
-            className="auth__input"
-            type="text"
-            value={props.username}
-            onChange={props.onChangeUsername}
-            placeholder="Введите свой логин"
-          />
+
+          <div className="auth__input-wrapper">
+            <input
+              className="auth__input"
+              type="text"
+              value={props.username}
+              onChange={props.onChangeUsername}
+              placeholder="Введите свой логин"
+            />
+            <div
+              data-error={!!props.errors.username}
+              className="auth__input-status"
+            />
+          </div>
+
+          <div
+            data-error={!!props.errors.username}
+            className="auth__input-error"
+          >
+            {props.errors.username}
+          </div>
         </div>
 
         <div className="auth__input-block">
           <label className="auth__label">Электронная почта</label>
 
-          <input
-            className="auth__input"
-            type="text"
-            value={props.email}
-            onChange={props.onChangeEmail}
-            placeholder="Введите свою электронную почту"
-          />
+          <div className="auth__input-wrapper">
+            <input
+              className="auth__input"
+              type="text"
+              value={props.email}
+              onChange={props.onChangeEmail}
+              placeholder="Введите свою электронную почту"
+            />
+            <div
+              data-error={!!props.errors.email}
+              className="auth__input-status"
+            />
+          </div>
+
+          <div data-error={!!props.errors.email} className="auth__input-error">
+            {props.errors.email}
+          </div>
         </div>
 
         <div className="auth__input-block">
           <label className="auth__label">Пароль</label>
 
-          <input
-            className="auth__input"
-            type="password"
-            value={props.password}
-            onChange={props.onChangePassword}
-            placeholder="Введите свой пароль"
-          />
+          <div className="auth__input-wrapper">
+            <input
+              className="auth__input"
+              type="password"
+              value={props.password}
+              onChange={props.onChangePassword}
+              placeholder="Введите свой пароль"
+            />
+            <div
+              data-error={!!props.errors.password}
+              className="auth__input-status"
+            />
+          </div>
+
+          <div
+            data-error={!!props.errors.password}
+            className="auth__input-error"
+          >
+            {props.errors.password}
+          </div>
         </div>
 
         <div className="auth__input-block">
           <label className="auth__label">Подтвердите Пароль</label>
 
-          <input
-            className="auth__input"
-            type="password"
-            value={props.repeatPassword}
-            onChange={props.onChangeRepeatPassword}
-            placeholder="Введите свой пароль снова"
-          />
+          <div className="auth__input-wrapper">
+            <input
+              className="auth__input"
+              type="password"
+              value={props.repeatPassword}
+              onChange={props.onChangeRepeatPassword}
+              placeholder="Введите свой пароль снова"
+            />
+            <div
+              data-error={!!props.errors.repeatPassword}
+              className="auth__input-status"
+            />
+          </div>
+
+          <div
+            data-error={!!props.errors.repeatPassword}
+            className="auth__input-error"
+          >
+            {props.errors.repeatPassword}
+          </div>
         </div>
 
         <div className="auth__input-block">
@@ -97,6 +147,13 @@ function View(props: TProps) {
           >
             Я согласен с правилами сервера
           </Checkbox>
+
+          <div
+            data-error={!!props.errors.agreement}
+            className="auth__input-error"
+          >
+            {props.errors.agreement}
+          </div>
         </div>
 
         <div className="auth__input-block auth__input-block_button">

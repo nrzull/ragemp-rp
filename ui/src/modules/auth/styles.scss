@@ -1,3 +1,7 @@
+@import "~@/assets/styles/variables";
+
+$body__padding: 4vh;
+
 .auth-block {
   display: flex;
   justify-content: center;
@@ -37,7 +41,7 @@
     background-color: #fff;
     box-shadow: 0 0.5vh 2vh rgba(black, 0.5);
     border-radius: 0 0 2vh 2vh;
-    padding: 4vh 4vh 1vh;
+    padding: $body__padding $body__padding 1vh;
   }
 
   &__body-title {
@@ -66,7 +70,8 @@
   }
 
   &__input-block {
-    padding-bottom: 2vh;
+    position: relative;
+    margin-bottom: 2vh;
   }
 
   &__input-block_checkbox {
@@ -86,12 +91,56 @@
     padding-bottom: 0.5vh;
   }
 
+  &__input-wrapper {
+    position: relative;
+  }
+
   &__input {
     display: block;
     width: 100%;
     outline: none;
     border: none;
+    padding-right: 2vh;
     border-bottom: 0.1vh solid #ccc;
+  }
+
+  &__input-status {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    width: 1.2vh;
+    height: 1.2vh;
+    background-color: #eee;
+    border: 0.1vh solid rgba(black, 0.1);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+
+    &[data-error="true"] {
+      background-color: $red;
+    }
+  }
+
+  &__input-error {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    padding: 0 1vh;
+    right: calc(#{$body__padding} + 100%);
+    opacity: 0;
+    white-space: nowrap;
+    background-color: #eee;
+    color: $red;
+    display: flex;
+    align-items: center;
+    border-left: 0.5vh solid $red;
+    border-radius: 0.5vh 0 0 0.5vh;
+    z-index: 2;
+    box-shadow: -1vh 0.3vh 1vh rgba(black, 0.3);
+
+    &[data-error="true"] {
+      opacity: 1;
+    }
   }
 
   &__button {
@@ -107,11 +156,6 @@
     text-transform: uppercase;
     box-shadow: 0 0.5vh 1vh rgba(black, 0.3);
     letter-spacing: 0.2vh;
-  }
-
-  &__error {
-    font-size: 14px;
-    color: red;
   }
 
   &__footer {

@@ -27,25 +27,51 @@ function View(props: TProps) {
 
         <div className="auth__input-block">
           <label className="auth__label">Логин</label>
-          <input
-            className="auth__input"
-            type="text"
-            value={props.username}
-            onChange={props.onChangeUsername}
-            placeholder="Введите свой логин"
-          />
+          <div className="auth__input-wrapper">
+            <input
+              className="auth__input"
+              type="text"
+              value={props.username}
+              onChange={props.onChangeUsername}
+              placeholder="Введите свой логин"
+            />
+            <div
+              data-error={!!props.errors.username}
+              className="auth__input-status"
+            />
+          </div>
+
+          <div
+            data-error={!!props.errors.username}
+            className="auth__input-error"
+          >
+            {props.errors.username}
+          </div>
         </div>
 
         <div className="auth__input-block">
           <label className="auth__label">Пароль</label>
 
-          <input
-            className="auth__input"
-            type="password"
-            value={props.password}
-            onChange={props.onChangePassword}
-            placeholder="Введите свой пароль"
-          />
+          <div className="auth__input-wrapper">
+            <input
+              className="auth__input"
+              type="password"
+              value={props.password}
+              onChange={props.onChangePassword}
+              placeholder="Введите свой пароль"
+            />
+            <div
+              data-error={!!props.errors.password}
+              className="auth__input-status"
+            />
+          </div>
+
+          <div
+            data-error={!!props.errors.password}
+            className="auth__input-error"
+          >
+            {props.errors.password}
+          </div>
         </div>
 
         <div className="auth__input-block auth__input-block_checkbox">
