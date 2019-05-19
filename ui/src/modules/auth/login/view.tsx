@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-import "./styles.scss";
 import { TState } from "./store";
 import { Checkbox } from "@/components";
 
@@ -18,18 +17,18 @@ interface TProps {
 
 function View(props: TProps) {
   return (
-    <div className="login">
-      <header className="login__header">aquamarine project</header>
+    <div className="auth">
+      <header className="auth__header">aquamarine project</header>
 
-      <section className="login__body">
-        <div className="login__body-title">
-          <span className="login__body-title-text">Войти в аккаунт</span>
+      <section className="auth__body">
+        <div className="auth__body-title">
+          <span className="auth__body-title-text">Войти в аккаунт</span>
         </div>
 
-        <div className="login__input-block">
-          <label className="login__label">Логин</label>
+        <div className="auth__input-block">
+          <label className="auth__label">Логин</label>
           <input
-            className="login__input"
+            className="auth__input"
             type="text"
             value={props.username}
             onChange={props.onChangeUsername}
@@ -37,47 +36,47 @@ function View(props: TProps) {
           />
         </div>
 
-        <div className="login__input-block">
-          <label className="login__label">Пароль</label>
+        <div className="auth__input-block">
+          <label className="auth__label">Пароль</label>
 
           <input
-            className="login__input"
-            type="text"
+            className="auth__input"
+            type="password"
             value={props.password}
             onChange={props.onChangePassword}
             placeholder="Введите свой пароль"
           />
         </div>
 
-        <div className="login__input-block login__input-block_checkbox">
+        <div className="auth__input-block auth__input-block_checkbox">
           <Checkbox checked={props.remember} onChange={props.onChangeRemember}>
             Запомнить меня
           </Checkbox>
         </div>
 
-        <div className="login__input-block login__input-block_button">
+        <div className="auth__input-block auth__input-block_button">
           <button
             disabled={props.loading}
             onClick={props.onClickSubmit}
-            className="login__button"
+            className="auth__button"
           >
             {props.loading ? "Загрузка" : "Войти"}
           </button>
         </div>
       </section>
 
-      <div className="login__footer">
-        <div className="login__footer-title">Нету аккаунта?</div>
-        <div className="login__input-block login__input-block_button">
+      <footer className="auth__footer">
+        <div className="auth__footer-title">Нету аккаунта?</div>
+        <div className="auth__input-block auth__input-block_button">
           <button
             disabled={props.loading}
-            className="login__button"
+            className="auth__button"
             onClick={props.onClickGoRegister}
           >
             Создать
           </button>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }

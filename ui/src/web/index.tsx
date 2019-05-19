@@ -13,12 +13,12 @@ import {
 } from "react-router-dom";
 
 // LOGIN
-import { View as Login } from "@/modules/login/view";
-import * as loginStore from "@/modules/login/store";
+import { View as Login } from "@/modules/auth/login/view";
+import * as loginStore from "@/modules/auth/login/store";
 
 // REGISTER
-import { View as Register } from "@/modules/register/view";
-import * as registerStore from "@/modules/register/store";
+import { View as Register } from "@/modules/auth/register/view";
+import * as registerStore from "@/modules/auth/register/store";
 
 interface TProps {
   login: loginStore.TState;

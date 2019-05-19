@@ -1,15 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import * as login from "@/modules/login";
-import * as register from "@/modules/register";
+import * as auth from "@/modules/auth";
 
 interface TGlobalState {
-  login: login.TState;
-  register: register.TState;
+  login: auth.login.TState;
+  register: auth.register.TState;
 }
 
 const reducer = combineReducers({
-  login: login.reducer,
-  register: register.reducer
+  login: auth.login.reducer,
+  register: auth.register.reducer
 });
 
 const middlewares = [];

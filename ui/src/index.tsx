@@ -10,8 +10,7 @@ import { Provider, connect } from "react-redux";
 import { store, bus, TGlobalState } from "@/core";
 import { shared } from "@/shared";
 
-import { Login } from "@/modules/login";
-import { Register } from "@/modules/register";
+import * as auth from "./modules/auth";
 
 function mapStateToProps(state: TGlobalState) {
   return {
@@ -23,8 +22,8 @@ function mapStateToProps(state: TGlobalState) {
 function Container(props) {
   return (
     <>
-      {props.login && <Login />}
-      {props.register && <Register />}
+      {props.login && <auth.login.Login />}
+      {props.register && <auth.register.Register />}
     </>
   );
 }

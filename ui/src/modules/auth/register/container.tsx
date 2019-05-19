@@ -5,7 +5,7 @@ import { TGlobalState } from "@/core";
 import { View } from "./view";
 import * as service from "./service";
 import * as store from "./store";
-import * as loginStore from "@/modules/login/store";
+import * as loginStore from "@/modules/auth/login/store";
 
 interface TStoreActions {
   actions: typeof store.actions;

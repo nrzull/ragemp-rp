@@ -1,7 +1,7 @@
 import { bus, store } from "@/core";
 import { shared } from "@/shared";
-import { actions } from "@/modules/register/store";
-import * as login from "@/modules/login";
+import { actions } from "@/modules/auth/register/store";
+import * as login from "@/modules/auth/login";
 
 bus.on(shared.events.UI_REGISTER_SHOW, payload => {
   store.dispatch(actions.setShow(payload));
