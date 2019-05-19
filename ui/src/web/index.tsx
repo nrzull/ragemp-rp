@@ -32,6 +32,12 @@ function mapStateToProps(state: TGlobalState): TProps {
   };
 }
 
+const Link = p => (
+  <NavLink {...p} className="web__link" activeClassName="web__link_active">
+    {p.children}
+  </NavLink>
+);
+
 function Container(props: TProps) {
   const onChange = (view: string, name: string) => (
     ev: ChangeEvent<HTMLInputElement>
@@ -78,13 +84,9 @@ function Container(props: TProps) {
       <BrowserRouter>
         <>
           <nav className="web__navigation">
-            <NavLink className="web__link" to="/login">
-              Login
-            </NavLink>
+            <Link to="/login">Login</Link>
 
-            <NavLink className="web__link" to="/register">
-              Register
-            </NavLink>
+            <Link to="/register">Register</Link>
           </nav>
 
           <div className="web__main">
@@ -92,34 +94,38 @@ function Container(props: TProps) {
               <Route
                 path="/login"
                 render={() => (
-                  <Login
-                    {...props.login}
-                    onClickSubmit={onClickMockup}
-                    onClickGoRegister={onClickMockup}
-                    onChangeUsername={onChange("login", "username")}
-                    onChangePassword={onChange("login", "password")}
-                    onChangeRemember={onChange("login", "remember")}
-                  />
+                  <div className="web__view web__view_welcome">
+                    <Login
+                      {...props.login}
+                      onClickSubmit={onClickMockup}
+                      onClickGoRegister={onClickMockup}
+                      onChangeUsername={onChange("login", "username")}
+                      onChangePassword={onChange("login", "password")}
+                      onChangeRemember={onChange("login", "remember")}
+                    />
+                  </div>
                 )}
               />
 
               <Route
                 path="/register"
                 render={() => (
-                  <Register
-                    {...props.register}
-                    onClickGoLogin={onClickMockup}
-                    onClickSubmit={onClickMockup}
-                    onChangeUsername={onChange("register", "username")}
-                    onChangePassword={onChange("register", "password")}
-                    onChangeEmail={onChange("register", "email")}
-                    onChangeAgreement={onChange("register", "agreement")}
-                    onChangePromoCode={onChange("register", "promoCode")}
-                    onChangeRepeatPassword={onChange(
-                      "register",
-                      "repeatPassword"
-                    )}
-                  />
+                  <div className="web__view web__view_welcome">
+                    <Register
+                      {...props.register}
+                      onClickGoLogin={onClickMockup}
+                      onClickSubmit={onClickMockup}
+                      onChangeUsername={onChange("register", "username")}
+                      onChangePassword={onChange("register", "password")}
+                      onChangeEmail={onChange("register", "email")}
+                      onChangeAgreement={onChange("register", "agreement")}
+                      onChangePromoCode={onChange("register", "promoCode")}
+                      onChangeRepeatPassword={onChange(
+                        "register",
+                        "repeatPassword"
+                      )}
+                    />
+                  </div>
                 )}
               />
               <Redirect to="/login" />
