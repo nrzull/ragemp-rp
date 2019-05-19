@@ -1,5 +1,5 @@
 import { bus, store } from "@/core";
-import { shared } from "@/shared";
+import * as shared from "@/shared";
 import { actions } from "@/modules/auth/register/store";
 import * as login from "@/modules/auth/login";
 

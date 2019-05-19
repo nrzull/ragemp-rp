@@ -1,6 +1,6 @@
 import { store, bus } from "@/core";
 import { actions } from "./store";
-import { shared } from "@/shared";
+import * as shared from "@/shared";
 
 export function register() {
   const {
