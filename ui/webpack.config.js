@@ -4,11 +4,21 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const ForkTsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
 const ModuleDependencyWarning = require("webpack/lib/ModuleDependencyWarning");
 
-const { NODE_ENV = "development" } = process.env;
+const { NODE_ENV = "development", TARGET = "game" } = process.env;
+const IS_WEB = TARGET === "web";
 
-const SRC = resolve(__dirname, "src");
-const DIST = resolve(__dirname, "..", "mp", "client_packages", "ui");
+const ROOT = resolve(__dirname, "src");
 
+const SRC = IS_WEB ? resolve(ROOT, "web") : ROOT;
+
+const DIST = IS_WEB
+  ? resolve(__dirname, "dist")
+  : resolve(__dirname, "..", "mp", "client_packages", "ui");
+
+const PUBLIC_PATH = IS_WEB ? "/" : "package://ui/";
+const STATS = { modules: false, children: false };
+
+// TODO move it to appropriate place
 class IgnoreNotFoundExportPlugin {
   apply(compiler) {
     const messageRegExp = /export '.*'( \(reexported as '.*'\))? was not found in/;
@@ -42,13 +52,13 @@ const config = {
   entry: SRC,
   output: {
     path: DIST,
-    publicPath: "package://ui/"
+    publicPath: PUBLIC_PATH
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        include: SRC,
+        include: ROOT,
         loader: "ts-loader",
         options: {
           transpileOnly: true
@@ -77,14 +87,12 @@ const config = {
     ]
   },
   plugins: [
-    new HtmlPlugin({ template: resolve(SRC, "index.html") }),
+    new HtmlPlugin({ template: resolve(ROOT, "index.html") }),
     new ForkTsCheckerPlugin(),
     new IgnoreNotFoundExportPlugin()
   ],
-  stats: {
-    modules: false,
-    children: false
-  }
+  stats: STATS,
+  devServer: { stats: STATS, historyApiFallback: true }
 };
 
 module.exports = config;

@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "webpack --watch"
+    "start": "webpack --watch",
+    "web": "cross-env TARGET=web webpack-dev-server"
   },
   "dependencies": {
     "core-js": "^3.0.1",
@@ -8,13 +9,16 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
+    "react-router-dom": "^5.0.0",
     "redux": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
     "@types/react-redux": "^7.0.9",
+    "@types/react-router-dom": "^4.3.3",
     "autoprefixer": "^9.5.1",
+    "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
     "file-loader": "^3.0.1",
@@ -29,6 +33,7 @@
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.4.5",
     "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1"
   }
 }

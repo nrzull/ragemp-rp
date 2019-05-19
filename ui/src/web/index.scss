@@ -1,0 +1,19 @@
+.web {
+  height: 100vh;
+  display: flex;
+
+  &__navigation {
+    width: 20%;
+    border-right: 1px solid red;
+  }
+
+  &__link {
+    display: block;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  &__main {
+    width: 100%;
+  }
+}

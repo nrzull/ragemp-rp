@@ -1,7 +1,7 @@
 // TODO adapt polyfills for typescript
 // import "core-js";
 
-import "./index.scss";
+import "@/index.scss";
 import "@/core/events";
 
 import React from "react";
