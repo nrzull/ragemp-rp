@@ -1,2 +1,2 @@
-import "@/modules/login/events";
-import "@/modules/register/events";
+import "@/modules/auth/login/events";
+import "@/modules/auth/register/events";
