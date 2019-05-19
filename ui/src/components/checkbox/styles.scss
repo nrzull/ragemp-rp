@@ -1,0 +1,39 @@
+@import "~@/assets/styles/variables";
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox__mark {
+  position: relative;
+  margin-right: 1vh;
+  width: 2vh;
+  height: 2vh;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox__trigger {
+  opacity: 0;
+  position: absolute;
+
+  cursor: pointer;
+}
+
+.checkbox__icon {
+  width: 100%;
+  height: 100%;
+  fill: #888;
+  transition: all 0.2s ease;
+
+  &[data-checked="true"] {
+    fill: lightgreen;
+  }
+}
+
+.checkbox__text {
+  text-transform: uppercase;
+  font-size: 1.6vh;
+}
