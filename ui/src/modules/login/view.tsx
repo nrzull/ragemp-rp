@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "./styles.scss";
 import { TState } from "./store";
+import { Checkbox } from "@/components";
 
 interface TProps {
   username: TState["username"];
@@ -18,53 +19,64 @@ interface TProps {
 function View(props: TProps) {
   return (
     <div className="login">
-      <div>
-        <input
-          className="login__field"
-          type="text"
-          value={props.username}
-          onChange={props.onChangeUsername}
-          placeholder="Username"
-        />
-      </div>
-      <p className="login__error">{props.errors.username}</p>
-      <div>
-        <input
-          className="login__field"
-          type="text"
-          value={props.password}
-          onChange={props.onChangePassword}
-          placeholder="Password"
-        />
-      </div>
-      <p className="login__error">{props.errors.password}</p>
-      <div>
-        <label>
-          <input
-            className="login__checkbox"
-            type="checkbox"
-            checked={props.remember}
-            onChange={props.onChangeRemember}
-          />
-          Запомнить меня
-        </label>
-      </div>
-      <div>
-        <button
-          disabled={props.loading}
-          className="login__submit"
-          onClick={props.onClickSubmit}
-        >
-          {props.loading ? "Загрузка" : "Войти"}
-        </button>
+      <header className="login__header">aquamarine project</header>
 
-        <button
-          disabled={props.loading}
-          className="login__submit"
-          onClick={props.onClickGoRegister}
-        >
-          Нету аккаунта? Кликни здесь!
-        </button>
+      <section className="login__body">
+        <div className="login__body-title">
+          <span className="login__body-title-text">Войти в аккаунт</span>
+        </div>
+
+        <div className="login__input-block">
+          <label className="login__label">Логин</label>
+          <input
+            className="login__input"
+            type="text"
+            value={props.username}
+            onChange={props.onChangeUsername}
+            placeholder="Введите свой логин"
+          />
+        </div>
+
+        <div className="login__input-block">
+          <label className="login__label">Пароль</label>
+
+          <input
+            className="login__input"
+            type="text"
+            value={props.password}
+            onChange={props.onChangePassword}
+            placeholder="Введите свой пароль"
+          />
+        </div>
+
+        <div className="login__input-block login__input-block_checkbox">
+          <Checkbox checked={props.remember} onChange={props.onChangeRemember}>
+            Запомнить меня
+          </Checkbox>
+        </div>
+
+        <div className="login__input-block login__input-block_button">
+          <button
+            disabled={props.loading}
+            onClick={props.onClickSubmit}
+            className="login__button"
+          >
+            {props.loading ? "Загрузка" : "Войти"}
+          </button>
+        </div>
+      </section>
+
+      <div className="login__footer">
+        <div className="login__footer-title">Нету аккаунта?</div>
+        <div className="login__input-block login__input-block_button">
+          <button
+            disabled={props.loading}
+            className="login__button"
+            onClick={props.onClickGoRegister}
+          >
+            Создать
+          </button>
+        </div>
       </div>
     </div>
   );

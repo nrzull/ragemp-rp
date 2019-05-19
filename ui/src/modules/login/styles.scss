@@ -1,16 +1,101 @@
 .login {
-  width: max-content;
   display: block;
-  margin: 100px auto;
+  width: 45vh;
 
-  &__field {
-    width: 200px;
-    height: 30px;
-    padding: 7px;
-    font-size: 16px;
-    border-radius: 5px;
+  & * {
+    user-select: none;
+  }
+
+  &__header {
+    padding: 1.5vh 2vh;
+    background: linear-gradient(to right, #893af4, #632ff5);
+    border-radius: 2vh 2vh 0 0;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    font-size: 3vh;
+    letter-spacing: 0.2vh;
+    text-shadow: 0 0.2vh 0.2vh rgba(black, 0.5);
+    box-shadow: 0 -0.5vh 2vh rgba(black, 0.25);
+  }
+
+  &__body {
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    box-shadow: 0 0.5vh 2vh rgba(black, 0.5);
+    border-radius: 0 0 2vh 2vh;
+    padding: 4vh 4vh 1vh;
+  }
+
+  &__body-title {
+    text-align: center;
+    padding-bottom: 3vh;
+  }
+
+  &__body-title-text {
+    width: 100%;
+    display: inline-block;
+    font-size: 2.7vh;
+    letter-spacing: 0.5vh;
+    font-weight: 500;
+    text-transform: uppercase;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -0.3vh;
+      left: 0;
+      width: 100%;
+      height: 0.3vh;
+      background: linear-gradient(to right, #893af4, #632ff5);
+    }
+  }
+
+  &__input-block {
+    padding-bottom: 2vh;
+  }
+
+  &__input-block_checkbox {
+    padding-top: 2vh;
+  }
+
+  &__input-block_button {
+    padding-top: 2vh;
+    text-align: center;
+  }
+
+  &__label {
+    color: #ccc;
+    font-weight: 400;
+    font-size: 2.1vh;
+    display: block;
+    padding-bottom: 0.5vh;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
     outline: none;
-    border: 1px solid blue;
+    border: none;
+    border-bottom: 0.1vh solid #ccc;
+  }
+
+  &__button {
+    background: linear-gradient(to right, #893af4, #632ff5);
+    border: none;
+    padding: 1vh 2vh;
+    min-width: 75%;
+    color: #fff;
+    font-weight: 700;
+    font-size: 2.2vh;
+    font-family: Roboto;
+    border-radius: 100vh;
+    text-transform: uppercase;
+    box-shadow: 0 0.5vh 1vh rgba(black, 0.3);
+    letter-spacing: 0.2vh;
   }
 
   &__error {
@@ -18,18 +103,27 @@
     color: red;
   }
 
-  &__submit {
-    width: 200px;
-    height: 40px;
-    margin-top: 15px;
-    padding: 10px;
-    font-size: 18px;
-    border: 2px solid blue;
-    border-radius: 3px;
-    background-color: rgba(255, 255, 255, 0.7);
+  &__footer {
+    position: relative;
+    top: -2vh;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      rgba(#893af4, 0.9),
+      rgba(#632ff5, 0.9)
+    );
+    box-shadow: 0 0.5vh 2vh rgba(black, 0.25);
+    border-radius: 0 0 2vh 2vh;
+    padding: 5vh 4vh 2vh;
+  }
 
-    &:hover {
-      background-color: blue;
-    }
+  &__footer-title {
+    text-align: center;
+    font-size: 2.7vh;
+    text-transform: uppercase;
+    letter-spacing: 0.15vh;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 0.4vh 0.4vh rgba(black, 0.4);
   }
 }
