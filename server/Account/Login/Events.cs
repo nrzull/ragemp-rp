@@ -14,7 +14,7 @@ namespace Project.Server.Account.Login
         {
             Task.Run(() =>
             {
-                if (Middlewares.EventsBlocker.Block(player, Shared.Events.UI_REGISTER_SUBMIT, 2000) > 0)
+                if (Middlewares.EventsBlocker.Block(player, Shared.Events.UI_REGISTER_SUBMIT, 2000) > 1)
                 {
                     Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_ERROR); // Remove it
                     return;
