@@ -21,6 +21,10 @@ $body__padding: 4vh;
     user-select: none;
   }
 
+  &_agreement {
+    width: 70vh;
+  }
+
   &__header {
     padding: 1.5vh 2vh;
     background: linear-gradient(to right, #893af4, #632ff5);
@@ -42,6 +46,25 @@ $body__padding: 4vh;
     box-shadow: 0 0.5vh 2vh rgba(black, 0.5);
     border-radius: 0 0 2vh 2vh;
     padding: $body__padding $body__padding 1vh;
+  }
+
+  &__agreement-content {
+    height: 50vh;
+    overflow-y: scroll;
+    padding-right: 1vh;
+  }
+
+  &__body_agreement {
+    border-radius: 2vh;
+    padding: $body__padding;
+
+    *::-webkit-scrollbar {
+      width: 1vh;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: $color__primary;
+    }
   }
 
   &__body-title {

@@ -20,6 +20,9 @@ import * as loginStore from "@/modules/auth/login/store";
 import { View as Register } from "@/modules/auth/register/view";
 import * as registerStore from "@/modules/auth/register/store";
 
+// AGREEMENT
+import { View as Agreement } from "@/modules/auth/agreement/view";
+
 interface TProps {
   login: loginStore.TState;
   register: registerStore.TState;
@@ -87,6 +90,8 @@ function Container(props: TProps) {
             <Link to="/login">Login</Link>
 
             <Link to="/register">Register</Link>
+
+            <Link to="/agreement">Agreement</Link>
           </nav>
 
           <div className="web__main">
@@ -125,6 +130,15 @@ function Container(props: TProps) {
                         "repeatPassword"
                       )}
                     />
+                  </div>
+                )}
+              />
+
+              <Route
+                path="/agreement"
+                render={() => (
+                  <div className="web__view web__view_welcome">
+                    <Agreement />
                   </div>
                 )}
               />
