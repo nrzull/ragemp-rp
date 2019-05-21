@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "./styles.scss";
 import { TState } from "./store";
-import { Checkbox, Title, Button } from "@/components";
+import { Checkbox, Title, Button, Input } from "@/components";
 
 interface TProps {
   username: TState["username"];
@@ -35,9 +35,8 @@ function View(props: TProps) {
           <label className="auth__label">Логин</label>
 
           <div className="auth__input-wrapper">
-            <input
-              className="auth__input"
-              type="text"
+            <Input
+              data-padding-for-status
               value={props.username}
               onChange={props.onChangeUsername}
               placeholder="Введите свой логин"
@@ -60,9 +59,8 @@ function View(props: TProps) {
           <label className="auth__label">Электронная почта</label>
 
           <div className="auth__input-wrapper">
-            <input
-              className="auth__input"
-              type="text"
+            <Input
+              data-padding-for-status
               value={props.email}
               onChange={props.onChangeEmail}
               placeholder="Введите свою электронную почту"
@@ -82,8 +80,8 @@ function View(props: TProps) {
           <label className="auth__label">Пароль</label>
 
           <div className="auth__input-wrapper">
-            <input
-              className="auth__input"
+            <Input
+              data-padding-for-status
               type="password"
               value={props.password}
               onChange={props.onChangePassword}
@@ -107,8 +105,8 @@ function View(props: TProps) {
           <label className="auth__label">Подтвердите Пароль</label>
 
           <div className="auth__input-wrapper">
-            <input
-              className="auth__input"
+            <Input
+              data-padding-for-status
               type="password"
               value={props.repeatPassword}
               onChange={props.onChangeRepeatPassword}
@@ -130,9 +128,7 @@ function View(props: TProps) {
 
         <div className="auth__input-block">
           <label className="auth__label">Промо-код (необязательно)</label>
-          <input
-            className="auth__input"
-            type="text"
+          <Input
             value={props.promoCode}
             onChange={props.onChangePromoCode}
             placeholder="Введите промо-код"

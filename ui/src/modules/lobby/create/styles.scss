@@ -102,15 +102,4 @@
   &__input-block {
     margin-bottom: 2vh;
   }
-
-  &__input {
-    width: 100%;
-    border: none;
-    border-bottom: 0.1vh solid #eee;
-    transition: all 0.2s ease;
-
-    &:focus {
-      border-bottom-color: lighten($color__primary, 25%);
-    }
-  }
 }

@@ -109,15 +109,6 @@ $body__padding: 4vh;
     position: relative;
   }
 
-  &__input {
-    display: block;
-    width: 100%;
-    outline: none;
-    border: none;
-    padding-right: 2vh;
-    border-bottom: 0.1vh solid #ccc;
-  }
-
   &__input-status {
     position: absolute;
     top: 50%;

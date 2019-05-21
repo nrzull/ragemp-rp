@@ -5,7 +5,7 @@ import DnaIcon from "@/assets/icons/dna.svg";
 import HairIcon from "@/assets/icons/hair.svg";
 import ClothesIcon from "@/assets/icons/clothes.svg";
 import IdCardIcon from "@/assets/icons/id-card.svg";
-import { Switcher, Button, Range } from "@/components";
+import { Switcher, Button, Range, Input } from "@/components";
 
 type TActiveGroup = "id-card" | "parents" | "dna" | "hair" | "clothes";
 
@@ -66,12 +66,12 @@ function View(props: TProps) {
             <>
               <div className="lobby-create__input-block">
                 <div className="lobby-create__label">Имя</div>
-                <input type="text" className="lobby-create__input" />
+                <Input />
               </div>
 
               <div className="lobby-create__input-block">
                 <div className="lobby-create__label">Фамилия</div>
-                <input type="text" className="lobby-create__input" />
+                <Input />
               </div>
 
               <div className="lobby-create__input-block">

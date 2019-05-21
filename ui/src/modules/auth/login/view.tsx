@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { TState } from "./store";
-import { Checkbox, Title, Button } from "@/components";
+import { Checkbox, Title, Button, Input } from "@/components";
 
 interface TProps {
   username: TState["username"];
@@ -26,9 +26,8 @@ function View(props: TProps) {
         <div className="auth__input-block">
           <label className="auth__label">Логин</label>
           <div className="auth__input-wrapper">
-            <input
-              className="auth__input"
-              type="text"
+            <Input
+              data-padding-for-status
               value={props.username}
               onChange={props.onChangeUsername}
               placeholder="Введите свой логин"
@@ -51,8 +50,8 @@ function View(props: TProps) {
           <label className="auth__label">Пароль</label>
 
           <div className="auth__input-wrapper">
-            <input
-              className="auth__input"
+            <Input
+              data-padding-for-status
               type="password"
               value={props.password}
               onChange={props.onChangePassword}
