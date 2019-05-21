@@ -83,31 +83,6 @@ $body__padding: 4vh;
     }
   }
 
-  &__body-title {
-    text-align: center;
-    padding-bottom: 3vh;
-  }
-
-  &__body-title-text {
-    width: 100%;
-    display: inline-block;
-    font-size: 2.7vh;
-    letter-spacing: 0.5vh;
-    font-weight: 500;
-    text-transform: uppercase;
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -0.3vh;
-      left: 0;
-      width: 100%;
-      height: 0.3vh;
-      background: linear-gradient(to right, #893af4, #632ff5);
-    }
-  }
-
   &__input-block {
     position: relative;
     margin-bottom: 2vh;

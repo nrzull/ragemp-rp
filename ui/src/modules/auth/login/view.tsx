@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { TState } from "./store";
-import { Checkbox } from "@/components";
+import { Checkbox, Title } from "@/components";
 
 interface TProps {
   username: TState["username"];
@@ -21,9 +21,7 @@ function View(props: TProps) {
       <header className="auth__header">aquamarine project</header>
 
       <section className="auth__body">
-        <div className="auth__body-title">
-          <span className="auth__body-title-text">Войти в аккаунт</span>
-        </div>
+        <Title>Войти в аккаунт</Title>
 
         <div className="auth__input-block">
           <label className="auth__label">Логин</label>
