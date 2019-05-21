@@ -25,20 +25,6 @@ $body__padding: 4vh;
     width: 70vh;
   }
 
-  &__header {
-    padding: 1.5vh 2vh;
-    background: linear-gradient(to right, #893af4, #632ff5);
-    border-radius: 2vh 2vh 0 0;
-    text-transform: uppercase;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    font-size: 3vh;
-    letter-spacing: 0.2vh;
-    text-shadow: 0 0.2vh 0.2vh rgba(black, 0.5);
-    box-shadow: 0 -0.5vh 2vh rgba(black, 0.25);
-  }
-
   &__body {
     position: relative;
     z-index: 2;

@@ -4,3 +4,4 @@ export { Title } from "./title";
 export { Button } from "./button";
 export { Range } from "./range";
 export { Input } from "./input";
+export { ShellHeader } from "./shell-header";
