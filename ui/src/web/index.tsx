@@ -24,6 +24,9 @@ import * as registerStore from "@/modules/auth/register/store";
 // AGREEMENT
 import { View as Agreement } from "@/modules/auth/agreement/view";
 
+// LOBBY CREATE CHARACTER
+import { View as LobbyCreateCharacter } from "@/modules/lobby/create/view";
+
 interface TProps {
   login: loginStore.TState;
   register: registerStore.TState;
@@ -88,17 +91,19 @@ function Container(props: TProps) {
       <BrowserRouter>
         <>
           <nav className="web__navigation">
-            <Link to="/login">Login</Link>
+            <Link to="/auth/login">Login</Link>
 
-            <Link to="/register">Register</Link>
+            <Link to="/auth/register">Register</Link>
 
-            <Link to="/agreement">Agreement</Link>
+            <Link to="/auth/agreement">Agreement</Link>
+
+            <Link to="/lobby/create">Create Character</Link>
           </nav>
 
           <div className="web__main">
             <Switch>
               <Route
-                path="/login"
+                path="/auth/login"
                 render={() => (
                   <div className="web__view web__view_welcome">
                     <Login
@@ -114,7 +119,7 @@ function Container(props: TProps) {
               />
 
               <Route
-                path="/register"
+                path="/auth/register"
                 render={() => (
                   <div className="web__view web__view_welcome">
                     <Register
@@ -137,14 +142,27 @@ function Container(props: TProps) {
               />
 
               <Route
-                path="/agreement"
+                path="/auth/agreement"
                 render={() => (
                   <div className="web__view web__view_welcome">
                     <Agreement onClickGoRegister={onClickMockup} />
                   </div>
                 )}
               />
-              <Redirect to="/login" />
+
+              <Route
+                path="/lobby/create"
+                render={() => (
+                  <div className="web__view web__view_lobby">
+                    <LobbyCreateCharacter
+                      onClickCancel={onClickMockup}
+                      onClickCreate={onClickMockup}
+                      activeGroup="dna"
+                    />
+                  </div>
+                )}
+              />
+              <Redirect to="/auth/login" />
             </Switch>
           </div>
         </>
