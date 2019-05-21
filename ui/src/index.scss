@@ -1,3 +1,5 @@
+@import "~@/assets/styles/variables";
+
 @font-face {
   font-family: Roboto;
   src: url("~@/assets/fonts/Roboto-Light.ttf") format("truetype");
@@ -34,4 +36,12 @@ body {
   padding: 0;
   font-family: Roboto;
   font-size: 2vh;
+}
+
+*::-webkit-scrollbar {
+  width: 1vh;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $color__primary;
 }
