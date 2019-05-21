@@ -22,10 +22,15 @@ class Container extends Component<any, TState> {
     if (!IS_GAME) return;
   };
 
+  onClickGroupButton = (value: TActiveGroup) => () => {
+    this.setState({ activeGroup: value });
+  };
+
   render() {
     return (
       <View
         activeGroup={this.state.activeGroup}
+        onClickGroupButton={this.onClickGroupButton}
         onClickCreate={this.onClickCreate}
         onClickCancel={this.onClickCancel}
       />
