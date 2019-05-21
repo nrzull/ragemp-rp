@@ -1,0 +1,41 @@
+@import "~@/assets/styles/variables";
+
+.switcher {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+
+    & * {
+      width: 2vh;
+      height: 2vh;
+    }
+  }
+
+  &__content {
+    color: #aaa;
+    font-size: 1.7vh;
+    text-transform: uppercase;
+    font-weight: 500;
+
+    & > * {
+      color: $color__primary;
+    }
+  }
+
+  &__button {
+    fill: #ccc;
+    transition: all 0.2s ease;
+  }
+
+  &__button:hover {
+    fill: $color__primary;
+  }
+
+  &__button_right {
+    transform: rotateZ(180deg);
+  }
+}
