@@ -1,21 +1,23 @@
 const { resolve } = require("path");
+const { DefinePlugin } = require("webpack");
 const HtmlPlugin = require("html-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const ForkTsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
 const ModuleDependencyWarning = require("webpack/lib/ModuleDependencyWarning");
 
-const { NODE_ENV = "development", TARGET = "game" } = process.env;
-const IS_WEB = TARGET === "web";
+const GAME = "game";
+const { NODE_ENV = "development", TARGET = GAME } = process.env;
+const IS_GAME = TARGET === GAME;
 
 const ROOT = resolve(__dirname, "src");
 
-const SRC = IS_WEB ? resolve(ROOT, "web") : ROOT;
+const SRC = IS_GAME ? ROOT : resolve(ROOT, "web");
 
-const DIST = IS_WEB
-  ? resolve(__dirname, "dist")
-  : resolve(__dirname, "..", "mp", "client_packages", "ui");
+const DIST = IS_GAME
+  ? resolve(__dirname, "..", "mp", "client_packages", "ui")
+  : resolve(__dirname, "dist");
 
-const PUBLIC_PATH = IS_WEB ? "/" : "package://ui/";
+const PUBLIC_PATH = IS_GAME ? "package://ui/" : "/";
 const STATS = { modules: false, children: false };
 
 // TODO move it to appropriate place
@@ -89,7 +91,11 @@ const config = {
   plugins: [
     new HtmlPlugin({ template: resolve(ROOT, "index.html") }),
     new ForkTsCheckerPlugin(),
-    new IgnoreNotFoundExportPlugin()
+    new IgnoreNotFoundExportPlugin(),
+    new DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(NODE_ENV),
+      IS_GAME
+    })
   ],
   stats: STATS,
   devServer: { stats: STATS, historyApiFallback: true }
