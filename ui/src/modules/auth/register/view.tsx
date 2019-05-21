@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "./styles.scss";
 import { TState } from "./store";
-import { Checkbox, Title } from "@/components";
+import { Checkbox, Title, Button } from "@/components";
 
 interface TProps {
   username: TState["username"];
@@ -159,26 +159,18 @@ function View(props: TProps) {
         </div>
 
         <div className="auth__input-block auth__input-block_button">
-          <button
-            disabled={props.loading}
-            className="auth__button"
-            onClick={props.onClickSubmit}
-          >
+          <Button disabled={props.loading} onClick={props.onClickSubmit}>
             {props.loading ? "Загрузка" : "Создать"}
-          </button>
+          </Button>
         </div>
       </section>
 
       <footer className="auth__footer">
         <div className="auth__footer-title">Уже есть аккаунт?</div>
         <div className="auth__input-block auth__input-block_button">
-          <button
-            disabled={props.loading}
-            className="auth__button"
-            onClick={props.onClickGoLogin}
-          >
+          <Button disabled={props.loading} onClick={props.onClickGoLogin}>
             Войти
-          </button>
+          </Button>
         </div>
       </footer>
     </div>

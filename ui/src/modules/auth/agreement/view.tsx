@@ -1,5 +1,5 @@
 import React from "react";
-import { Title } from "@/components";
+import { Title, Button } from "@/components";
 
 interface TProps {
   onClickGoRegister: () => void;
@@ -16,9 +16,7 @@ function View(props: TProps) {
 
       <footer className="auth__footer">
         <div className="auth__input-block auth__input-block_button">
-          <button className="auth__button" onClick={props.onClickGoRegister}>
-            Назад
-          </button>
+          <Button onClick={props.onClickGoRegister}>Назад</Button>
         </div>
       </footer>
     </div>

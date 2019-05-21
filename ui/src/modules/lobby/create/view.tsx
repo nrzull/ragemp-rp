@@ -5,7 +5,7 @@ import DnaIcon from "@/assets/icons/dna.svg";
 import HairIcon from "@/assets/icons/hair.svg";
 import ClothesIcon from "@/assets/icons/clothes.svg";
 import IdCardIcon from "@/assets/icons/id-card.svg";
-import { Switcher } from "@/components";
+import { Switcher, Button } from "@/components";
 
 type TActiveGroup = "id-card" | "parents" | "dna" | "hair" | "clothes";
 
@@ -13,6 +13,7 @@ interface TProps {
   activeGroup: TActiveGroup;
   onClickCreate: () => void;
   onClickCancel: () => void;
+  onClickGroupButton: (v: TActiveGroup) => () => void;
 }
 
 function View(props: TProps) {
@@ -22,6 +23,7 @@ function View(props: TProps) {
         <div
           data-active={props.activeGroup === "id-card"}
           className="lobby-create__navigation-button"
+          onClick={props.onClickGroupButton("id-card")}
         >
           <IdCardIcon />
         </div>
@@ -29,6 +31,7 @@ function View(props: TProps) {
         <div
           data-active={props.activeGroup === "parents"}
           className="lobby-create__navigation-button"
+          onClick={props.onClickGroupButton("parents")}
         >
           <ParentsIcon />
         </div>
@@ -36,6 +39,7 @@ function View(props: TProps) {
         <div
           data-active={props.activeGroup === "dna"}
           className="lobby-create__navigation-button"
+          onClick={props.onClickGroupButton("dna")}
         >
           <DnaIcon />
         </div>
@@ -43,6 +47,7 @@ function View(props: TProps) {
         <div
           data-active={props.activeGroup === "hair"}
           className="lobby-create__navigation-button"
+          onClick={props.onClickGroupButton("hair")}
         >
           <HairIcon />
         </div>
@@ -50,6 +55,7 @@ function View(props: TProps) {
         <div
           data-active={props.activeGroup === "clothes"}
           className="lobby-create__navigation-button"
+          onClick={props.onClickGroupButton("clothes")}
         >
           <ClothesIcon />
         </div>
@@ -75,9 +81,7 @@ function View(props: TProps) {
               </div>
             </>
           )}
-
           {props.activeGroup === "parents" && <>Parents</>}
-
           {props.activeGroup === "dna" && (
             <>
               <div className="lobby-create__input-block">
@@ -86,27 +90,17 @@ function View(props: TProps) {
               </div>
             </>
           )}
-
           {props.activeGroup === "hair" && <>Hair</>}
-
           {props.activeGroup === "clothes" && <>Clothes</>}
         </div>
 
         <div className="lobby-create__body-buttons">
-          <button
-            data-primary
-            className="lobby-create__body-button"
-            onClick={props.onClickCreate}
-          >
+          <Button data-wide onClick={props.onClickCreate}>
             Создать
-          </button>
-
-          <button
-            className="lobby-create__body-button"
-            onClick={props.onClickCancel}
-          >
+          </Button>
+          <Button data-wide onClick={props.onClickCancel}>
             Отмена
-          </button>
+          </Button>
         </div>
       </div>
     </section>
