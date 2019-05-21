@@ -5,3 +5,5 @@ export { Button } from "./button";
 export { Range } from "./range";
 export { Input } from "./input";
 export { ShellHeader } from "./shell-header";
+export { ShellBody } from "./shell-body";
+export { ShellFooter } from "./shell-footer";

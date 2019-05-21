@@ -1,0 +1,19 @@
+.shell-footer {
+  position: relative;
+  top: -2vh;
+  z-index: 1;
+  background: linear-gradient(to right, rgba(#893af4, 0.9), rgba(#632ff5, 0.9));
+  box-shadow: 0 0.5vh 2vh rgba(black, 0.25);
+  border-radius: 0 0 2vh 2vh;
+  padding: 5vh 4vh 2vh;
+
+  &__title {
+    text-align: center;
+    font-size: 2.7vh;
+    text-transform: uppercase;
+    letter-spacing: 0.15vh;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 0.4vh 0.4vh rgba(black, 0.4);
+  }
+}

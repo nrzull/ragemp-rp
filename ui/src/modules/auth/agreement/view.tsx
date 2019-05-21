@@ -1,5 +1,5 @@
 import React from "react";
-import { Title, Button } from "@/components";
+import { Title, Button, ShellBody, ShellFooter } from "@/components";
 
 interface TProps {
   onClickGoRegister: () => void;
@@ -8,17 +8,14 @@ interface TProps {
 function View(props: TProps) {
   return (
     <div className="auth auth_agreement">
-      <div className="auth__body auth__body_agreement">
+      <ShellBody data-headless>
         <Title>Правила и соглашение</Title>
-
         <div className="auth__agreement-content">TODO</div>
-      </div>
+      </ShellBody>
 
-      <footer className="auth__footer">
-        <div className="auth__input-block auth__input-block_button">
-          <Button onClick={props.onClickGoRegister}>Назад</Button>
-        </div>
-      </footer>
+      <ShellFooter>
+        <Button onClick={props.onClickGoRegister}>Назад</Button>
+      </ShellFooter>
     </div>
   );
 }

@@ -25,15 +25,6 @@ $body__padding: 4vh;
     width: 70vh;
   }
 
-  &__body {
-    position: relative;
-    z-index: 2;
-    background-color: #fff;
-    box-shadow: 0 0.5vh 2vh rgba(black, 0.5);
-    border-radius: 0 0 2vh 2vh;
-    padding: $body__padding $body__padding 1vh;
-  }
-
   &__agreement-content {
     height: 50vh;
     overflow-y: scroll;
@@ -53,19 +44,6 @@ $body__padding: 4vh;
       width: 100%;
       height: 0.1vh;
       background: linear-gradient(to right, #893af4, #632ff5);
-    }
-  }
-
-  &__body_agreement {
-    border-radius: 2vh;
-    padding: $body__padding;
-
-    *::-webkit-scrollbar {
-      width: 1vh;
-    }
-
-    *::-webkit-scrollbar-thumb {
-      background-color: $color__primary;
     }
   }
 
@@ -132,29 +110,5 @@ $body__padding: 4vh;
     &[data-error="true"] {
       opacity: 1;
     }
-  }
-
-  &__footer {
-    position: relative;
-    top: -2vh;
-    z-index: 1;
-    background: linear-gradient(
-      to right,
-      rgba(#893af4, 0.9),
-      rgba(#632ff5, 0.9)
-    );
-    box-shadow: 0 0.5vh 2vh rgba(black, 0.25);
-    border-radius: 0 0 2vh 2vh;
-    padding: 5vh 4vh 2vh;
-  }
-
-  &__footer-title {
-    text-align: center;
-    font-size: 2.7vh;
-    text-transform: uppercase;
-    letter-spacing: 0.15vh;
-    color: #fff;
-    font-weight: 700;
-    text-shadow: 0 0.4vh 0.4vh rgba(black, 0.4);
   }
 }

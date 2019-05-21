@@ -1,7 +1,15 @@
 import React, { ChangeEvent } from "react";
 import "./styles.scss";
 import { TState } from "./store";
-import { Checkbox, Title, Button, Input, ShellHeader } from "@/components";
+import {
+  Checkbox,
+  Title,
+  Button,
+  Input,
+  ShellHeader,
+  ShellBody,
+  ShellFooter
+} from "@/components";
 
 interface TProps {
   username: TState["username"];
@@ -28,7 +36,7 @@ function View(props: TProps) {
     <div className="auth">
       <ShellHeader>aquamarine project</ShellHeader>
 
-      <section className="auth__body">
+      <ShellBody>
         <Title>Создать аккаунт</Title>
 
         <div className="auth__input-block">
@@ -159,16 +167,13 @@ function View(props: TProps) {
             {props.loading ? "Загрузка" : "Создать"}
           </Button>
         </div>
-      </section>
+      </ShellBody>
 
-      <footer className="auth__footer">
-        <div className="auth__footer-title">Уже есть аккаунт?</div>
-        <div className="auth__input-block auth__input-block_button">
-          <Button disabled={props.loading} onClick={props.onClickGoLogin}>
-            Войти
-          </Button>
-        </div>
-      </footer>
+      <ShellFooter data-title={() => <>Уже есть аккаунт?</>}>
+        <Button disabled={props.loading} onClick={props.onClickGoLogin}>
+          Войти
+        </Button>
+      </ShellFooter>
     </div>
   );
 }
