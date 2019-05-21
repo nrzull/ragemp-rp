@@ -2,6 +2,11 @@ import Mitt from "mitt";
 
 window.bus = new Mitt();
 
+if (!IS_GAME) {
+  window.mp = {};
+  window.mp.trigger = function() {};
+}
+
 function triggerClient(event, payload?) {
   window.mp.trigger(event, JSON.stringify(payload));
 }

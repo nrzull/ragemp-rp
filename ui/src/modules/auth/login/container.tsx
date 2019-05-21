@@ -36,10 +36,14 @@ class Container extends Component<TProps> {
   };
 
   onClickSubmit = () => {
+    if (!IS_GAME) return;
+
     service.logIn();
   };
 
   onClickGoRegister = () => {
+    if (!IS_GAME) return;
+
     this.props.actions.setShow(false);
     this.props.registerActions.setShow(true);
   };
