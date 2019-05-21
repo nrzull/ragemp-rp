@@ -7,8 +7,10 @@ import ClothesIcon from "@/assets/icons/clothes.svg";
 import IdCardIcon from "@/assets/icons/id-card.svg";
 import { Switcher } from "@/components";
 
+type TActiveGroup = "id-card" | "parents" | "dna" | "hair" | "clothes";
+
 interface TProps {
-  activeGroup: "id-card" | "parents" | "dna" | "hair" | "clothes";
+  activeGroup: TActiveGroup;
   onClickCreate: () => void;
   onClickCancel: () => void;
 }
@@ -111,4 +113,4 @@ function View(props: TProps) {
   );
 }
 
-export { View };
+export { View, TActiveGroup };
