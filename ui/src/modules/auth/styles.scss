@@ -54,6 +54,22 @@ $body__padding: 4vh;
     padding-right: 1vh;
   }
 
+  &__link {
+    font-style: normal;
+    position: relative;
+    color: $color__primary;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.1vh;
+      background: linear-gradient(to right, #893af4, #632ff5);
+    }
+  }
+
   &__body_agreement {
     border-radius: 2vh;
     padding: $body__padding;

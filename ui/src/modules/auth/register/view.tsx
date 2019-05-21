@@ -20,6 +20,7 @@ interface TProps {
   onChangeAgreement: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: () => void;
   onClickGoLogin: () => void;
+  onClickGoAgreement: () => void;
 }
 
 function View(props: TProps) {
@@ -145,7 +146,10 @@ function View(props: TProps) {
             checked={props.agreement}
             onChange={props.onChangeAgreement}
           >
-            Я согласен с правилами сервера
+            Я согласен с{" "}
+            <i onClick={props.onClickGoAgreement} className="auth__link">
+              правилами сервера
+            </i>
           </Checkbox>
 
           <div

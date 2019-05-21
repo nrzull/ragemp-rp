@@ -1,6 +1,10 @@
 import React from "react";
 
-function View(props) {
+interface TProps {
+  onClickGoRegister: () => void;
+}
+
+function View(props: TProps) {
   return (
     <div className="auth auth_agreement">
       <div className="auth__body auth__body_agreement">

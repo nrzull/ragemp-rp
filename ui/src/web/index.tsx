@@ -4,6 +4,7 @@ import React, { ChangeEvent } from "react";
 import ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
 import { store, TGlobalState } from "@/core/store";
+
 import {
   Switch,
   BrowserRouter,
@@ -120,6 +121,7 @@ function Container(props: TProps) {
                       {...props.register}
                       onClickGoLogin={onClickMockup}
                       onClickSubmit={onClickMockup}
+                      onClickGoAgreement={onClickMockup}
                       onChangeUsername={onChange("register", "username")}
                       onChangePassword={onChange("register", "password")}
                       onChangeEmail={onChange("register", "email")}
@@ -138,7 +140,7 @@ function Container(props: TProps) {
                 path="/agreement"
                 render={() => (
                   <div className="web__view web__view_welcome">
-                    <Agreement />
+                    <Agreement onClickGoRegister={onClickMockup} />
                   </div>
                 )}
               />

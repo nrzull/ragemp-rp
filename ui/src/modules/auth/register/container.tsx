@@ -6,10 +6,12 @@ import { View } from "./view";
 import * as service from "./service";
 import * as store from "./store";
 import * as loginStore from "@/modules/auth/login/store";
+import * as agreementStore from "@/modules/auth/agreement/store";
 
 interface TStoreActions {
   actions: typeof store.actions;
   loginActions: typeof loginStore.actions;
+  agreementActions: typeof agreementStore.actions;
 }
 
 interface TStoreProps {
@@ -59,6 +61,12 @@ class Container extends Component<TProps> {
     this.props.loginActions.setShow(true);
   };
 
+  onClickGoAgreement = () => {
+    if (this.props.loading) return;
+    this.props.actions.setShow(false);
+    this.props.agreementActions.setShow(true);
+  };
+
   render() {
     return (
       <View
@@ -78,6 +86,7 @@ class Container extends Component<TProps> {
         onChangeAgreement={this.onChangeAgreement}
         onClickSubmit={this.onClickSubmit}
         onClickGoLogin={this.onClickGoLogin}
+        onClickGoAgreement={this.onClickGoAgreement}
       />
     );
   }
@@ -90,7 +99,8 @@ function mapStateToProps({ register }: TGlobalState): TStoreProps {
 function mapDispatchToProps(dispatch): TStoreActions {
   return {
     actions: bindActionCreators(store.actions, dispatch),
-    loginActions: bindActionCreators(loginStore.actions, dispatch)
+    loginActions: bindActionCreators(loginStore.actions, dispatch),
+    agreementActions: bindActionCreators(agreementStore.actions, dispatch)
   };
 }
 
