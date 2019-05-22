@@ -2,18 +2,17 @@ import React, { ComponentProps } from "react";
 import "./styles.scss";
 
 interface TProps extends ComponentProps<"div"> {
-  "data-title"?: () => JSX.Element;
+  TitleElement?: JSX.Element;
 }
 
 function ShellFooter(props: TProps) {
-  const Title = props["data-title"];
+  const footerProps = { ...props };
+  delete footerProps.TitleElement;
 
   return (
-    <footer {...props} className="shell-footer">
-      {Title && (
-        <div className="shell-footer__title">
-          <Title />
-        </div>
+    <footer {...footerProps} className="shell-footer">
+      {!!props.TitleElement && (
+        <div className="shell-footer__title">{props.TitleElement}</div>
       )}
 
       <div className="shell-footer__content">{props.children}</div>
