@@ -6,6 +6,8 @@ import * as service from "./service";
 interface TState {
   activeGroup: TActiveGroup;
   faceFeatures: TFaceFeatures;
+  firstName: string;
+  lastName: string;
 }
 
 const initialFaceFeature: TFaceFeature = {
@@ -20,6 +22,8 @@ class Container extends Component<any, TState> {
 
     this.state = {
       activeGroup: "id-card",
+      firstName: "",
+      lastName: "",
       faceFeatures: {
         noseWidth: { ...initialFaceFeature },
         noseHeight: { ...initialFaceFeature },
@@ -78,6 +82,19 @@ class Container extends Component<any, TState> {
     );
   };
 
+  onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    const key = event.currentTarget.getAttribute("data-key");
+    const value = event.currentTarget.value;
+
+    switch (key) {
+      case "firstName":
+        return this.setState({ firstName: value });
+
+      case "lastName":
+        return this.setState({ lastName: value });
+    }
+  };
+
   onClickGroupButton = (value: TActiveGroup) => () => {
     this.setState({ activeGroup: value });
   };
@@ -91,6 +108,9 @@ class Container extends Component<any, TState> {
         onClickCreate={this.onClickCreate}
         onClickCancel={this.onClickCancel}
         onChangeFaceFeature={this.onChangeFaceFeature}
+        onChangeName={this.onChangeName}
+        firstName={this.state.firstName}
+        lastName={this.state.lastName}
       />
     );
   }

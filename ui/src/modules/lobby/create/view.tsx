@@ -11,10 +11,13 @@ import { TFaceFeatures, TActiveGroup } from "./types";
 interface TProps {
   activeGroup: TActiveGroup;
   faceFeatures: TFaceFeatures;
+  firstName: string;
+  lastName: string;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
   onChangeFaceFeature: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function View(props: TProps) {
@@ -67,12 +70,20 @@ function View(props: TProps) {
             <>
               <div className="lobby-create__input-block">
                 <div className="lobby-create__label">Имя</div>
-                <Input />
+                <Input
+                  data-key="firstName"
+                  value={props.firstName}
+                  onChange={props.onChangeName}
+                />
               </div>
 
               <div className="lobby-create__input-block">
                 <div className="lobby-create__label">Фамилия</div>
-                <Input />
+                <Input
+                  data-key="lastName"
+                  value={props.lastName}
+                  onChange={props.onChangeName}
+                />
               </div>
 
               <div className="lobby-create__input-block">
