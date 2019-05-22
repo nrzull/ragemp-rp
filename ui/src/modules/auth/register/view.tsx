@@ -6,7 +6,6 @@ import {
   Title,
   Button,
   Input,
-  ShellHeader,
   ShellBody,
   ShellFooter
 } from "@/components";
@@ -34,9 +33,7 @@ interface TProps {
 function View(props: TProps) {
   return (
     <div className="auth">
-      <ShellHeader>aquamarine project</ShellHeader>
-
-      <ShellBody>
+      <ShellBody data-headless>
         <Title>Создать аккаунт</Title>
 
         <div className="auth__input-block">

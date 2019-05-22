@@ -5,10 +5,11 @@ import {
   Title,
   Button,
   Input,
-  ShellHeader,
   ShellBody,
   ShellFooter
 } from "@/components";
+
+import Logo from "@/assets/images/logo.svg";
 
 interface TProps {
   username: TState["username"];
@@ -26,8 +27,11 @@ interface TProps {
 function View(props: TProps) {
   return (
     <div className="auth">
-      <ShellHeader>aquamarine project</ShellHeader>
-      <ShellBody>
+      <ShellBody data-headless>
+        <div className="logo">
+          <Logo />
+        </div>
+
         <Title>Войти в аккаунт</Title>
 
         <div className="auth__input-block">

@@ -2,6 +2,14 @@
 
 $body__padding: 4vh;
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3vh;
+  margin-bottom: 2vh;
+}
+
 .auth-block {
   display: flex;
   justify-content: center;
