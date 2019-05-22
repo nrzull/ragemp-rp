@@ -12,7 +12,7 @@ namespace Project.Server.Account
         public void OnPlayerConnected(Client player)
         {
             player.SetData(Resources.ATTACHMENT_KEY, new Account.Attachment { });
-            player.TriggerEvent(Shared.Events.PLAYER_CONNECT);
+            player.TriggerEvent(Shared.Events.CLIENT_PLAYER_CONNECT);
         }
 
         [ServerEvent(Event.PlayerDisconnected)]
