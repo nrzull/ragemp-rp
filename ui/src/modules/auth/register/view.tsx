@@ -166,7 +166,7 @@ function View(props: TProps) {
         </div>
       </ShellBody>
 
-      <ShellFooter data-title={() => <>Уже есть аккаунт?</>}>
+      <ShellFooter TitleElement={<>Уже есть аккаунт?</>}>
         <Button disabled={props.loading} onClick={props.onClickGoLogin}>
           Войти
         </Button>
