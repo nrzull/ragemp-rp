@@ -10,7 +10,7 @@ namespace Project.Server.Account.Register
 {
     class Service : Script
     {
-        public static void RegisterAccount(Client player, Misc.SubmitPayload payload)
+        public static void RegisterAccount(Client player, Schemes.SubmitPayload payload)
         {
             // return if the player is already authorized
             if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
@@ -55,7 +55,7 @@ namespace Project.Server.Account.Register
         }
 
         // return a list of errors if at least one of the fields is invalid
-        static Dictionary<string, string> ValidateFields(Misc.SubmitPayload payload)
+        static Dictionary<string, string> ValidateFields(Schemes.SubmitPayload payload)
         {
             var errors = new Dictionary<string, string>();
 

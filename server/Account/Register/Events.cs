@@ -21,7 +21,7 @@ namespace Project.Server.Account.Register
                 // For data != invalid json, because JsonConvert throw an error
                 try
                 {
-                    Misc.SubmitPayload payload = JsonConvert.DeserializeObject<Misc.SubmitPayload>(data);
+                    Schemes.SubmitPayload payload = JsonConvert.DeserializeObject<Schemes.SubmitPayload>(data);
                     Service.RegisterAccount(player, payload);
                 }
                 catch (JsonException jex)
