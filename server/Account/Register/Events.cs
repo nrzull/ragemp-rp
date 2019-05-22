@@ -9,11 +9,11 @@ namespace Project.Server.Account.Register
     class Events : Script
     {
         [RemoteEvent(Shared.Events.UI_REGISTER_SUBMIT)]
-        public void OnUiRegisterSubmit(Client player, string data = "json") // For data != null, because JsonConvert throw an error
+        public void OnUiRegisterSubmit(Client player, string data) // For data != null, because JsonConvert throw an error
         {
             NAPI.Task.Run(() =>
             {
-                if (Middlewares.EventsBlocker.Block(player, Shared.Events.UI_REGISTER_SUBMIT, 2000) > 1)
+                if (Middlewares.EventsBlocker.Block(player, Shared.Events.UI_REGISTER_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
                 {
                     Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_ERROR); // Remove it
                     return;
@@ -24,9 +24,9 @@ namespace Project.Server.Account.Register
                     Schemes.SubmitPayload payload = JsonConvert.DeserializeObject<Schemes.SubmitPayload>(data);
                     Service.RegisterAccount(player, payload);
                 }
-                catch (JsonException jex)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(jex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             });
         }

@@ -81,6 +81,15 @@ namespace Project.Server.Account.Register
                 errors.Add(nameof(payload.RepeatPassword), Resources.ERROR_PASSWORD_DONT_MATCH);
             }
 
+            if (!string.IsNullOrEmpty(payload.PromoCode))
+            {
+                Regex regex = new Regex(Account.Resources.USERNAME_REGEX);
+                if (regex.IsMatch(payload.PromoCode) == false)
+                {
+                    errors.Add(nameof(payload.PromoCode), Resources.ERROR_PROMO_CODE_INVALID);
+                }
+            }
+
             if (!payload.Agreement)
             {
                 errors.Add(nameof(payload.Agreement), Resources.ERROR_AGREEMENT_NOT_SATISFIED);

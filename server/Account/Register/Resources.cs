@@ -12,6 +12,8 @@ namespace Project.Server.Account.Register
 
         public const string ERROR_USERNAME_EXISTS = "Введенный логин уже используется 9";
 
+        public const string ERROR_PROMO_CODE_INVALID = "Промокод не по формату";
+
         public const string ERROR_AGREEMENT_NOT_SATISFIED = "Пожалуйста согласитесь с правилами сервера";
     }
 }

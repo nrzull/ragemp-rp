@@ -12,6 +12,7 @@ interface TState {
     username: string;
     password: string;
     repeatPassword: string;
+    promoCode: string;
     agreement: string;
   };
 }
@@ -30,6 +31,7 @@ const initialState: TState = {
     username: "",
     password: "",
     repeatPassword: "",
+    promoCode: "",
     agreement: ""
   }
 };
