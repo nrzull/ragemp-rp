@@ -1,7 +1,5 @@
 @import "~@/assets/styles/variables";
 
-$body__padding: 4vh;
-
 .logo {
   display: flex;
   justify-content: center;
@@ -95,28 +93,6 @@ $body__padding: 4vh;
 
     &[data-error="true"] {
       background-color: $red;
-    }
-  }
-
-  &__input-error {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    padding: 0 1vh;
-    right: calc(#{$body__padding} + 100%);
-    opacity: 0;
-    white-space: nowrap;
-    background-color: #eee;
-    color: $red;
-    display: flex;
-    align-items: center;
-    border-left: 0.5vh solid $red;
-    border-radius: 0.5vh 0 0 0.5vh;
-    z-index: 2;
-    box-shadow: -1vh 0.3vh 1vh rgba(black, 0.3);
-
-    &[data-error="true"] {
-      opacity: 1;
     }
   }
 }

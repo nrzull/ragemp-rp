@@ -6,7 +6,8 @@ import {
   Button,
   Input,
   ShellBody,
-  ShellFooter
+  ShellFooter,
+  InputError
 } from "@/components";
 
 import Logo from "@/assets/images/logo.svg";
@@ -49,12 +50,7 @@ function View(props: TProps) {
             />
           </div>
 
-          <div
-            data-error={!!props.errors.username}
-            className="auth__input-error"
-          >
-            {props.errors.username}
-          </div>
+          <InputError message={props.errors.username} />
         </div>
 
         <div className="auth__input-block">
@@ -74,12 +70,7 @@ function View(props: TProps) {
             />
           </div>
 
-          <div
-            data-error={!!props.errors.password}
-            className="auth__input-error"
-          >
-            {props.errors.password}
-          </div>
+          <InputError message={props.errors.password} />
         </div>
 
         <div className="auth__input-block auth__input-block_checkbox">

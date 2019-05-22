@@ -7,3 +7,4 @@ export { Input } from "./input";
 export { ShellHeader } from "./shell-header";
 export { ShellBody } from "./shell-body";
 export { ShellFooter } from "./shell-footer";
+export { InputError } from "./input-error";
