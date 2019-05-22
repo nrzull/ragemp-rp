@@ -4,7 +4,7 @@
     </PropertyGroup>
     <ItemGroup>
       <Compile Include="..\client\csharp\Shared\Events.cs" Link="Shared\Events.cs" />
-      <Compile Include="..\client\csharp\Shared\Payload.cs" Link="Shared\Payload.cs" />
+      <Compile Include="..\client\csharp\Shared\Schemes.cs" Link="Shared\Schemes.cs" />
     </ItemGroup>
 
     <ItemGroup>
