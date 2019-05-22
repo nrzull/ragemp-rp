@@ -17,8 +17,6 @@ bus.on(shared.events.UI_REGISTER_SUBMIT_OK, () => {
   store.dispatch(login.actions.setErrors({}));
 
   store.dispatch(actions.setShow(false));
-  store.dispatch(login.actions.setShow(true));
-
   login.service.logIn();
 });
 
