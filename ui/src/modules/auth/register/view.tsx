@@ -131,12 +131,7 @@ function View(props: TProps) {
             />
           </div>
 
-          <div
-            data-error={!!props.errors.promoCode}
-            className="auth__input-error"
-          >
-            {props.errors.promoCode}
-          </div>
+          <InputError message={props.errors.promoCode} />
         </div>
 
         <div className="auth__input-block auth__input-block_checkbox">
