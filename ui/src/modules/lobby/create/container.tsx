@@ -1,16 +1,47 @@
-import React, { Component } from "react";
-import { View, TActiveGroup } from "./view";
+import React, { Component, ChangeEvent } from "react";
+import { View } from "./view";
+import { TFaceFeature, TFaceFeatures, TActiveGroup } from "./types";
+import * as service from "./service";
 
 interface TState {
   activeGroup: TActiveGroup;
+  faceFeatures: TFaceFeatures;
 }
+
+const initialFaceFeature: TFaceFeature = {
+  min: -1,
+  max: 1,
+  current: 0
+};
 
 class Container extends Component<any, TState> {
   constructor(p) {
     super(p);
 
     this.state = {
-      activeGroup: "id-card"
+      activeGroup: "id-card",
+      faceFeatures: {
+        noseWidth: { ...initialFaceFeature },
+        noseHeight: { ...initialFaceFeature },
+        noseLength: { ...initialFaceFeature },
+        noseBridge: { ...initialFaceFeature },
+        noseTip: { ...initialFaceFeature },
+        noseBridgeShift: { ...initialFaceFeature },
+        browHeight: { ...initialFaceFeature },
+        browWidth: { ...initialFaceFeature },
+        cheekboneHeight: { ...initialFaceFeature },
+        cheeckboneWidth: { ...initialFaceFeature },
+        cheeksWidth: { ...initialFaceFeature },
+        eyes: { ...initialFaceFeature },
+        lips: { ...initialFaceFeature },
+        jawWidth: { ...initialFaceFeature },
+        jawHeight: { ...initialFaceFeature },
+        chinLength: { ...initialFaceFeature },
+        chinPosition: { min: 0, max: 1, current: 0.5 },
+        chinWidth: { ...initialFaceFeature },
+        chinShape: { ...initialFaceFeature },
+        neckWidth: { ...initialFaceFeature }
+      }
     };
   }
 
@@ -22,6 +53,31 @@ class Container extends Component<any, TState> {
     if (!IS_GAME) return;
   };
 
+  onChangeFaceFeature = (event: ChangeEvent<HTMLInputElement>) => {
+    const key = event.currentTarget.getAttribute(
+      "data-key"
+    ) as keyof TFaceFeatures;
+
+    const value = +event.currentTarget.value;
+    const faceFeature = this.state.faceFeatures[key];
+
+    this.setState(
+      {
+        faceFeatures: {
+          ...this.state.faceFeatures,
+          [key]: {
+            ...faceFeature,
+            current: value
+          }
+        }
+      },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("face-feature", key, value);
+      }
+    );
+  };
+
   onClickGroupButton = (value: TActiveGroup) => () => {
     this.setState({ activeGroup: value });
   };
@@ -29,10 +85,12 @@ class Container extends Component<any, TState> {
   render() {
     return (
       <View
+        faceFeatures={this.state.faceFeatures}
         activeGroup={this.state.activeGroup}
         onClickGroupButton={this.onClickGroupButton}
         onClickCreate={this.onClickCreate}
         onClickCancel={this.onClickCancel}
+        onChangeFaceFeature={this.onChangeFaceFeature}
       />
     );
   }
