@@ -12,7 +12,7 @@ namespace Project.Client.Account.Login
 
         public static void OnUiLoginSubmitOk(object[] args)
         {
-            var payload = JsonConvert.DeserializeObject<Shared.Payload.UiLoginSubmit>((string)args[0]);
+            var payload = JsonConvert.DeserializeObject<Shared.Schemes.UiLoginSubmitPayload>((string)args[0]);
 
             if (payload.Remember)
             {

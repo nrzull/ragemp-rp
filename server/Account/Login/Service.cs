@@ -8,7 +8,7 @@ namespace Project.Server.Account.Login
 {
     class Service
     {
-        public static void LogIn(Client player, Shared.Payload.UiLoginSubmit payload)
+        public static void LogIn(Client player, Shared.Schemes.UiLoginSubmitPayload payload)
         {
             // return if the player is already authorized
             if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
@@ -38,7 +38,7 @@ namespace Project.Server.Account.Login
             // TODO: Show character menu
         }
 
-        static Dictionary<string, string> ValidateFields(Shared.Payload.UiLoginSubmit payload)
+        static Dictionary<string, string> ValidateFields(Shared.Schemes.UiLoginSubmitPayload payload)
         {
             var errors = new Dictionary<string, string>();
 
