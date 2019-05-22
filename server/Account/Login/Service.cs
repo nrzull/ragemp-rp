@@ -33,7 +33,9 @@ namespace Project.Server.Account.Login
 
             attachment.Entity = account;
 
-            Bus.TriggerClient(player, Shared.Events.UI_LOGIN_SUBMIT_OK, payload);
+            Bus.TriggerClient(player, Shared.Events.CLIENT_LOGIN_SUBMIT_OK, payload);
+
+            Bus.TriggerClient(player, Shared.Events.CLIENT_LOBBY_SHOW);
 
             // TODO: Show character menu
         }
