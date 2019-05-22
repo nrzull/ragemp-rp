@@ -9,12 +9,12 @@ namespace Project.Server.Account.Login
 {
     class Events : Script
     {
-        [RemoteEvent(Shared.Events.UI_LOGIN_SUBMIT)]
+        [RemoteEvent(Shared.Events.SERVER_LOGIN_SUBMIT)]
         public void OnUiLoginSubmit(Client player, string data) // For data != null, because JsonConvert throw an error
         {
             Task.Run(() =>
             {
-                if (Middlewares.EventsBlocker.Block(player, Shared.Events.UI_LOGIN_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
+                if (Middlewares.EventsBlocker.Block(player, Shared.Events.SERVER_LOGIN_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
                 {
                     return;
                 }

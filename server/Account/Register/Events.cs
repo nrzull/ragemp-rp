@@ -8,12 +8,12 @@ namespace Project.Server.Account.Register
 {
     class Events : Script
     {
-        [RemoteEvent(Shared.Events.UI_REGISTER_SUBMIT)]
+        [RemoteEvent(Shared.Events.SERVER_REGISTER_SUBMIT)]
         public void OnUiRegisterSubmit(Client player, string data) // For data != null, because JsonConvert throw an error
         {
             NAPI.Task.Run(() =>
             {
-                if (Middlewares.EventsBlocker.Block(player, Shared.Events.UI_REGISTER_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
+                if (Middlewares.EventsBlocker.Block(player, Shared.Events.SERVER_REGISTER_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
                 {
                     Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_ERROR); // Remove it
                     return;

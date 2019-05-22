@@ -7,7 +7,7 @@ export function logIn() {
 
   store.dispatch(actions.setLoading(true));
 
-  bus.triggerServer(shared.events.UI_LOGIN_SUBMIT, {
+  bus.triggerServer(shared.events.SERVER_LOGIN_SUBMIT, {
     username,
     password,
     remember

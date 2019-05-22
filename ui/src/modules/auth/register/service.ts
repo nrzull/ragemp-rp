@@ -14,7 +14,7 @@ export function register() {
 
   store.dispatch(actions.setLoading(true));
 
-  bus.triggerServer(shared.events.UI_REGISTER_SUBMIT, {
+  bus.triggerServer(shared.events.SERVER_REGISTER_SUBMIT, {
     email,
     username,
     password,
