@@ -133,11 +133,26 @@ function View(props: TProps) {
 
         <div className="auth__input-block">
           <label className="auth__label">Промо-код (необязательно)</label>
-          <Input
-            value={props.promoCode}
-            onChange={props.onChangePromoCode}
-            placeholder="Введите промо-код"
-          />
+
+          <div className="auth__input-wrapper">
+            <Input
+              data-padding-for-status
+              value={props.promoCode}
+              onChange={props.onChangePromoCode}
+              placeholder="Введите промо-код"
+            />
+            <div
+              data-error={!!props.errors.promoCode}
+              className="auth__input-status"
+            />
+          </div>
+
+          <div
+            data-error={!!props.errors.promoCode}
+            className="auth__input-error"
+          >
+            {props.errors.promoCode}
+          </div>
         </div>
 
         <div className="auth__input-block auth__input-block_checkbox">
