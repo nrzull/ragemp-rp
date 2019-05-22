@@ -1,8 +1,4 @@
 {
-  "scripts": {
-    "start": "webpack --watch",
-    "web": "cross-env TARGET=web webpack-dev-server"
-  },
   "dependencies": {
     "classnames": "^2.2.6",
     "core-js": "^3.0.1",

@@ -26,4 +26,5 @@ dotnet ef database update
 
 ## Запуск
 
-- Ввести `npm start`
+- `npm start` - Разработка всего проекта
+- `npm run web` - Разработка только интерфейса
