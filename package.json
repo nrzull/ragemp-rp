@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "watch": "node scripts/watch.js"
+    "init": "npm install && node scripts/init.js",
+    "start": "node scripts/prestart.js && node scripts/start.js"
   },
   "devDependencies": {
+    "adm-zip": "^0.4.13",
     "chalk": "^2.4.2",
     "chokidar": "^2.1.6",
     "find-process": "^1.4.1",

@@ -450,3 +450,4 @@ MigrationBackup/
 *.sln
 /server/compiled
 /server/Config/Secret.cs
+/.init
