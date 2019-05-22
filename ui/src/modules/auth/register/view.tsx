@@ -7,7 +7,8 @@ import {
   Button,
   Input,
   ShellBody,
-  ShellFooter
+  ShellFooter,
+  InputError
 } from "@/components";
 
 interface TProps {
@@ -52,12 +53,7 @@ function View(props: TProps) {
             />
           </div>
 
-          <div
-            data-error={!!props.errors.username}
-            className="auth__input-error"
-          >
-            {props.errors.username}
-          </div>
+          <InputError message={props.errors.username} />
         </div>
 
         <div className="auth__input-block">
@@ -76,9 +72,7 @@ function View(props: TProps) {
             />
           </div>
 
-          <div data-error={!!props.errors.email} className="auth__input-error">
-            {props.errors.email}
-          </div>
+          <InputError message={props.errors.email} />
         </div>
 
         <div className="auth__input-block">
@@ -98,12 +92,7 @@ function View(props: TProps) {
             />
           </div>
 
-          <div
-            data-error={!!props.errors.password}
-            className="auth__input-error"
-          >
-            {props.errors.password}
-          </div>
+          <InputError message={props.errors.password} />
         </div>
 
         <div className="auth__input-block">
@@ -123,12 +112,7 @@ function View(props: TProps) {
             />
           </div>
 
-          <div
-            data-error={!!props.errors.repeatPassword}
-            className="auth__input-error"
-          >
-            {props.errors.repeatPassword}
-          </div>
+          <InputError message={props.errors.repeatPassword} />
         </div>
 
         <div className="auth__input-block">
