@@ -2,6 +2,8 @@ namespace Project.Shared
 {
     class Events
     {
+        public const string SERVER_DEBUG = "SERVER_DEBUG";
+
         public const string CLIENT_PLAYER_CONNECT = "CLIENT_PLAYER_CONNECT";
 
         public const string UI_LOADED = "UI_LOADED";
