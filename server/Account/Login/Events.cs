@@ -10,7 +10,7 @@ namespace Project.Server.Account.Login
     class Events : Script
     {
         [RemoteEvent(Shared.Events.UI_LOGIN_SUBMIT)]
-        public void OnUiLoginSubmit(Client player, string data = "json") // For data != null, because JsonConvert throw an error
+        public void OnUiLoginSubmit(Client player, string data) // For data != null, because JsonConvert throw an error
         {
             Task.Run(() =>
             {
@@ -24,9 +24,10 @@ namespace Project.Server.Account.Login
                     Shared.Schemes.UiLoginSubmitPayload payload = JsonConvert.DeserializeObject<Shared.Schemes.UiLoginSubmitPayload>(data);
                     Service.LogIn(player, payload);
                 }
-                catch (JsonException jex)
+                catch (Exception ex
+                )
                 {
-                    Console.WriteLine(jex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             });
         }
