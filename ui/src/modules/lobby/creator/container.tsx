@@ -1,61 +1,46 @@
 import React, { Component, ChangeEvent } from "react";
 import { View } from "./view";
-import { TFaceFeature, TFaceFeatures, TActiveGroup, TSex } from "./types";
+
+import {
+  TOnInitOkPayload,
+  TFaceFeatures,
+  TName,
+  TActiveGroup,
+  TSex
+} from "./types";
+
 import * as service from "./service";
+import { bus } from "@/core";
+import * as shared from "@/shared";
 
-interface TState {
-  activeGroup: TActiveGroup;
-  faceFeatures: TFaceFeatures;
-  firstName: string;
-  lastName: string;
-  gender: TSex;
+interface TState extends TOnInitOkPayload {
+  activeGroup?: TActiveGroup;
+  gender?: TSex;
+  init: boolean;
 }
-
-const initialFaceFeature: TFaceFeature = {
-  min: -1,
-  max: 1,
-  current: 0
-};
-
-const initialGender = "male";
 
 class Container extends Component<any, TState> {
   constructor(p) {
     super(p);
 
-    this.state = {
-      activeGroup: "id-card",
-      firstName: "",
-      lastName: "",
-      gender: initialGender,
-      faceFeatures: {
-        noseWidth: { ...initialFaceFeature },
-        noseHeight: { ...initialFaceFeature },
-        noseLength: { ...initialFaceFeature },
-        noseBridge: { ...initialFaceFeature },
-        noseTip: { ...initialFaceFeature },
-        noseBridgeShift: { ...initialFaceFeature },
-        browHeight: { ...initialFaceFeature },
-        browWidth: { ...initialFaceFeature },
-        cheekboneHeight: { ...initialFaceFeature },
-        cheeckboneWidth: { ...initialFaceFeature },
-        cheeksWidth: { ...initialFaceFeature },
-        eyes: { ...initialFaceFeature },
-        lips: { ...initialFaceFeature },
-        jawWidth: { ...initialFaceFeature },
-        jawHeight: { ...initialFaceFeature },
-        chinLength: { ...initialFaceFeature },
-        chinPosition: { min: 0, max: 1, current: 0.5 },
-        chinWidth: { ...initialFaceFeature },
-        chinShape: { ...initialFaceFeature },
-        neckWidth: { ...initialFaceFeature }
-      }
-    };
+    this.state = { init: false } as any;
   }
 
+  componentWillMount() {
+    bus.on(shared.events.UI_LOBBY_CREATOR_INIT_OK, this.onInit);
+  }
+
+  componentWillUnmount() {
+    bus.off(shared.events.UI_LOBBY_CREATOR_INIT_OK, this.onInit);
+  }
+
+  onInit = (payload: TOnInitOkPayload) => {
+    if (!this.setState) return;
+    this.setState({ ...payload, init: true, activeGroup: "id-card" });
+  };
+
   componentDidMount() {
-    if (!IS_GAME) return;
-    service.reset(this.state.faceFeatures, this.state.gender);
+    service.init();
   }
 
   onClickCreate = () => {
@@ -97,10 +82,14 @@ class Container extends Component<any, TState> {
 
     switch (key) {
       case "firstName":
-        return this.setState({ firstName: value });
+        return this.setState({
+          firstName: { ...this.state.firstName, current: value }
+        });
 
       case "lastName":
-        return this.setState({ lastName: value });
+        return this.setState({
+          lastName: { ...this.state.lastName, current: value }
+        });
     }
   };
 
@@ -109,6 +98,8 @@ class Container extends Component<any, TState> {
   };
 
   render() {
+    if (!this.state.init) return <></>;
+
     return (
       <View
         faceFeatures={this.state.faceFeatures}
