@@ -6,13 +6,13 @@ import HairIcon from "@/assets/icons/hair.svg";
 import ClothesIcon from "@/assets/icons/clothes.svg";
 import IdCardIcon from "@/assets/icons/id-card.svg";
 import { Switcher, Button, Range, Input, Title } from "@/components";
-import { TFaceFeatures, TActiveGroup } from "./types";
+import { TFaceFeatures, TActiveGroup, TName } from "./types";
 
 interface TProps {
   activeGroup: TActiveGroup;
   faceFeatures: TFaceFeatures;
-  firstName: string;
-  lastName: string;
+  firstName: TName;
+  lastName: TName;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
@@ -72,7 +72,7 @@ function View(props: TProps) {
                 <div className="lobby-create__label">Имя</div>
                 <Input
                   data-key="firstName"
-                  value={props.firstName}
+                  value={props.firstName.current}
                   onChange={props.onChangeName}
                 />
               </div>
@@ -81,7 +81,7 @@ function View(props: TProps) {
                 <div className="lobby-create__label">Фамилия</div>
                 <Input
                   data-key="lastName"
-                  value={props.lastName}
+                  value={props.lastName.current}
                   onChange={props.onChangeName}
                 />
               </div>
@@ -214,10 +214,10 @@ function View(props: TProps) {
                 <div className="lobby-create__label">cheeckboneWidth</div>
                 <Range
                   step="any"
-                  data-key="cheeckboneWidth"
-                  min={props.faceFeatures.cheeckboneWidth.min}
-                  max={props.faceFeatures.cheeckboneWidth.max}
-                  value={props.faceFeatures.cheeckboneWidth.current}
+                  data-key="cheekboneWidth"
+                  min={props.faceFeatures.cheekboneWidth.min}
+                  max={props.faceFeatures.cheekboneWidth.max}
+                  value={props.faceFeatures.cheekboneWidth.current}
                   onChange={props.onChangeFaceFeature}
                 />
               </div>
