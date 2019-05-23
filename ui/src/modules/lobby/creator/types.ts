@@ -9,14 +9,6 @@ export interface THeadOverlay {
   current: number;
 }
 
-export interface TSex {
-  current: "male" | "female";
-}
-
-export interface TName {
-  current: string;
-}
-
 export interface THeadOverlays {
   blemishes: THeadOverlay;
   facialHair: THeadOverlay;
@@ -62,13 +54,16 @@ export type TActiveGroup =
   | "overlay"
   | "clothes";
 
-export type TCustomizeType = "face-feature" | "head-overlay";
-export type TCustomizeKey = keyof TFaceFeatures | keyof THeadOverlays;
+export type TCustomizeType = "face-feature" | "head-overlay" | "sex";
+
+export type TCustomizeKey =
+  | keyof TFaceFeatures
+  | keyof THeadOverlays
+  | "male"
+  | "female";
 
 export interface TOnInitOkPayload {
   faceFeatures: TFaceFeatures;
-  sex: TSex;
-  firstName: TName;
-  lastName: TName;
+  sex: string;
   headOverlays: THeadOverlays;
 }

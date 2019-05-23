@@ -6,10 +6,10 @@ import OverlayIcon from "@/assets/icons/hair.svg";
 import ClothesIcon from "@/assets/icons/clothes.svg";
 import IdCardIcon from "@/assets/icons/id-card.svg";
 import { Switcher, Button, Range, Input, Title } from "@/components";
+
 import {
   TFaceFeatures,
   TActiveGroup,
-  TName,
   THeadOverlays,
   THeadOverlay
 } from "./types";
@@ -18,14 +18,16 @@ interface TProps {
   activeGroup: TActiveGroup;
   faceFeatures: TFaceFeatures;
   headOverlays: THeadOverlays;
-  firstName: TName;
-  lastName: TName;
+  firstName: string;
+  lastName: string;
+  sex: string;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
   onClickHeadOverlay: (key: keyof THeadOverlays, step: 1 | -1) => () => void;
   onChangeFaceFeature: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickSex: (value: "male" | "female") => () => void;
 }
 
 interface THeadOverlayProps {
@@ -100,7 +102,7 @@ function View(props: TProps) {
                 <div className="lobby-create__label">Имя</div>
                 <Input
                   data-key="firstName"
-                  value={props.firstName.current}
+                  value={props.firstName}
                   onChange={props.onChangeName}
                 />
               </div>
@@ -109,14 +111,18 @@ function View(props: TProps) {
                 <div className="lobby-create__label">Фамилия</div>
                 <Input
                   data-key="lastName"
-                  value={props.lastName.current}
+                  value={props.lastName}
                   onChange={props.onChangeName}
                 />
               </div>
 
               <div className="lobby-create__input-block">
-                <Switcher onClickPrevious={() => {}} onClickNext={() => {}}>
-                  Пол: <span>Мужской</span>
+                <Switcher
+                  onClickPrevious={props.onClickSex("male")}
+                  onClickNext={props.onClickSex("female")}
+                >
+                  Пол:{" "}
+                  <span>{props.sex === "male" ? "Мужской" : "Женский"}</span>
                 </Switcher>
               </div>
             </>

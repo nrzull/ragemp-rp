@@ -4,11 +4,8 @@ import { View } from "./view";
 import {
   TOnInitOkPayload,
   TFaceFeatures,
-  TName,
   TActiveGroup,
-  TSex,
-  THeadOverlays,
-  THeadOverlay
+  THeadOverlays
 } from "./types";
 
 import * as service from "./service";
@@ -16,16 +13,22 @@ import { bus } from "@/core";
 import * as shared from "@/shared";
 
 interface TState extends TOnInitOkPayload {
-  activeGroup?: TActiveGroup;
-  gender?: TSex;
+  activeGroup: TActiveGroup;
   init: boolean;
+  firstName: string;
+  lastName: string;
 }
 
 class Container extends Component<any, TState> {
   constructor(p) {
     super(p);
 
-    this.state = { init: false } as any;
+    this.state = {
+      init: false,
+      firstName: "",
+      lastName: "",
+      activeGroup: "id-card"
+    } as TState;
   }
 
   componentWillMount() {
@@ -38,7 +41,11 @@ class Container extends Component<any, TState> {
 
   onInit = (payload: TOnInitOkPayload) => {
     if (!this.setState) return;
-    this.setState({ ...payload, init: true, activeGroup: "id-card" });
+    this.setState({
+      ...payload,
+      init: true,
+      sex: payload.sex || this.state.sex
+    });
   };
 
   componentDidMount() {
@@ -85,12 +92,12 @@ class Container extends Component<any, TState> {
     switch (key) {
       case "firstName":
         return this.setState({
-          firstName: { ...this.state.firstName, current: value }
+          firstName: value
         });
 
       case "lastName":
         return this.setState({
-          lastName: { ...this.state.lastName, current: value }
+          lastName: value
         });
     }
   };
@@ -120,6 +127,15 @@ class Container extends Component<any, TState> {
     );
   };
 
+  onClickSex = (sex: "male" | "female") => () => {
+    if (sex === this.state.sex) return;
+
+    this.setState({ sex }, () => {
+      if (!IS_GAME) return;
+      service.customize("sex", sex);
+    });
+  };
+
   render() {
     if (!this.state.init) return <></>;
 
@@ -136,6 +152,8 @@ class Container extends Component<any, TState> {
         onChangeName={this.onChangeName}
         firstName={this.state.firstName}
         lastName={this.state.lastName}
+        onClickSex={this.onClickSex}
+        sex={this.state.sex}
       />
     );
   }

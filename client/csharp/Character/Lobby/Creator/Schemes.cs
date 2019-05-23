@@ -28,12 +28,6 @@ namespace Project.Client.Character.Creator
             public string Default { get; set; } = "male";
         }
 
-        public class Name
-        {
-            public string Current { get; set; } = "";
-            public string Default { get; set; } = "";
-        }
-
         public class FaceFeatures
         {
             public FaceFeature NoseWidth = new FaceFeature { Index = 0 };
@@ -137,9 +131,7 @@ namespace Project.Client.Character.Creator
         {
             public FaceFeatures FaceFeatures { get; set; }
             public HeadOverlays HeadOverlays { get; set; }
-            public Sex Sex { get; set; }
-            public Name FirstName { get; set; }
-            public Name LastName { get; set; }
+            public string Sex { get; set; }
         }
 
         public class CustomizePayload
