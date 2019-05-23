@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent } from "react";
 import { View } from "./view";
-import { TFaceFeature, TFaceFeatures, TActiveGroup } from "./types";
+import { TFaceFeature, TFaceFeatures, TActiveGroup, TSex } from "./types";
 import * as service from "./service";
 
 interface TState {
@@ -8,6 +8,7 @@ interface TState {
   faceFeatures: TFaceFeatures;
   firstName: string;
   lastName: string;
+  gender: TSex;
 }
 
 const initialFaceFeature: TFaceFeature = {
@@ -15,6 +16,8 @@ const initialFaceFeature: TFaceFeature = {
   max: 1,
   current: 0
 };
+
+const initialGender = "male";
 
 class Container extends Component<any, TState> {
   constructor(p) {
@@ -24,6 +27,7 @@ class Container extends Component<any, TState> {
       activeGroup: "id-card",
       firstName: "",
       lastName: "",
+      gender: initialGender,
       faceFeatures: {
         noseWidth: { ...initialFaceFeature },
         noseHeight: { ...initialFaceFeature },
@@ -47,6 +51,11 @@ class Container extends Component<any, TState> {
         neckWidth: { ...initialFaceFeature }
       }
     };
+  }
+
+  componentDidMount() {
+    if (!IS_GAME) return;
+    service.reset(this.state.faceFeatures, this.state.gender);
   }
 
   onClickCreate = () => {

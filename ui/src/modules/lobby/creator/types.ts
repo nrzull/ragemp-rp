@@ -31,3 +31,5 @@ export type TActiveGroup = "id-card" | "parents" | "dna" | "hair" | "clothes";
 
 export type TCustomizeType = "face-feature";
 export type TCustomizeKey = keyof TFaceFeatures;
+
+export type TSex = "male" | "female";

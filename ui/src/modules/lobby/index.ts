@@ -1,3 +1,3 @@
-import * as create from "./create";
+import * as creator from "./creator";
 
-export { create };
+export { creator };
