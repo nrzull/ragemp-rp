@@ -7,15 +7,11 @@ function init() {
 }
 
 function customize(type: TCustomizeType, key: TCustomizeKey, value: any) {
-  bus.triggerClient(shared.events.UI_LOBBY_CREATE_CUSTOMIZE, {
+  bus.triggerClient(shared.events.UI_LOBBY_CREATOR_CUSTOMIZE, {
     type,
     key,
     value
   });
 }
 
-function reset(faceFeatures: TFaceFeatures, sex: TSex) {
-  bus.triggerClient(shared.events.UI_LOBBY_CREATE_RESET, { faceFeatures, sex });
-}
-
-export { customize, reset, init };
+export { customize, init };
