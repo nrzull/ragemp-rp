@@ -2,7 +2,7 @@ namespace Project.Shared
 {
     class Events
     {
-        public const string SERVER_DEBUG = "SERVER_DEBUG";
+        public const string DEBUG_CONSOLE_MESSAGE = "DEBUG_CONSOLE_MESSAGE";
 
         public const string SERVER_LOGIN_SUBMIT = "SERVER_LOGIN_SUBMIT";
         public const string SERVER_REGISTER_SUBMIT = "SERVER_REGISTER_SUBMIT";
