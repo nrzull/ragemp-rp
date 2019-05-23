@@ -32,7 +32,7 @@ function Container(props) {
             <Link to="/auth/login">Login</Link>
             <Link to="/auth/register">Register</Link>
             <Link to="/auth/agreement">Agreement</Link>
-            <Link to="/lobby/create">Create Character</Link>
+            <Link to="/lobby/creator">Create Character</Link>
           </nav>
 
           <div className="web__main">
@@ -65,10 +65,10 @@ function Container(props) {
               />
 
               <Route
-                path="/lobby/create"
+                path="/lobby/creator"
                 render={() => (
                   <div className="web__view web__view_lobby">
-                    <Lobby.create.Create />
+                    <Lobby.creator.Creator />
                   </div>
                 )}
               />
