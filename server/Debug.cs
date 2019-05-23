@@ -12,9 +12,6 @@ namespace Project.Server
         {
             if (Config.Secret.Core.DEBUG)
             {
-                player.SetSkin(PedHash.Terry);
-
-                GiveWeaponToPlayer(player);
             }
         }
 
@@ -40,7 +37,7 @@ namespace Project.Server
         public void CmdInfo(Client player)
         {
             if (Config.Secret.Core.DEBUG)
-            { 
+            {
                 player.SendChatMessage("Info recorded. Check console!");
 
                 Console.WriteLine($"Position: {player.Position}");
