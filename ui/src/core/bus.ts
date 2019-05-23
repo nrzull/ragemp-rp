@@ -17,6 +17,7 @@ function triggerServer(event, payload?) {
 
 const bus = {
   on: window.bus.on,
+  off: window.bus.off,
   triggerClient,
   triggerServer
 };
