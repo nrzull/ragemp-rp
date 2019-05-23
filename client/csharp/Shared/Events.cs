@@ -21,5 +21,11 @@ namespace Project.Shared
         public const string UI_REGISTER_SHOW = "UI_REGISTER_SHOW";
         public const string UI_REGISTER_SUBMIT_OK = "UI_REGISTER_SUBMIT_OK";
         public const string UI_REGISTER_SUBMIT_ERROR = "UI_REGISTER_SUBMIT_ERROR";
+
+        public const string UI_LOBBY_CREATOR_SHOW = "UI_LOBBY_CREATOR_SHOW";
+        public const string UI_LOBBY_CREATOR_INIT = "UI_LOBBY_CREATOR_INIT";
+        public const string UI_LOBBY_CREATOR_INIT_OK = "UI_LOBBY_CREATOR_INIT_OK";
+
+        public const string UI_LOBBY_CREATOR_CUSTOMIZE = "UI_LOBBY_CREATOR_CUSTOMIZE";
     }
 }
