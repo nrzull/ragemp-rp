@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent } from "react";
+import React, { Component, ChangeEvent, MouseEvent } from "react";
 import { View } from "./view";
 
 import {
@@ -6,7 +6,9 @@ import {
   TFaceFeatures,
   TName,
   TActiveGroup,
-  TSex
+  TSex,
+  THeadOverlays,
+  THeadOverlay
 } from "./types";
 
 import * as service from "./service";
@@ -97,16 +99,39 @@ class Container extends Component<any, TState> {
     this.setState({ activeGroup: value });
   };
 
+  onClickHeadOverlay = (key: keyof THeadOverlays, step: 1 | -1) => () => {
+    const headOverlay = this.state.headOverlays[key];
+    const nextCurrent = headOverlay.current + step;
+    const nextValue = headOverlay.values[nextCurrent];
+
+    if (typeof nextValue !== "number") return;
+
+    this.setState(
+      {
+        headOverlays: {
+          ...this.state.headOverlays,
+          [key]: { ...headOverlay, current: nextCurrent }
+        }
+      },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("head-overlay", key, nextCurrent);
+      }
+    );
+  };
+
   render() {
     if (!this.state.init) return <></>;
 
     return (
       <View
         faceFeatures={this.state.faceFeatures}
+        headOverlays={this.state.headOverlays}
         activeGroup={this.state.activeGroup}
         onClickGroupButton={this.onClickGroupButton}
         onClickCreate={this.onClickCreate}
         onClickCancel={this.onClickCancel}
+        onClickHeadOverlay={this.onClickHeadOverlay}
         onChangeFaceFeature={this.onChangeFaceFeature}
         onChangeName={this.onChangeName}
         firstName={this.state.firstName}

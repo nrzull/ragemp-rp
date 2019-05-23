@@ -1,23 +1,51 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, MouseEvent } from "react";
 import "./styles.scss";
 import ParentsIcon from "@/assets/icons/parents.svg";
 import DnaIcon from "@/assets/icons/dna.svg";
-import HairIcon from "@/assets/icons/hair.svg";
+import OverlayIcon from "@/assets/icons/hair.svg";
 import ClothesIcon from "@/assets/icons/clothes.svg";
 import IdCardIcon from "@/assets/icons/id-card.svg";
 import { Switcher, Button, Range, Input, Title } from "@/components";
-import { TFaceFeatures, TActiveGroup, TName } from "./types";
+import {
+  TFaceFeatures,
+  TActiveGroup,
+  TName,
+  THeadOverlays,
+  THeadOverlay
+} from "./types";
 
 interface TProps {
   activeGroup: TActiveGroup;
   faceFeatures: TFaceFeatures;
+  headOverlays: THeadOverlays;
   firstName: TName;
   lastName: TName;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
+  onClickHeadOverlay: (key: keyof THeadOverlays, step: 1 | -1) => () => void;
   onChangeFaceFeature: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface THeadOverlayProps {
+  text: string;
+  name: keyof THeadOverlays;
+  handler: TProps["onClickHeadOverlay"];
+  headOverlay: THeadOverlay;
+}
+
+function HeadOverlay(props: THeadOverlayProps) {
+  return (
+    <div className="lobby-create__input-block">
+      <Switcher
+        onClickPrevious={props.handler(props.name, -1)}
+        onClickNext={props.handler(props.name, 1)}
+      >
+        {props.text}: <span>{props.headOverlay.current}</span>
+      </Switcher>
+    </div>
+  );
 }
 
 function View(props: TProps) {
@@ -49,11 +77,11 @@ function View(props: TProps) {
         </div>
 
         <div
-          data-active={props.activeGroup === "hair"}
+          data-active={props.activeGroup === "overlay"}
           className="lobby-create__navigation-button"
-          onClick={props.onClickGroupButton("hair")}
+          onClick={props.onClickGroupButton("overlay")}
         >
-          <HairIcon />
+          <OverlayIcon />
         </div>
 
         <div
@@ -355,7 +383,93 @@ function View(props: TProps) {
               </div>
             </>
           )}
-          {props.activeGroup === "hair" && <>Hair</>}
+          {props.activeGroup === "overlay" && (
+            <>
+              <HeadOverlay
+                name="blemishes"
+                text="blemishes"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.blemishes}
+              />
+
+              <HeadOverlay
+                name="facialHair"
+                text="facialHair"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.facialHair}
+              />
+
+              <HeadOverlay
+                name="eyebrows"
+                text="eyebrows"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.eyebrows}
+              />
+
+              <HeadOverlay
+                name="ageing"
+                text="ageing"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.ageing}
+              />
+
+              <HeadOverlay
+                name="makeup"
+                text="makeup"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.makeup}
+              />
+
+              <HeadOverlay
+                name="blush"
+                text="blush"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.blush}
+              />
+
+              <HeadOverlay
+                name="complexion"
+                text="complexion"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.complexion}
+              />
+
+              <HeadOverlay
+                name="sunDamage"
+                text="sunDamage"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.sunDamage}
+              />
+
+              <HeadOverlay
+                name="lipstick"
+                text="lipstick"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.lipstick}
+              />
+
+              <HeadOverlay
+                name="molesFreckles"
+                text="molesFreckles"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.molesFreckles}
+              />
+
+              <HeadOverlay
+                name="chestHair"
+                text="chestHair"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.chestHair}
+              />
+
+              <HeadOverlay
+                name="bodyBlemishes"
+                text="bodyBlemishes"
+                handler={props.onClickHeadOverlay}
+                headOverlay={props.headOverlays.bodyBlemishes}
+              />
+            </>
+          )}
           {props.activeGroup === "clothes" && <>Clothes</>}
         </div>
 

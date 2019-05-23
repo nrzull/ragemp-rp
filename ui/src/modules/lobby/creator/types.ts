@@ -4,12 +4,32 @@ export interface TFaceFeature {
   current: number;
 }
 
+export interface THeadOverlay {
+  values: number[];
+  current: number;
+}
+
 export interface TSex {
   current: "male" | "female";
 }
 
 export interface TName {
   current: string;
+}
+
+export interface THeadOverlays {
+  blemishes: THeadOverlay;
+  facialHair: THeadOverlay;
+  eyebrows: THeadOverlay;
+  ageing: THeadOverlay;
+  makeup: THeadOverlay;
+  blush: THeadOverlay;
+  complexion: THeadOverlay;
+  sunDamage: THeadOverlay;
+  lipstick: THeadOverlay;
+  molesFreckles: THeadOverlay;
+  chestHair: THeadOverlay;
+  bodyBlemishes: THeadOverlay;
 }
 
 export interface TFaceFeatures {
@@ -35,13 +55,20 @@ export interface TFaceFeatures {
   neckWidth: TFaceFeature;
 }
 
-export type TActiveGroup = "id-card" | "parents" | "dna" | "hair" | "clothes";
-export type TCustomizeType = "face-feature";
-export type TCustomizeKey = keyof TFaceFeatures;
+export type TActiveGroup =
+  | "id-card"
+  | "parents"
+  | "dna"
+  | "overlay"
+  | "clothes";
+
+export type TCustomizeType = "face-feature" | "head-overlay";
+export type TCustomizeKey = keyof TFaceFeatures | keyof THeadOverlays;
 
 export interface TOnInitOkPayload {
   faceFeatures: TFaceFeatures;
   sex: TSex;
   firstName: TName;
   lastName: TName;
+  headOverlays: THeadOverlays;
 }

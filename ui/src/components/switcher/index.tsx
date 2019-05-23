@@ -13,8 +13,14 @@ function Switcher(props: TProps) {
       <div className="switcher__content">{props.children}</div>
 
       <div className="switcher__buttons">
-        <Arrow className="switcher__button switcher__button_left" />
-        <Arrow className="switcher__button switcher__button_right" />
+        <Arrow
+          onClick={props.onClickPrevious}
+          className="switcher__button switcher__button_left"
+        />
+        <Arrow
+          onClick={props.onClickNext}
+          className="switcher__button switcher__button_right"
+        />
       </div>
     </div>
   );
