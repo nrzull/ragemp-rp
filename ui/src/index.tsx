@@ -9,7 +9,8 @@ import ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
 import { store, bus, TGlobalState } from "@/core";
 import * as shared from "@/shared";
-import * as auth from "./modules/auth";
+import * as auth from "@/modules/auth";
+import * as lobby from "@/modules/lobby";
 
 interface TStoreProps {
   auth: TGlobalState["auth"]["show"];
@@ -22,7 +23,12 @@ function mapStateToProps(state: TGlobalState): TStoreProps {
 }
 
 function Container(props: TStoreProps) {
-  return <>{props.auth && <auth.Auth />}</>;
+  return (
+    <>
+      {props.auth && <auth.Auth />}
+      <lobby.Lobby />
+    </>
+  );
 }
 
 const ConnectedContainer = connect(mapStateToProps)(Container);
