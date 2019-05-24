@@ -48,6 +48,13 @@ namespace Project.Client.Character.Creator
             public int Default { get; set; } = 0;
         }
 
+        public class Color
+        {
+            public List<int> Values { get; set; } = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 26, 27, 28, 29 };
+            public int Current { get; set; } = 0;
+            public int Default { get; set; } = 0;
+        }
+
 
         public class FaceFeatures
         {
@@ -154,6 +161,7 @@ namespace Project.Client.Character.Creator
             public HeadOverlays HeadOverlays { get; set; }
             public string Sex { get; set; }
             public Hair Hair { get; set; }
+            public Color Color { get; set; }
         }
 
         public class CustomizePayload

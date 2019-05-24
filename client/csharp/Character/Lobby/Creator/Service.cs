@@ -8,7 +8,7 @@ namespace Project.Client.Character.Creator
         static Schemes.FaceFeatures FaceFeatures;
         static Schemes.Sex Sex;
         static Schemes.HeadOverlays HeadOverlays;
-
+        static Schemes.Color Color;
         static Schemes.Hair Hair;
 
         public static void Init()
@@ -23,7 +23,8 @@ namespace Project.Client.Character.Creator
             {
                 FaceFeatures = FaceFeatures,
                 HeadOverlays = HeadOverlays,
-                Hair = Hair
+                Hair = Hair,
+                Color = Color
             };
 
             if (sex) payload.Sex = Sex.Default;
@@ -58,6 +59,12 @@ namespace Project.Client.Character.Creator
                         CustomizeHair((int)payload.Value);
                         break;
                     }
+
+                case "color":
+                    {
+                        CustomizeColor((int)payload.Value);
+                        break;
+                    }
             }
         }
 
@@ -89,8 +96,8 @@ namespace Project.Client.Character.Creator
                 var headOverlay = (Schemes.HeadOverlay)field.GetValue(HeadOverlays);
 
                 headOverlay.Current = value;
-
                 RenderHeadOverlay(headOverlay);
+                break;
             }
         }
 
@@ -130,10 +137,28 @@ namespace Project.Client.Character.Creator
             RAGE.Elements.Player.LocalPlayer.SetComponentVariation(Hair.Index, Hair.Values[Hair.Current], 0, 0);
         }
 
+        static void CustomizeColor(int value)
+        {
+            Color.Current = value;
+            RenderColor();
+        }
+
+        static void RenderColor()
+        {
+            RAGE.Elements.Player.LocalPlayer.SetHairColor(Color.Values[Color.Current], 0);
+
+            RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.FacialHair.Index, 1, Color.Values[Color.Current], 0);
+
+            RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.ChestHair.Index, 1, Color.Values[Color.Current], 0);
+
+            RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.Eyebrows.Index, 1, Color.Values[Color.Current], 0);
+        }
+
         static void Reset(bool sex = true)
         {
             FaceFeatures = new Schemes.FaceFeatures { };
             HeadOverlays = new Schemes.HeadOverlays { };
+            Color = new Schemes.Color { };
 
             if (sex)
             {
@@ -168,6 +193,7 @@ namespace Project.Client.Character.Creator
             }
 
             RenderHair();
+            RenderColor();
         }
     }
 }

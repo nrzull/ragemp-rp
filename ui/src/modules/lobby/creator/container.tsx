@@ -150,6 +150,20 @@ class Container extends Component<any, TState> {
     );
   };
 
+  onClickColor = (step: 1 | -1) => () => {
+    const nextCurrent = this.state.color.current + step;
+    const nextValue = this.state.color.values[nextCurrent];
+    if (typeof nextValue !== "number") return;
+
+    this.setState(
+      { color: { ...this.state.color, current: nextCurrent } },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("color", null, nextCurrent);
+      }
+    );
+  };
+
   render() {
     if (!this.state.init) return <></>;
 
@@ -168,8 +182,10 @@ class Container extends Component<any, TState> {
         lastName={this.state.lastName}
         onClickSex={this.onClickSex}
         onClickHair={this.onClickHair}
+        onClickColor={this.onClickColor}
         hair={this.state.hair}
         sex={this.state.sex}
+        color={this.state.color}
       />
     );
   }

@@ -12,7 +12,8 @@ import {
   TActiveGroup,
   THeadOverlays,
   THeadOverlay,
-  THair
+  THair,
+  TColor
 } from "./types";
 
 interface TProps {
@@ -23,6 +24,7 @@ interface TProps {
   lastName: string;
   sex: string;
   hair: THair;
+  color: TColor;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
@@ -31,6 +33,7 @@ interface TProps {
   onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSex: (value: "male" | "female") => () => void;
   onClickHair: (step: 1 | -1) => () => void;
+  onClickColor: (step: 1 | -1) => () => void;
 }
 
 interface THeadOverlayProps {
@@ -400,6 +403,15 @@ function View(props: TProps) {
                   onClickNext={props.onClickHair(1)}
                 >
                   Hair: <span>{props.hair.current}</span>
+                </Switcher>
+              </div>
+
+              <div className="lobby-create__input-block">
+                <Switcher
+                  onClickPrevious={props.onClickColor(-1)}
+                  onClickNext={props.onClickColor(1)}
+                >
+                  Color: <span>{props.color.current}</span>
                 </Switcher>
               </div>
 

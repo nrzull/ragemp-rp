@@ -14,6 +14,11 @@ export interface THair {
   current: number;
 }
 
+export interface TColor {
+  values: number[];
+  current: number;
+}
+
 export interface THeadOverlays {
   blemishes: THeadOverlay;
   facialHair: THeadOverlay;
@@ -59,7 +64,12 @@ export type TActiveGroup =
   | "overlay"
   | "clothes";
 
-export type TCustomizeType = "face-feature" | "head-overlay" | "sex" | "hair";
+export type TCustomizeType =
+  | "face-feature"
+  | "head-overlay"
+  | "sex"
+  | "hair"
+  | "color";
 
 export type TCustomizeKey =
   | keyof TFaceFeatures
@@ -72,4 +82,5 @@ export interface TOnInitOkPayload {
   sex: string;
   headOverlays: THeadOverlays;
   hair: THair;
+  color: TColor;
 }
