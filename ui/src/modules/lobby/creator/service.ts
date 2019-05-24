@@ -14,4 +14,8 @@ function customize(type: TCustomizeType, key: TCustomizeKey, value?: any) {
   });
 }
 
-export { customize, init };
+function submit(payload: { firstName: string; lastName: string }) {
+  bus.triggerClient(shared.events.LOBBY_CREATOR_SUBMIT, payload);
+}
+
+export { customize, init, submit };

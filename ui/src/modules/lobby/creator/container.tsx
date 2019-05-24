@@ -55,6 +55,11 @@ class Container extends Component<any, TState> {
 
   onClickCreate = () => {
     if (!IS_GAME) return;
+
+    service.submit({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName
+    });
   };
 
   onClickCancel = () => {

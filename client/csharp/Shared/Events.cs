@@ -27,5 +27,7 @@ namespace Project.Shared
         public const string UI_LOBBY_CREATOR_INIT_OK = "UI_LOBBY_CREATOR_INIT_OK";
 
         public const string UI_LOBBY_CREATOR_CUSTOMIZE = "UI_LOBBY_CREATOR_CUSTOMIZE";
+
+        public const string LOBBY_CREATOR_SUBMIT = "LOBBY_CREATOR_SUBMIT";
     }
 }

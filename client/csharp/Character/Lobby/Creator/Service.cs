@@ -1,6 +1,15 @@
 using System.Linq;
 using RAGE;
+using System.Collections.Generic;
 
+// TODO добавить изменение цвета глаз
+// TODO добавить цвета для косметики
+// TODO улучшить камеру (повороты и т.д.)
+// TODO (?) добавить возможность поворачивать персонажа по своей оси
+// TODO добавить картинки родителей
+// TODO убирать кнопку "отмена" если у аккаунта нету созданных персонажей
+// TODO перевести интерфейс на русский
+// TODO рефакторинг
 namespace Project.Client.Character.Creator
 {
     public class Service
@@ -35,6 +44,37 @@ namespace Project.Client.Character.Creator
             if (sex) payload.Sex = Sex.Default;
 
             Bus.TriggerUi(Shared.Events.UI_LOBBY_CREATOR_INIT_OK, payload);
+        }
+
+        public static void Submit(Schemes.SubmitPayload payload)
+        {
+            var data = new Shared.Schemes.UiLobbyCreatorSubmit
+            {
+                FirstName = payload.FirstName,
+                LastName = payload.LastName,
+                Sex = Sex.Current,
+                BlendData = BlendData.Current,
+                Hair = Hair.Current,
+                FaceFeatures = new List<Shared.Schemes.FaceFeature>(),
+                HeadOverlays = new List<Shared.Schemes.HeadOverlay>(),
+                Color = Color.Values[Color.Current]
+            };
+
+            foreach (var item in FaceFeatures.GetType().GetFields())
+            {
+                var faceFeature = (Schemes.FaceFeature)item.GetValue(FaceFeatures);
+
+                data.FaceFeatures.Add(new Shared.Schemes.FaceFeature { Index = faceFeature.Index, Value = faceFeature.Current });
+            }
+
+            foreach (var item in HeadOverlays.GetType().GetFields())
+            {
+                var headOverlay = (Schemes.HeadOverlay)item.GetValue(HeadOverlays);
+
+                data.HeadOverlays.Add(new Shared.Schemes.HeadOverlay { Index = headOverlay.Index, Value = headOverlay.Values.ElementAt(headOverlay.Current) });
+            }
+
+            Bus.TriggerServer(Shared.Events.LOBBY_CREATOR_SUBMIT, data);
         }
 
         public static void Customize(Schemes.CustomizePayload payload)

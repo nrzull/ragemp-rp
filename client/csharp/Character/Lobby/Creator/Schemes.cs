@@ -304,5 +304,11 @@ namespace Project.Client.Character.Creator
             public string Key { get; set; }
             public dynamic Value { get; set; }
         }
+
+        public class SubmitPayload
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
     }
 }

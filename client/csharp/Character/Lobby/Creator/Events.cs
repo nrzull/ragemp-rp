@@ -10,6 +10,8 @@ namespace Project.Client.Character.Creator
             RAGE.Events.Add(Shared.Events.UI_LOBBY_CREATOR_INIT, OnUiLobbyCreatorInit);
 
             RAGE.Events.Add(Shared.Events.UI_LOBBY_CREATOR_CUSTOMIZE, OnUiLobbyCreatorCustomize);
+
+            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_SUBMIT, OnLobbyCreatorSubmit);
         }
 
         public void OnUiLobbyCreatorInit(object[] args)
@@ -22,6 +24,13 @@ namespace Project.Client.Character.Creator
             var payload = JsonConvert.DeserializeObject<Schemes.CustomizePayload>((string)args[0]);
 
             Service.Customize(payload);
+        }
+
+        public void OnLobbyCreatorSubmit(object[] args)
+        {
+            var payload = JsonConvert.DeserializeObject<Schemes.SubmitPayload>((string)args[0]);
+
+            Service.Submit(payload);
         }
     }
 }
