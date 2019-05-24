@@ -9,22 +9,21 @@ namespace Project.Client.Character.Creator
         static Schemes.Sex Sex;
         static Schemes.HeadOverlays HeadOverlays;
 
-        public static void SendInitialDataToUi(bool sex = true)
+        public static void Init()
         {
-            FaceFeatures = new Schemes.FaceFeatures { };
-            HeadOverlays = new Schemes.HeadOverlays { };
+            Reset();
+            SendInitialDataToUi();
+        }
 
+        static void SendInitialDataToUi(bool sex = true)
+        {
             var payload = new Schemes.SendInitialDataToUiPayload
             {
                 FaceFeatures = FaceFeatures,
                 HeadOverlays = HeadOverlays
             };
 
-            if (sex)
-            {
-                Sex = new Schemes.Sex { };
-                payload.Sex = Sex.Default;
-            }
+            if (sex) payload.Sex = Sex.Default;
 
             Bus.TriggerUi(Shared.Events.UI_LOBBY_CREATOR_INIT_OK, payload);
         }
@@ -62,11 +61,14 @@ namespace Project.Client.Character.Creator
                 var faceFeature = (Schemes.FaceFeature)field.GetValue(FaceFeatures);
 
                 faceFeature.Current = value;
-
-                RAGE.Elements.Player.LocalPlayer.SetFaceFeature(faceFeature.Index, faceFeature.Current);
-
+                RenderFaceFeature(faceFeature);
                 break;
             }
+        }
+
+        static void RenderFaceFeature(Schemes.FaceFeature faceFeature)
+        {
+            RAGE.Elements.Player.LocalPlayer.SetFaceFeature(faceFeature.Index, faceFeature.Current);
         }
 
         static void CustomizeHeadOverlay(string key, int value)
@@ -79,13 +81,26 @@ namespace Project.Client.Character.Creator
 
                 headOverlay.Current = value;
 
-                RAGE.Elements.Player.LocalPlayer.SetHeadOverlay(headOverlay.Index, headOverlay.Values.ElementAt(headOverlay.Current), 1);
+                RenderHeadOverlay(headOverlay);
             }
+        }
+
+        static void RenderHeadOverlay(Schemes.HeadOverlay headOverlay)
+        {
+            RAGE.Elements.Player.LocalPlayer.SetHeadOverlay(headOverlay.Index, headOverlay.Values.ElementAt(headOverlay.Current), 1);
         }
 
         static void CustomizeSex(string sex)
         {
-            if (sex == "male")
+            Sex.Current = sex;
+            RenderSex();
+            Reset(sex: false);
+            SendInitialDataToUi(sex: false);
+        }
+
+        static void RenderSex()
+        {
+            if (Sex.Current == "male")
             {
                 RAGE.Elements.Player.LocalPlayer.Model = RAGE.Game.Misc.GetHashKey("mp_m_freemode_01");
             }
@@ -93,9 +108,32 @@ namespace Project.Client.Character.Creator
             {
                 RAGE.Elements.Player.LocalPlayer.Model = RAGE.Game.Misc.GetHashKey("mp_f_freemode_01");
             }
+        }
 
-            Sex.Current = sex;
-            SendInitialDataToUi(sex: false);
+        static void Reset(bool sex = true)
+        {
+            FaceFeatures = new Schemes.FaceFeatures { };
+            HeadOverlays = new Schemes.HeadOverlays { };
+
+            if (sex)
+            {
+                Sex = new Schemes.Sex { };
+                RenderSex();
+            }
+
+            foreach (var item in FaceFeatures.GetType().GetFields())
+            {
+                var faceFeature = (Schemes.FaceFeature)item.GetValue(FaceFeatures);
+
+                RenderFaceFeature(faceFeature);
+            }
+
+            foreach (var item in HeadOverlays.GetType().GetFields())
+            {
+                var headOverlay = (Schemes.HeadOverlay)item.GetValue(HeadOverlays);
+
+                RenderHeadOverlay(headOverlay);
+            }
         }
     }
 }

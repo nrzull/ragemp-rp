@@ -14,7 +14,7 @@ namespace Project.Client.Character.Creator
 
         public void OnUiLobbyCreatorInit(object[] args)
         {
-            Service.SendInitialDataToUi();
+            Service.Init();
         }
 
         public void OnUiLobbyCreatorCustomize(object[] args)
