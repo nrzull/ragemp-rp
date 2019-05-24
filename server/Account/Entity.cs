@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Project.Server.Account
 {
@@ -10,6 +11,7 @@ namespace Project.Server.Account
         public string Password { get; set; }
         public string PromoCode { get; set; }
         public DateTime RegisterDate { get; set; }
+        public IList<Character.Entity> Characters { get; set; }
 
         public Entity(string email, string username, string password, string promoCode, DateTime registerDate)
         {
@@ -18,6 +20,7 @@ namespace Project.Server.Account
             Password = password;
             PromoCode = promoCode;
             RegisterDate = registerDate;
+            Characters = new List<Character.Entity>();
         }
     }
 }
