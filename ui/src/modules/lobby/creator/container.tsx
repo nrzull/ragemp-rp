@@ -224,6 +224,20 @@ class Container extends Component<any, TState> {
     );
   };
 
+  onClickEyeColor = (step: 1 | -1) => () => {
+    const nextCurrent = this.state.eyeColor.current + step;
+    const nextValue = this.state.eyeColor.values[nextCurrent];
+    if (typeof nextValue !== "number") return;
+
+    this.setState(
+      { eyeColor: { ...this.state.eyeColor, current: nextCurrent } },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("eye-color", null, nextCurrent);
+      }
+    );
+  };
+
   render() {
     if (!this.state.init) return <></>;
 
@@ -254,6 +268,8 @@ class Container extends Component<any, TState> {
         skinMix={this.state.skinMix}
         onChangeShapeMix={this.onChangeShapeMix}
         onChangeSkinMix={this.onChangeSkinMix}
+        eyeColor={this.state.eyeColor}
+        onClickEyeColor={this.onClickEyeColor}
       />
     );
   }

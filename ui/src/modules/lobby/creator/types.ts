@@ -19,6 +19,11 @@ export interface TColor {
   current: number;
 }
 
+export interface TEyeColor {
+  values: number[];
+  current: number;
+}
+
 export interface TMix {
   min: number;
   max: number;
@@ -84,7 +89,8 @@ export type TCustomizeType =
   | "father"
   | "mother"
   | "skin-mix"
-  | "shape-mix";
+  | "shape-mix"
+  | "eye-color";
 
 export type TCustomizeKey =
   | keyof TFaceFeatures
@@ -102,4 +108,5 @@ export interface TOnInitOkPayload {
   mothers: TParent;
   skinMix: TMix;
   shapeMix: TMix;
+  eyeColor: TEyeColor;
 }

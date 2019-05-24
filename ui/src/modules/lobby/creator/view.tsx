@@ -15,7 +15,8 @@ import {
   THair,
   TColor,
   TParent,
-  TMix
+  TMix,
+  TEyeColor
 } from "./types";
 
 interface TProps {
@@ -31,6 +32,7 @@ interface TProps {
   mothers: TParent;
   shapeMix: TMix;
   skinMix: TMix;
+  eyeColor: TEyeColor;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
@@ -42,6 +44,7 @@ interface TProps {
   onClickColor: (step: 1 | -1) => () => void;
   onClickFather: (step: 1 | -1) => () => void;
   onClickMother: (step: 1 | -1) => () => void;
+  onClickEyeColor: (step: 1 | -1) => () => void;
   onChangeShapeMix: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeSkinMix: (event: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -472,6 +475,15 @@ function View(props: TProps) {
                   onClickNext={props.onClickColor(1)}
                 >
                   Color: <span>{props.color.current}</span>
+                </Switcher>
+              </div>
+
+              <div className="lobby-create__input-block">
+                <Switcher
+                  onClickPrevious={props.onClickEyeColor(-1)}
+                  onClickNext={props.onClickEyeColor(1)}
+                >
+                  Eye Color: <span>{props.eyeColor.current}</span>
                 </Switcher>
               </div>
 

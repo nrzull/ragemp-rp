@@ -71,6 +71,12 @@ namespace Project.Client.Character.Creator
             new Parent(45, "Misty")
         };
 
+        public class EyeColor
+        {
+            public List<int> Values { get; set; } = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7 };
+            public int Current { get; set; } = 0;
+        }
+
         public class BlendData
         {
             public (int, int, int, int, int, int, float, float, float, bool) Current { get; set; }
@@ -259,6 +265,7 @@ namespace Project.Client.Character.Creator
             public string Sex { get; set; }
             public Hair Hair { get; set; }
             public Color Color { get; set; }
+            public EyeColor EyeColor { get; set; }
             public ParentPayload Fathers { get; set; }
             public ParentPayload Mothers { get; set; }
             public Mix ShapeMix { get; set; }

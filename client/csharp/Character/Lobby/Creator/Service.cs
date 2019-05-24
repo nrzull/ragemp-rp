@@ -2,7 +2,6 @@ using System.Linq;
 using RAGE;
 using System.Collections.Generic;
 
-// TODO добавить изменение цвета глаз
 // TODO добавить цвета для косметики
 // TODO улучшить камеру (повороты и т.д.)
 // TODO (?) добавить возможность поворачивать персонажа по своей оси
@@ -20,6 +19,7 @@ namespace Project.Client.Character.Creator
         static Schemes.HeadOverlays HeadOverlays;
         static Schemes.Color Color;
         static Schemes.Hair Hair;
+        static Schemes.EyeColor EyeColor;
 
         public static void Init()
         {
@@ -35,6 +35,7 @@ namespace Project.Client.Character.Creator
                 HeadOverlays = HeadOverlays,
                 Hair = Hair,
                 Color = Color,
+                EyeColor = EyeColor,
                 Fathers = new Schemes.ParentPayload("father"),
                 Mothers = new Schemes.ParentPayload("mother"),
                 SkinMix = new Schemes.Mix { Min = BlendData.MixMin, Max = BlendData.MixMax, Current = BlendData.MixDefault },
@@ -54,7 +55,8 @@ namespace Project.Client.Character.Creator
                 LastName = payload.LastName,
                 Sex = Sex.Current,
                 BlendData = BlendData.Current,
-                Hair = Hair.Current,
+                Hair = Hair.Values[Hair.Current],
+                EyeColor = EyeColor.Values[EyeColor.Current],
                 FaceFeatures = new List<Shared.Schemes.FaceFeature>(),
                 HeadOverlays = new List<Shared.Schemes.HeadOverlay>(),
                 Color = Color.Values[Color.Current]
@@ -108,6 +110,12 @@ namespace Project.Client.Character.Creator
                 case "color":
                     {
                         CustomizeColor((int)payload.Value);
+                        break;
+                    }
+
+                case "eye-color":
+                    {
+                        CustomizeEyeColor((int)payload.Value);
                         break;
                     }
 
@@ -208,6 +216,17 @@ namespace Project.Client.Character.Creator
             RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.Eyebrows.Index, 1, Color.Values[Color.Current], 0);
         }
 
+        static void CustomizeEyeColor(int value)
+        {
+            EyeColor.Current = value;
+            RenderEyeColor();
+        }
+
+        static void RenderEyeColor()
+        {
+            RAGE.Elements.Player.LocalPlayer.SetEyeColor(EyeColor.Values[EyeColor.Current]);
+        }
+
         static void CustomizeBlendData(string key, dynamic value)
         {
             if (key == "father") BlendData.SetFather((int)value);
@@ -228,6 +247,7 @@ namespace Project.Client.Character.Creator
             FaceFeatures = new Schemes.FaceFeatures { };
             HeadOverlays = new Schemes.HeadOverlays { };
             Color = new Schemes.Color { };
+            EyeColor = new Schemes.EyeColor { };
 
             if (sex)
             {
