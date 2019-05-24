@@ -1,13 +1,5 @@
 @import "~@/assets/styles/variables";
 
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3vh;
-  margin-bottom: 2vh;
-}
-
 .auth-block {
   display: flex;
   justify-content: center;
@@ -25,6 +17,19 @@
 
   & * {
     user-select: none;
+  }
+
+  &__logo-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3vh;
+    margin-bottom: 3vh;
+
+    & > * {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &_agreement {

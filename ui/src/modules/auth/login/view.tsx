@@ -29,7 +29,7 @@ function View(props: TProps) {
   return (
     <div className="auth">
       <ShellBody data-headless>
-        <div className="logo">
+        <div className="auth__logo-block">
           <Logo />
         </div>
 
