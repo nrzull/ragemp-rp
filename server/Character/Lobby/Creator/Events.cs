@@ -1,4 +1,6 @@
 using GTANetworkAPI;
+using System;
+using Newtonsoft.Json;
 
 namespace Project.Server.Character.Lobby.Creator
 {
@@ -7,7 +9,16 @@ namespace Project.Server.Character.Lobby.Creator
         [RemoteEvent(Shared.Events.LOBBY_CREATOR_SUBMIT)]
         public void OnLobbyCreatorSubmit(Client player, string data)
         {
-            System.Console.WriteLine(data);
+            try
+            {
+                var payload = JsonConvert.DeserializeObject<Shared.Schemes.UiLobbyCreatorSubmit>(data);
+
+                Service.CreateCharacter(player, payload);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

@@ -10,15 +10,16 @@ namespace Project.Server.Account.Login
     class Events : Script
     {
         [RemoteEvent(Shared.Events.SERVER_LOGIN_SUBMIT)]
-        public void OnUiLoginSubmit(Client player, string data) // For data != null, because JsonConvert throw an error
+        public void OnUiLoginSubmit(Client player, string data)
         {
             Task.Run(() =>
             {
                 if (Middlewares.EventsBlocker.Block(player, Shared.Events.SERVER_LOGIN_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
                 {
+                    // TODO уведомить о блокировке если такова имеется
                     return;
                 }
-                // For data != invalid json, because JsonConvert throw an error
+
                 try
                 {
                     Shared.Schemes.UiLoginSubmitPayload payload = JsonConvert.DeserializeObject<Shared.Schemes.UiLoginSubmitPayload>(data);
