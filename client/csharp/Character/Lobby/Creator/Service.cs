@@ -9,6 +9,8 @@ namespace Project.Client.Character.Creator
         static Schemes.Sex Sex;
         static Schemes.HeadOverlays HeadOverlays;
 
+        static Schemes.Hair Hair;
+
         public static void Init()
         {
             Reset();
@@ -20,7 +22,8 @@ namespace Project.Client.Character.Creator
             var payload = new Schemes.SendInitialDataToUiPayload
             {
                 FaceFeatures = FaceFeatures,
-                HeadOverlays = HeadOverlays
+                HeadOverlays = HeadOverlays,
+                Hair = Hair
             };
 
             if (sex) payload.Sex = Sex.Default;
@@ -46,7 +49,13 @@ namespace Project.Client.Character.Creator
 
                 case "sex":
                     {
-                        CustomizeSex(payload.Key);
+                        CustomizeSex((string)payload.Value);
+                        break;
+                    }
+
+                case "hair":
+                    {
+                        CustomizeHair((int)payload.Value);
                         break;
                     }
             }
@@ -110,6 +119,17 @@ namespace Project.Client.Character.Creator
             }
         }
 
+        static void CustomizeHair(int value)
+        {
+            Hair.Current = value;
+            RenderHair();
+        }
+
+        static void RenderHair()
+        {
+            RAGE.Elements.Player.LocalPlayer.SetComponentVariation(Hair.Index, Hair.Values[Hair.Current], 0, 0);
+        }
+
         static void Reset(bool sex = true)
         {
             FaceFeatures = new Schemes.FaceFeatures { };
@@ -120,6 +140,18 @@ namespace Project.Client.Character.Creator
                 Sex = new Schemes.Sex { };
                 RenderSex();
             }
+
+            Schemes.Hair TargetHair;
+            if (Sex.Current == "male") TargetHair = Schemes.MaleHair;
+            else TargetHair = Schemes.FemaleHair;
+
+            Hair = new Schemes.Hair
+            {
+                Current = TargetHair.Current,
+                Default = TargetHair.Default,
+                Index = TargetHair.Index,
+                Values = TargetHair.Values
+            };
 
             foreach (var item in FaceFeatures.GetType().GetFields())
             {
@@ -134,6 +166,8 @@ namespace Project.Client.Character.Creator
 
                 RenderHeadOverlay(headOverlay);
             }
+
+            RenderHair();
         }
     }
 }

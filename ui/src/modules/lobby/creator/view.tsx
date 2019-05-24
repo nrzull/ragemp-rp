@@ -11,7 +11,8 @@ import {
   TFaceFeatures,
   TActiveGroup,
   THeadOverlays,
-  THeadOverlay
+  THeadOverlay,
+  THair
 } from "./types";
 
 interface TProps {
@@ -21,6 +22,7 @@ interface TProps {
   firstName: string;
   lastName: string;
   sex: string;
+  hair: THair;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
@@ -28,6 +30,7 @@ interface TProps {
   onChangeFaceFeature: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSex: (value: "male" | "female") => () => void;
+  onClickHair: (step: 1 | -1) => () => void;
 }
 
 interface THeadOverlayProps {
@@ -391,6 +394,15 @@ function View(props: TProps) {
           )}
           {props.activeGroup === "overlay" && (
             <>
+              <div className="lobby-create__input-block">
+                <Switcher
+                  onClickPrevious={props.onClickHair(-1)}
+                  onClickNext={props.onClickHair(1)}
+                >
+                  Hair: <span>{props.hair.current}</span>
+                </Switcher>
+              </div>
+
               <HeadOverlay
                 name="blemishes"
                 text="blemishes"

@@ -5,6 +5,18 @@ namespace Project.Client.Character.Creator
 {
     public static class Schemes
     {
+        public static readonly Schemes.Hair MaleHair = new Schemes.Hair
+        {
+            Values = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 72, 73 }
+        };
+
+        public static readonly Schemes.Hair FemaleHair = new Schemes.Hair
+        {
+            Values = new List<int> {
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 76, 77
+            }
+        };
+
         public class FaceFeature
         {
             public int Index { get; set; }
@@ -27,6 +39,15 @@ namespace Project.Client.Character.Creator
             public string Current { get; set; } = "male";
             public string Default { get; set; } = "male";
         }
+
+        public class Hair
+        {
+            public int Index { get; set; } = 2;
+            public List<int> Values { get; set; }
+            public int Current { get; set; } = 0;
+            public int Default { get; set; } = 0;
+        }
+
 
         public class FaceFeatures
         {
@@ -132,6 +153,7 @@ namespace Project.Client.Character.Creator
             public FaceFeatures FaceFeatures { get; set; }
             public HeadOverlays HeadOverlays { get; set; }
             public string Sex { get; set; }
+            public Hair Hair { get; set; }
         }
 
         public class CustomizePayload

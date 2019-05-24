@@ -132,8 +132,22 @@ class Container extends Component<any, TState> {
 
     this.setState({ sex }, () => {
       if (!IS_GAME) return;
-      service.customize("sex", sex);
+      service.customize("sex", null, sex);
     });
+  };
+
+  onClickHair = (step: 1 | -1) => () => {
+    const nextCurrent = this.state.hair.current + step;
+    const nextValue = this.state.hair.values[nextCurrent];
+    if (typeof nextValue !== "number") return;
+
+    this.setState(
+      { hair: { ...this.state.hair, current: nextCurrent } },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("hair", null, nextCurrent);
+      }
+    );
   };
 
   render() {
@@ -153,6 +167,8 @@ class Container extends Component<any, TState> {
         firstName={this.state.firstName}
         lastName={this.state.lastName}
         onClickSex={this.onClickSex}
+        onClickHair={this.onClickHair}
+        hair={this.state.hair}
         sex={this.state.sex}
       />
     );
