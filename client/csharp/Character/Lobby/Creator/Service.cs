@@ -5,6 +5,7 @@ namespace Project.Client.Character.Creator
 {
     public class Service
     {
+        static Schemes.BlendData BlendData;
         static Schemes.FaceFeatures FaceFeatures;
         static Schemes.Sex Sex;
         static Schemes.HeadOverlays HeadOverlays;
@@ -24,7 +25,9 @@ namespace Project.Client.Character.Creator
                 FaceFeatures = FaceFeatures,
                 HeadOverlays = HeadOverlays,
                 Hair = Hair,
-                Color = Color
+                Color = Color,
+                Fathers = new Schemes.ParentPayload("father"),
+                Mothers = new Schemes.ParentPayload("mother")
             };
 
             if (sex) payload.Sex = Sex.Default;
@@ -63,6 +66,15 @@ namespace Project.Client.Character.Creator
                 case "color":
                     {
                         CustomizeColor((int)payload.Value);
+                        break;
+                    }
+
+                case "father":
+                case "mother":
+                case "shape-mix":
+                case "skin-mix":
+                    {
+                        CustomizeBlendData(payload.Type, payload.Value);
                         break;
                     }
             }
@@ -154,8 +166,23 @@ namespace Project.Client.Character.Creator
             RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.Eyebrows.Index, 1, Color.Values[Color.Current], 0);
         }
 
+        static void CustomizeBlendData(string key, dynamic value)
+        {
+            if (key == "father") BlendData.SetFather((int)value);
+            if (key == "mother") BlendData.SetMother((int)value);
+            if (key == "shape-mix") BlendData.SetShapeMix((float)value);
+            if (key == "skin-mix") BlendData.SetSkinMix((float)value);
+            RenderBlendData();
+        }
+
+        static void RenderBlendData()
+        {
+            RAGE.Elements.Player.LocalPlayer.SetHeadBlendData(BlendData.Current.Item1, BlendData.Current.Item2, BlendData.Current.Item3, BlendData.Current.Item4, BlendData.Current.Item5, BlendData.Current.Item6, BlendData.Current.Item7, BlendData.Current.Item8, BlendData.Current.Item9, BlendData.Current.Item10);
+        }
+
         static void Reset(bool sex = true)
         {
+            BlendData = new Schemes.BlendData();
             FaceFeatures = new Schemes.FaceFeatures { };
             HeadOverlays = new Schemes.HeadOverlays { };
             Color = new Schemes.Color { };
@@ -177,6 +204,8 @@ namespace Project.Client.Character.Creator
                 Index = TargetHair.Index,
                 Values = TargetHair.Values
             };
+
+            RenderBlendData();
 
             foreach (var item in FaceFeatures.GetType().GetFields())
             {

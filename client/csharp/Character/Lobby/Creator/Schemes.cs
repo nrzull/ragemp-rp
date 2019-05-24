@@ -17,6 +17,100 @@ namespace Project.Client.Character.Creator
             }
         };
 
+        public static List<Parent> Fathers = new List<Parent>
+        {
+            new Parent(0, "Benjamin"),
+            new Parent(1, "Daniel"),
+            new Parent(2, "Joshua"),
+            new Parent(3, "Noah"),
+            new Parent(4, "Andrew"),
+            new Parent(5, "Juan"),
+            new Parent(6, "Alex"),
+            new Parent(7, "Isaac"),
+            new Parent(8, "Evan"),
+            new Parent(9, "Ethan"),
+            new Parent(10, "Vincent"),
+            new Parent(11, "Angel"),
+            new Parent(12, "Diego"),
+            new Parent(13, "Adrian"),
+            new Parent(14, "Gabriel"),
+            new Parent(15, "Michael"),
+            new Parent(16, "Santiago"),
+            new Parent(17, "Kevin"),
+            new Parent(18, "Louis"),
+            new Parent(19, "Samuel"),
+            new Parent(20, "Anthony"),
+            new Parent(42, "Claude"),
+            new Parent(43, "Niko"),
+            new Parent(44, "John")
+        };
+
+        public static List<Parent> Mothers = new List<Parent>
+        {
+            new Parent(21, "Hannah"),
+            new Parent(22, "Audrey"),
+            new Parent(23, "Jasmine"),
+            new Parent(24, "Giselle"),
+            new Parent(25, "Amelia"),
+            new Parent(26, "Isabella"),
+            new Parent(27, "Zoe"),
+            new Parent(28, "Ava"),
+            new Parent(29, "Camila"),
+            new Parent(30, "Violet"),
+            new Parent(31, "Sophia"),
+            new Parent(32, "Evelyn"),
+            new Parent(33, "Nicole"),
+            new Parent(34, "Ashley"),
+            new Parent(35, "Grace"),
+            new Parent(36, "Brianna"),
+            new Parent(37, "Natalie"),
+            new Parent(38, "Olivia"),
+            new Parent(39, "Elizabeth"),
+            new Parent(40, "Charlotte"),
+            new Parent(41, "Emma"),
+            new Parent(45, "Misty")
+        };
+
+        public class BlendData
+        {
+            public (int, int, int, int, int, int, float, float, float, bool) Current { get; set; }
+
+            public (int, int, int, int, int, int, float, float, float, bool) Default { get; set; } = (Mothers[0].Id, Fathers[0].Id, 0, Mothers[0].Id, Fathers[0].Id, 0, 0.5f, 0.5f, 0, true);
+
+            public BlendData()
+            {
+                Current = Default;
+            }
+
+            public void SetFather(int value)
+            {
+                Current = (
+                    Current.Item1, Fathers[value].Id, Current.Item3, Current.Item4, Fathers[value].Id, Current.Item6, Current.Item7, Current.Item8, Current.Item9, Current.Item10
+                );
+            }
+
+            public void SetMother(int value)
+            {
+                Current = (
+                    Mothers[value].Id, Current.Item2, Current.Item3, Mothers[value].Id, Current.Item5, Current.Item6, Current.Item7, Current.Item8, Current.Item9, Current.Item10
+                );
+            }
+
+            public void SetShapeMix(float value)
+            {
+                Current = (
+                    Current.Item1, Current.Item2, Current.Item3, Current.Item4, Current.Item5, Current.Item6, value, Current.Item8, Current.Item9, Current.Item10
+                );
+            }
+
+            public void SetSkinMix(float value)
+            {
+                Current = (
+                    Current.Item1, Current.Item2, Current.Item3, Current.Item4, Current.Item5, Current.Item6, Current.Item7, value, Current.Item9, Current.Item10
+                );
+            }
+        }
+
         public class FaceFeature
         {
             public int Index { get; set; }
@@ -54,7 +148,6 @@ namespace Project.Client.Character.Creator
             public int Current { get; set; } = 0;
             public int Default { get; set; } = 0;
         }
-
 
         public class FaceFeatures
         {
@@ -162,6 +255,34 @@ namespace Project.Client.Character.Creator
             public string Sex { get; set; }
             public Hair Hair { get; set; }
             public Color Color { get; set; }
+            public ParentPayload Fathers { get; set; }
+            public ParentPayload Mothers { get; set; }
+        }
+
+        public class Parent
+        {
+            public string Name { get; set; }
+            public int Id { get; set; }
+
+            public Parent(int id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+        }
+
+        public class ParentPayload
+        {
+            public List<Parent> Values { get; set; }
+            public int Current { get; set; }
+
+            public ParentPayload(string key)
+            {
+                if (key == "father") Values = Fathers;
+                else Values = Mothers;
+
+                Current = 0;
+            }
         }
 
         public class CustomizePayload

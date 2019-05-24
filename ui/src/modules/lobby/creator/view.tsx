@@ -13,7 +13,8 @@ import {
   THeadOverlays,
   THeadOverlay,
   THair,
-  TColor
+  TColor,
+  TParent
 } from "./types";
 
 interface TProps {
@@ -25,6 +26,8 @@ interface TProps {
   sex: string;
   hair: THair;
   color: TColor;
+  fathers: TParent;
+  mothers: TParent;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
@@ -34,6 +37,8 @@ interface TProps {
   onClickSex: (value: "male" | "female") => () => void;
   onClickHair: (step: 1 | -1) => () => void;
   onClickColor: (step: 1 | -1) => () => void;
+  onClickFather: (step: 1 | -1) => () => void;
+  onClickMother: (step: 1 | -1) => () => void;
 }
 
 interface THeadOverlayProps {
@@ -133,7 +138,31 @@ function View(props: TProps) {
               </div>
             </>
           )}
-          {props.activeGroup === "parents" && <>Parents</>}
+
+          {props.activeGroup === "parents" && (
+            <>
+              <div className="lobby-create__input-block">
+                <Switcher
+                  onClickPrevious={props.onClickFather(-1)}
+                  onClickNext={props.onClickFather(1)}
+                >
+                  Отец:{" "}
+                  <span>{props.fathers.values[props.fathers.current].name}</span>
+                </Switcher>
+              </div>
+
+              <div className="lobby-create__input-block">
+                <Switcher
+                  onClickPrevious={props.onClickMother(-1)}
+                  onClickNext={props.onClickMother(1)}
+                >
+                  Мать:{" "}
+                  <span>{props.mothers.values[props.mothers.current].name}</span>
+                </Switcher>
+              </div>
+            </>
+          )}
+
           {props.activeGroup === "dna" && (
             <>
               <Title>Нос</Title>

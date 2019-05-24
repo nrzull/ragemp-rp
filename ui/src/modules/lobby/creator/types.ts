@@ -19,6 +19,11 @@ export interface TColor {
   current: number;
 }
 
+export interface TParent {
+  values: { id: number; name: string }[];
+  current: number;
+}
+
 export interface THeadOverlays {
   blemishes: THeadOverlay;
   facialHair: THeadOverlay;
@@ -69,7 +74,11 @@ export type TCustomizeType =
   | "head-overlay"
   | "sex"
   | "hair"
-  | "color";
+  | "color"
+  | "father"
+  | "mother"
+  | "skin-mix"
+  | "shape-mix";
 
 export type TCustomizeKey =
   | keyof TFaceFeatures
@@ -83,4 +92,6 @@ export interface TOnInitOkPayload {
   headOverlays: THeadOverlays;
   hair: THair;
   color: TColor;
+  fathers: TParent;
+  mothers: TParent;
 }

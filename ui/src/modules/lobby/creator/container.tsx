@@ -5,7 +5,8 @@ import {
   TOnInitOkPayload,
   TFaceFeatures,
   TActiveGroup,
-  THeadOverlays
+  THeadOverlays,
+  TParent
 } from "./types";
 
 import * as service from "./service";
@@ -164,6 +165,36 @@ class Container extends Component<any, TState> {
     );
   };
 
+  onClickFather = (step: 1 | -1) => () => {
+    const nextCurrent = this.state.fathers.current + step;
+    const nextValue = this.state.fathers.values[nextCurrent];
+
+    if (!nextValue) return;
+
+    this.setState(
+      { fathers: { ...this.state.fathers, current: nextCurrent } },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("father", null, nextCurrent);
+      }
+    );
+  };
+
+  onClickMother = (step: 1 | -1) => () => {
+    const nextCurrent = this.state.mothers.current + step;
+    const nextValue = this.state.mothers.values[nextCurrent];
+
+    if (!nextValue) return;
+
+    this.setState(
+      { mothers: { ...this.state.mothers, current: nextCurrent } },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("mother", null, nextCurrent);
+      }
+    );
+  };
+
   render() {
     if (!this.state.init) return <></>;
 
@@ -186,6 +217,10 @@ class Container extends Component<any, TState> {
         hair={this.state.hair}
         sex={this.state.sex}
         color={this.state.color}
+        fathers={this.state.fathers}
+        mothers={this.state.mothers}
+        onClickFather={this.onClickFather}
+        onClickMother={this.onClickMother}
       />
     );
   }
