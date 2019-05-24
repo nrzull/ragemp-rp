@@ -19,6 +19,12 @@ export interface TColor {
   current: number;
 }
 
+export interface TMix {
+  min: number;
+  max: number;
+  current: number;
+}
+
 export interface TParent {
   values: { id: number; name: string }[];
   current: number;
@@ -94,4 +100,6 @@ export interface TOnInitOkPayload {
   color: TColor;
   fathers: TParent;
   mothers: TParent;
+  skinMix: TMix;
+  shapeMix: TMix;
 }

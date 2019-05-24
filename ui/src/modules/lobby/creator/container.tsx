@@ -195,6 +195,30 @@ class Container extends Component<any, TState> {
     );
   };
 
+  onChangeSkinMix = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = +event.currentTarget.value;
+
+    this.setState(
+      { skinMix: { ...this.state.skinMix, current: value } },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("skin-mix", null, value);
+      }
+    );
+  };
+
+  onChangeShapeMix = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = +event.currentTarget.value;
+
+    this.setState(
+      { shapeMix: { ...this.state.shapeMix, current: value } },
+      () => {
+        if (!IS_GAME) return;
+        service.customize("shape-mix", null, value);
+      }
+    );
+  };
+
   render() {
     if (!this.state.init) return <></>;
 
@@ -221,6 +245,10 @@ class Container extends Component<any, TState> {
         mothers={this.state.mothers}
         onClickFather={this.onClickFather}
         onClickMother={this.onClickMother}
+        shapeMix={this.state.shapeMix}
+        skinMix={this.state.skinMix}
+        onChangeShapeMix={this.onChangeShapeMix}
+        onChangeSkinMix={this.onChangeSkinMix}
       />
     );
   }

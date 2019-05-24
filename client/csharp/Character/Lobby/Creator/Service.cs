@@ -27,7 +27,9 @@ namespace Project.Client.Character.Creator
                 Hair = Hair,
                 Color = Color,
                 Fathers = new Schemes.ParentPayload("father"),
-                Mothers = new Schemes.ParentPayload("mother")
+                Mothers = new Schemes.ParentPayload("mother"),
+                SkinMix = new Schemes.Mix { Min = BlendData.MixMin, Max = BlendData.MixMax, Current = BlendData.MixDefault },
+                ShapeMix = new Schemes.Mix { Min = BlendData.MixMin, Max = BlendData.MixMax, Current = BlendData.MixDefault }
             };
 
             if (sex) payload.Sex = Sex.Default;

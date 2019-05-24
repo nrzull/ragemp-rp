@@ -14,7 +14,8 @@ import {
   THeadOverlay,
   THair,
   TColor,
-  TParent
+  TParent,
+  TMix
 } from "./types";
 
 interface TProps {
@@ -28,6 +29,8 @@ interface TProps {
   color: TColor;
   fathers: TParent;
   mothers: TParent;
+  shapeMix: TMix;
+  skinMix: TMix;
   onClickCreate: () => void;
   onClickCancel: () => void;
   onClickGroupButton: (value: TActiveGroup) => () => void;
@@ -39,6 +42,8 @@ interface TProps {
   onClickColor: (step: 1 | -1) => () => void;
   onClickFather: (step: 1 | -1) => () => void;
   onClickMother: (step: 1 | -1) => () => void;
+  onChangeShapeMix: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeSkinMix: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface THeadOverlayProps {
@@ -147,7 +152,9 @@ function View(props: TProps) {
                   onClickNext={props.onClickFather(1)}
                 >
                   Отец:{" "}
-                  <span>{props.fathers.values[props.fathers.current].name}</span>
+                  <span>
+                    {props.fathers.values[props.fathers.current].name}
+                  </span>
                 </Switcher>
               </div>
 
@@ -157,8 +164,32 @@ function View(props: TProps) {
                   onClickNext={props.onClickMother(1)}
                 >
                   Мать:{" "}
-                  <span>{props.mothers.values[props.mothers.current].name}</span>
+                  <span>
+                    {props.mothers.values[props.mothers.current].name}
+                  </span>
                 </Switcher>
+              </div>
+
+              <div className="lobby-create__input-block">
+                <div className="lobby-create__label">схожесть</div>
+                <Range
+                  step="any"
+                  min={props.shapeMix.min}
+                  max={props.shapeMix.max}
+                  value={props.shapeMix.current}
+                  onChange={props.onChangeShapeMix}
+                />
+              </div>
+
+              <div className="lobby-create__input-block">
+                <div className="lobby-create__label">цвет кожи</div>
+                <Range
+                  step="any"
+                  min={props.skinMix.min}
+                  max={props.skinMix.max}
+                  value={props.skinMix.current}
+                  onChange={props.onChangeSkinMix}
+                />
               </div>
             </>
           )}

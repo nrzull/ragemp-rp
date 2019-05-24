@@ -77,6 +77,10 @@ namespace Project.Client.Character.Creator
 
             public (int, int, int, int, int, int, float, float, float, bool) Default { get; set; } = (Mothers[0].Id, Fathers[0].Id, 0, Mothers[0].Id, Fathers[0].Id, 0, 0.5f, 0.5f, 0, true);
 
+            public float MixMin { get; set; } = 0f;
+            public float MixMax { get; set; } = 1f;
+            public float MixDefault { get; set; } = 0.5f;
+
             public BlendData()
             {
                 Current = Default;
@@ -257,6 +261,8 @@ namespace Project.Client.Character.Creator
             public Color Color { get; set; }
             public ParentPayload Fathers { get; set; }
             public ParentPayload Mothers { get; set; }
+            public Mix ShapeMix { get; set; }
+            public Mix SkinMix { get; set; }
         }
 
         public class Parent
@@ -283,6 +289,13 @@ namespace Project.Client.Character.Creator
 
                 Current = 0;
             }
+        }
+
+        public class Mix
+        {
+            public float Min { get; set; }
+            public float Max { get; set; }
+            public float Current { get; set; }
         }
 
         public class CustomizePayload
