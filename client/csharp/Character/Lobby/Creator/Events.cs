@@ -1,7 +1,7 @@
 using RAGE;
 using Newtonsoft.Json;
 
-namespace Project.Client.Character.Creator
+namespace Project.Client.Character.Lobby.Creator
 {
     public class Events : RAGE.Events.Script
     {

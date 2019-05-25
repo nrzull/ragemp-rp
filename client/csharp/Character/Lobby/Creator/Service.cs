@@ -9,7 +9,7 @@ using System.Collections.Generic;
 // TODO убирать кнопку "отмена" если у аккаунта нету созданных персонажей
 // TODO перевести интерфейс на русский
 // TODO рефакторинг
-namespace Project.Client.Character.Creator
+namespace Project.Client.Character.Lobby.Creator
 {
     public class Service
     {
@@ -20,6 +20,13 @@ namespace Project.Client.Character.Creator
         static Schemes.Color Color;
         static Schemes.Hair Hair;
         static Schemes.EyeColor EyeColor;
+        static List<Shared.Schemes.LobbySelectCharacters> Characters;
+
+        public static void Start(List<Shared.Schemes.LobbySelectCharacters> characters = null)
+        {
+            if (characters != null) Characters = characters;
+            Bus.TriggerUi(Shared.Events.UI_LOBBY_CREATOR_SHOW, true);
+        }
 
         public static void Init()
         {
@@ -36,6 +43,7 @@ namespace Project.Client.Character.Creator
                 Hair = Hair,
                 Color = Color,
                 EyeColor = EyeColor,
+                CharactersCount = Characters?.Count(),
                 Fathers = new Schemes.ParentPayload("father"),
                 Mothers = new Schemes.ParentPayload("mother"),
                 SkinMix = new Schemes.Mix { Min = BlendData.MixMin, Max = BlendData.MixMax, Current = BlendData.MixDefault },
@@ -43,7 +51,6 @@ namespace Project.Client.Character.Creator
             };
 
             if (sex) payload.Sex = Sex.Default;
-
             Bus.TriggerUi(Shared.Events.UI_LOBBY_CREATOR_INIT_OK, payload);
         }
 

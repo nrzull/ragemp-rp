@@ -1,4 +1,6 @@
 using RAGE;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Project.Client.Character.Lobby
 {
@@ -9,9 +11,11 @@ namespace Project.Client.Character.Lobby
             RAGE.Events.Add(Shared.Events.CLIENT_LOBBY_SHOW, OnLobbyShow);
         }
 
-        public void OnLobbyShow(object[] agrs)
+        public void OnLobbyShow(object[] args)
         {
-            Service.ShowLobby();
+            var characters = JsonConvert.DeserializeObject<List<Shared.Schemes.LobbySelectCharacters>>((string)args[0]);
+
+            Service.ShowLobby(characters);
         }
     }
 }
