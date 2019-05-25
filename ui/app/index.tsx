@@ -147,29 +147,6 @@ class App extends Component<{}, TRootState> {
       });
     });
 
-    on(events.UI_LOGIN_SUBMIT_ERROR, payload => {
-      this.setState({
-        login: {
-          ...this.state.login,
-          loading: false,
-          errors: payload
-        }
-      });
-    });
-
-    on(events.UI_LOGIN_CREDENTIALS_GET, payload => {
-      if (!payload) return;
-
-      this.setState({
-        login: {
-          ...this.state.login,
-          username: payload.username,
-          password: payload.password,
-          remember: true
-        }
-      });
-    });
-
     on(events.UI_AUTH_SHOW, payload => {
       this.setState({
         auth: payload,
@@ -182,23 +159,12 @@ class App extends Component<{}, TRootState> {
     triggerClient(events.UI_LOADED);
   }
 
+  loginCache = (login: TRootState["login"]) => {
+    this.setState({ login: { ...login, show: this.state.login.show } });
+  };
+
   loginSetShow = (show: boolean) =>
     this.setState({ login: { ...this.state.login, show } });
-
-  loginSetUsername = (username: string) =>
-    this.setState({ login: { ...this.state.login, username } });
-
-  loginSetPassword = (password: string) =>
-    this.setState({ login: { ...this.state.login, password } });
-
-  loginSetLoading = (loading: boolean) =>
-    this.setState({ login: { ...this.state.login, loading } });
-
-  loginSetRemember = (remember: boolean) =>
-    this.setState({ login: { ...this.state.login, remember } });
-
-  loginSetErrors = (errors: any = {}) =>
-    this.setState({ login: { ...this.state.login, errors } });
 
   registerSetShow = (show: boolean) =>
     this.setState({ register: { ...this.state.register, show } });
@@ -244,13 +210,10 @@ class App extends Component<{}, TRootState> {
             <div className="auth-block">
               {this.state.login.show && (
                 <login.Login
-                  store={this.state.login}
+                  cache={this.state.login}
                   actions={{
+                    loginCache: this.loginCache,
                     loginSetShow: this.loginSetShow,
-                    loginSetUsername: this.loginSetUsername,
-                    loginSetPassword: this.loginSetPassword,
-                    loginSetLoading: this.loginSetLoading,
-                    loginSetRemember: this.loginSetRemember,
                     registerSetShow: this.registerSetShow
                   }}
                 />

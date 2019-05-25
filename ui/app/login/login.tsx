@@ -3,6 +3,8 @@ import { triggerServer } from "@app/bus";
 import Logo from "@assets/images/logo.svg";
 import * as events from "@app/events";
 import * as service from "./service";
+import { TRootState } from "@app/index";
+import { on, off } from "@app/bus";
 
 import {
   Checkbox,
@@ -14,44 +16,62 @@ import {
   InputError
 } from "@components";
 
-interface TProps {
-  store: {
-    username: string;
-    password: string;
-    remember: boolean;
-    loading: boolean;
-    errors: {
-      username: string;
-      password: string;
-    };
-  };
-
+type TProps = {
+  cache: TRootState["login"];
   actions: {
     loginSetShow: (v: boolean) => void;
-    loginSetLoading: (v: boolean) => void;
-    loginSetUsername: (v: string) => void;
-    loginSetPassword: (v: string) => void;
-    loginSetRemember: (v: boolean) => void;
     registerSetShow: (v: boolean) => void;
+    loginCache: (v: TRootState["login"]) => void;
   };
-}
+};
 
-class Login extends Component<TProps> {
+type TState = TRootState["login"];
+
+class Login extends Component<TProps, TState> {
+  componentWillMount() {
+    on(events.UI_LOGIN_CREDENTIALS_GET, this.onCredentialsGet);
+    on(events.UI_LOGIN_SUBMIT_ERROR, this.onSubmitError);
+    this.setState({ ...this.props.cache });
+  }
+
+  componentWillUnmount() {
+    off(events.UI_LOGIN_CREDENTIALS_GET, this.onCredentialsGet);
+    off(events.UI_LOGIN_SUBMIT_ERROR, this.onSubmitError);
+    this.props.actions.loginCache(this.state);
+  }
+
+  onCredentialsGet = payload => {
+    if (!payload) return;
+
+    this.setState({
+      username: payload.username,
+      password: payload.password,
+      remember: true
+    });
+  };
+
+  onSubmitError = payload => {
+    this.setState({
+      loading: false,
+      errors: payload
+    });
+  };
+
   onChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.loginSetUsername(event.currentTarget.value);
+    this.setState({ username: event.currentTarget.value });
   };
 
   onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.loginSetPassword(event.currentTarget.value);
+    this.setState({ password: event.currentTarget.value });
   };
 
   onChangeRemember = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.loginSetRemember(event.currentTarget.checked);
+    this.setState({ remember: event.currentTarget.checked });
   };
 
   onClickSubmit = () => {
-    this.props.actions.loginSetLoading(true);
-    service.submit(this.props.store);
+    this.setState({ loading: true });
+    service.submit(this.state);
   };
 
   onClickGoRegister = () => {
@@ -60,16 +80,6 @@ class Login extends Component<TProps> {
   };
 
   render() {
-    const { store } = this.props;
-
-    const {
-      onClickSubmit,
-      onClickGoRegister,
-      onChangeRemember,
-      onChangePassword,
-      onChangeUsername
-    } = this;
-
     return (
       <div className="auth">
         <ShellBody data-headless>
@@ -84,17 +94,17 @@ class Login extends Component<TProps> {
             <div className="auth__input-wrapper">
               <Input
                 data-padding-for-status
-                value={store.username}
-                onChange={onChangeUsername}
+                value={this.state.username}
+                onChange={this.onChangeUsername}
                 placeholder="Введите свой логин"
               />
               <div
-                data-error={!!store.errors.username}
+                data-error={!!this.state.errors.username}
                 className="auth__input-status"
               />
             </div>
 
-            <InputError message={store.errors.username} />
+            <InputError message={this.state.errors.username} />
           </div>
 
           <div className="auth__input-block">
@@ -104,34 +114,40 @@ class Login extends Component<TProps> {
               <Input
                 data-padding-for-status
                 type="password"
-                value={store.password}
-                onChange={onChangePassword}
+                value={this.state.password}
+                onChange={this.onChangePassword}
                 placeholder="Введите свой пароль"
               />
               <div
-                data-error={!!store.errors.password}
+                data-error={!!this.state.errors.password}
                 className="auth__input-status"
               />
             </div>
 
-            <InputError message={store.errors.password} />
+            <InputError message={this.state.errors.password} />
           </div>
 
           <div className="auth__input-block auth__input-block_checkbox">
-            <Checkbox checked={store.remember} onChange={onChangeRemember}>
+            <Checkbox
+              checked={this.state.remember}
+              onChange={this.onChangeRemember}
+            >
               Запомнить меня
             </Checkbox>
           </div>
 
           <div className="auth__input-block auth__input-block_button">
-            <Button disabled={store.loading} onClick={onClickSubmit}>
-              {store.loading ? "Загрузка" : "Войти"}
+            <Button disabled={this.state.loading} onClick={this.onClickSubmit}>
+              {this.state.loading ? "Загрузка" : "Войти"}
             </Button>
           </div>
         </ShellBody>
 
         <ShellFooter TitleElement={<>Нету аккаунта?</>}>
-          <Button disabled={store.loading} onClick={onClickGoRegister}>
+          <Button
+            disabled={this.state.loading}
+            onClick={this.onClickGoRegister}
+          >
             Создать
           </Button>
         </ShellFooter>
