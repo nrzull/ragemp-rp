@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Project.Client.Character.Creator
+namespace Project.Client.Character.Lobby.Creator
 {
     public static class Schemes
     {
@@ -270,6 +270,7 @@ namespace Project.Client.Character.Creator
             public ParentPayload Mothers { get; set; }
             public Mix ShapeMix { get; set; }
             public Mix SkinMix { get; set; }
+            public int? CharactersCount { get; set; }
         }
 
         public class Parent

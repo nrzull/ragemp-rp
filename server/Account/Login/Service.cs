@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GTANetworkAPI;
+using Newtonsoft.Json;
 
 namespace Project.Server.Account.Login
 {
@@ -33,11 +34,26 @@ namespace Project.Server.Account.Login
 
             attachment.Entity = account;
 
-            Bus.TriggerClient(player, Shared.Events.CLIENT_LOGIN_SUBMIT_OK, payload);
+            using (var db = new Database())
+            {
+                db.Accounts.Attach(attachment.Entity);
 
-            Bus.TriggerClient(player, Shared.Events.CLIENT_LOBBY_SHOW);
+                var characters = db.Entry(attachment.Entity)
+                    .Collection(v => v.Characters)
+                    .Query()
+                    .Select(v => new
+                    {
+                        FirstName = v.FirstName,
+                        LastName = v.LastName,
+                        Customization = v.Customization,
+                        Sex = v.Sex
+                    })
+                    .ToList();
 
-            // TODO: Show character menu
+                Bus.TriggerClient(player, Shared.Events.CLIENT_LOGIN_SUBMIT_OK, payload);
+
+                Bus.TriggerClient(player, Shared.Events.CLIENT_LOBBY_SHOW, characters);
+            }
         }
 
         static Dictionary<string, string> ValidateFields(Shared.Schemes.UiLoginSubmitPayload payload)

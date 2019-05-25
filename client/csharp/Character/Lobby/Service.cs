@@ -10,7 +10,7 @@ namespace Project.Client.Character.Lobby
         {
         }
 
-        public static void ShowLobby()
+        public static void ShowLobby(List<Shared.Schemes.LobbySelectCharacters> characters)
         {
             RAGE.Elements.Player localPlayer = RAGE.Elements.Player.LocalPlayer;
 
@@ -30,12 +30,18 @@ namespace Project.Client.Character.Lobby
             RAGE.Game.Cam.SetCamCoord(camera, headPosition.X - positionXOffset, headPosition.Y - positionYOffset, headPosition.Z);
 
             RAGE.Game.Cam.SetCamFov(camera, 40);
-
             RAGE.Game.Cam.SetCamActive(camera, true);
             RAGE.Game.Cam.RenderScriptCams(true, false, 0, true, false, 0);
             Utils.ToggleInterface(false);
 
-            Bus.TriggerUi(Shared.Events.UI_LOBBY_CREATOR_SHOW, true);
+            if (characters != null && characters.Count != 0)
+            {
+                Selector.Service.Start(characters);
+            }
+            else
+            {
+                Creator.Service.Start(characters);
+            }
         }
     }
 }

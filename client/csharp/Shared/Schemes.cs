@@ -11,6 +11,13 @@ namespace Project.Shared
             public bool Remember { get; set; }
         }
 
+        public class LobbySelectCharacters : CharacterCustomization
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Sex { get; set; }
+        }
+
         public class CharacterCustomization
         {
             public int Hair { get; set; }
