@@ -15,15 +15,6 @@
 - Настроить `client/csharp/Project.Client.csproj`
 - Настроить `server/Config/Secret.cs`
 
-### База данных
-
-- Скачать и установить PostgreSQL https://www.postgresql.org/download/windows/
-- Зайти в директорию `server` и создать базу данных введя в терминал следующее:
-
-```batch
-dotnet ef database update
-```
-
 ## Запуск
 
 - `npm start` - Разработка всего проекта
