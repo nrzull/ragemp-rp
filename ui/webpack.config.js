@@ -1,24 +1,12 @@
 const { resolve } = require("path");
-const { DefinePlugin } = require("webpack");
 const HtmlPlugin = require("html-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const ForkTsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
 const ModuleDependencyWarning = require("webpack/lib/ModuleDependencyWarning");
 
-const GAME = "game";
-const { NODE_ENV = "development", TARGET = GAME } = process.env;
-const IS_GAME = TARGET === GAME;
-
-const ROOT = resolve(__dirname, "src");
-
-const SRC = IS_GAME ? ROOT : resolve(ROOT, "web");
-
-const DIST = IS_GAME
-  ? resolve(__dirname, "..", "mp", "client_packages", "ui")
-  : resolve(__dirname, "dist");
-
-const PUBLIC_PATH = IS_GAME ? "package://ui/" : "/";
-const STATS = { modules: false, children: false };
+const { NODE_ENV = "development" } = process.env;
+const SRC = resolve(__dirname, "app");
+const DIST = resolve(__dirname, "..", "mp", "client_packages", "ui");
 
 // TODO move it to appropriate place
 class IgnoreNotFoundExportPlugin {
@@ -54,21 +42,19 @@ const config = {
   entry: SRC,
   output: {
     path: DIST,
-    publicPath: PUBLIC_PATH
+    publicPath: "package://ui/"
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        include: ROOT,
-        loader: "ts-loader",
-        options: {
-          transpileOnly: true
-        }
+        exclude: /node_modules/,
+        loader: "ts-loader"
       },
 
       {
         test: /\.s?css$/,
+        exclude: /node_modules/,
         use: [
           "style-loader",
           { loader: "css-loader", options: { importLoaders: 2 } },
@@ -79,26 +65,24 @@ const config = {
 
       {
         test: /\.(ttf|woff|png|jpe?g|gif)$/,
+        exclude: /node_modules/,
         use: "file-loader"
       },
 
       {
         test: /\.svg$/,
+        exclude: /node_modules/,
         use: "react-svg-loader"
       }
     ]
   },
   plugins: [
-    new HtmlPlugin({ template: resolve(ROOT, "index.html") }),
-    new ForkTsCheckerPlugin(),
-    new IgnoreNotFoundExportPlugin(),
-    new DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(NODE_ENV),
-      IS_GAME
-    })
+    new HtmlPlugin({ template: resolve(SRC, "index.html") }),
+    // new ForkTsCheckerPlugin(),
+    new IgnoreNotFoundExportPlugin()
   ],
-  stats: STATS,
-  devServer: { stats: STATS, historyApiFallback: true }
+  stats: { modules: false, children: false },
+  performance: { hints: false }
 };
 
 module.exports = config;

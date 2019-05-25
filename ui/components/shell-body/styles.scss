@@ -1,0 +1,14 @@
+@import "~@assets/styles/variables";
+
+.shell-body {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  box-shadow: 0 0.5vh 2vh rgba(black, 0.5);
+  border-radius: 0 0 2vh 2vh;
+  padding: $shell-body__padding;
+
+  &[data-headless] {
+    border-radius: 2vh;
+  }
+}
