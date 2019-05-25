@@ -1,8 +1,7 @@
 {
   "scripts": {
     "init": "npm install && node scripts/init.js",
-    "start": "node scripts/prestart.js && node scripts/start.js",
-    "web": "cd ui && npx cross-env TARGET=web webpack-dev-server"
+    "start": "node scripts/prestart.js && node scripts/start.js"
   },
   "devDependencies": {
     "adm-zip": "^0.4.13",
