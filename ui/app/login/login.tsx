@@ -19,9 +19,9 @@ import {
 type TProps = {
   cache: TRootState["login"];
   actions: {
+    loginCache: (v: TRootState["login"]) => void;
     loginSetShow: (v: boolean) => void;
     registerSetShow: (v: boolean) => void;
-    loginCache: (v: TRootState["login"]) => void;
   };
 };
 
@@ -29,32 +29,17 @@ type TState = TRootState["login"];
 
 class Login extends Component<TProps, TState> {
   componentWillMount() {
-    on(events.UI_LOGIN_CREDENTIALS_GET, this.onCredentialsGet);
     on(events.UI_LOGIN_SUBMIT_ERROR, this.onSubmitError);
     this.setState({ ...this.props.cache });
   }
 
   componentWillUnmount() {
-    off(events.UI_LOGIN_CREDENTIALS_GET, this.onCredentialsGet);
     off(events.UI_LOGIN_SUBMIT_ERROR, this.onSubmitError);
     this.props.actions.loginCache(this.state);
   }
 
-  onCredentialsGet = payload => {
-    if (!payload) return;
-
-    this.setState({
-      username: payload.username,
-      password: payload.password,
-      remember: true
-    });
-  };
-
-  onSubmitError = payload => {
-    this.setState({
-      loading: false,
-      errors: payload
-    });
+  onSubmitError = errors => {
+    this.setState({ loading: false, errors });
   };
 
   onChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
@@ -70,8 +55,7 @@ class Login extends Component<TProps, TState> {
   };
 
   onClickSubmit = () => {
-    this.setState({ loading: true });
-    service.submit(this.state);
+    this.setState({ loading: true }, () => service.submit(this.state));
   };
 
   onClickGoRegister = () => {

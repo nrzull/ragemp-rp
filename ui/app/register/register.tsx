@@ -1,5 +1,8 @@
 import React, { Component, ChangeEvent } from "react";
 import * as service from "./service";
+import { on, off } from "@app/bus";
+import * as events from "@app/events";
+import { service as loginService } from "@app/login";
 
 import {
   Checkbox,
@@ -11,67 +14,71 @@ import {
   InputError
 } from "@components";
 
-interface TProps {
-  store: {
-    username: string;
-    email: string;
-    password: string;
-    repeatPassword: string;
-    promoCode: string;
-    agreement: boolean;
-    loading: boolean;
-    errors: {
-      username: string;
-      email: string;
-      password: string;
-      repeatPassword: string;
-      promoCode: string;
-      agreement: string;
-    };
-  };
+import { TRootState } from "@app/index";
 
+type TProps = {
+  cache: TRootState["register"];
   actions: {
+    registerCache: (v: TRootState["register"]) => void;
     registerSetShow: (v: boolean) => void;
-    registerSetLoading: (v: boolean) => void;
-    registerSetEmail: (v: string) => void;
-    registerSetUsername: (v: string) => void;
-    registerSetPassword: (v: string) => void;
-    registerSetRepeatPassword: (v: string) => void;
-    registerSetPromoCode: (v: string) => void;
-    registerSetAgreement: (v: boolean) => void;
     loginSetShow: (v: boolean) => void;
     agreementSetShow: (v: boolean) => void;
   };
-}
+};
 
-class Register extends Component<TProps> {
+type TState = TRootState["register"];
+
+class Register extends Component<TProps, TState> {
+  componentWillMount() {
+    on(events.UI_REGISTER_SUBMIT_ERROR, this.onSubmitError);
+    on(events.UI_REGISTER_SUBMIT_OK, this.onSubmitOk);
+    this.setState({ ...this.props.cache });
+  }
+
+  componentWillUnmount() {
+    off(events.UI_REGISTER_SUBMIT_ERROR, this.onSubmitError);
+    off(events.UI_REGISTER_SUBMIT_OK, this.onSubmitOk);
+    this.props.actions.registerCache(this.state);
+  }
+
+  onSubmitError = errors => {
+    this.setState({ loading: false, errors });
+  };
+
+  onSubmitOk = () => {
+    loginService.submit({
+      username: this.state.username,
+      password: this.state.password,
+      remember: true
+    });
+  };
+
   onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.registerSetEmail(event.currentTarget.value);
+    this.setState({ email: event.currentTarget.value });
   };
 
   onChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.registerSetUsername(event.currentTarget.value);
+    this.setState({ username: event.currentTarget.value });
   };
 
   onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.registerSetPassword(event.currentTarget.value);
+    this.setState({ password: event.currentTarget.value });
   };
 
   onChangeRepeatPassword = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.registerSetRepeatPassword(event.currentTarget.value);
+    this.setState({ repeatPassword: event.currentTarget.value });
   };
 
   onChangePromoCode = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.registerSetPromoCode(event.currentTarget.value);
+    this.setState({ promoCode: event.currentTarget.value });
   };
 
   onChangeAgreement = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.actions.registerSetAgreement(event.currentTarget.checked);
+    this.setState({ agreement: event.currentTarget.checked });
   };
 
   onClickSubmit = () => {
-    this.props.actions.registerSetLoading(true);
-    service.submit(this.props.store);
+    this.setState({ loading: true }, () => service.submit(this.state));
   };
 
   onClickGoLogin = () => {
@@ -80,27 +87,13 @@ class Register extends Component<TProps> {
   };
 
   onClickGoAgreement = () => {
-    if (this.props.store.loading) return;
+    if (this.state.loading) return;
 
     this.props.actions.registerSetShow(false);
     this.props.actions.agreementSetShow(true);
   };
 
   render() {
-    const { store } = this.props;
-
-    const {
-      onClickGoAgreement,
-      onClickGoLogin,
-      onClickSubmit,
-      onChangeAgreement,
-      onChangePromoCode,
-      onChangeRepeatPassword,
-      onChangePassword,
-      onChangeUsername,
-      onChangeEmail
-    } = this;
-
     return (
       <div className="auth">
         <ShellBody data-headless>
@@ -112,17 +105,17 @@ class Register extends Component<TProps> {
             <div className="auth__input-wrapper">
               <Input
                 data-padding-for-status
-                value={store.username}
-                onChange={onChangeUsername}
+                value={this.state.username}
+                onChange={this.onChangeUsername}
                 placeholder="Введите свой логин"
               />
               <div
-                data-error={!!store.errors.username}
+                data-error={!!this.state.errors.username}
                 className="auth__input-status"
               />
             </div>
 
-            <InputError message={store.errors.username} />
+            <InputError message={this.state.errors.username} />
           </div>
 
           <div className="auth__input-block">
@@ -131,17 +124,17 @@ class Register extends Component<TProps> {
             <div className="auth__input-wrapper">
               <Input
                 data-padding-for-status
-                value={store.email}
-                onChange={onChangeEmail}
+                value={this.state.email}
+                onChange={this.onChangeEmail}
                 placeholder="Введите свою электронную почту"
               />
               <div
-                data-error={!!store.errors.email}
+                data-error={!!this.state.errors.email}
                 className="auth__input-status"
               />
             </div>
 
-            <InputError message={store.errors.email} />
+            <InputError message={this.state.errors.email} />
           </div>
 
           <div className="auth__input-block">
@@ -151,17 +144,17 @@ class Register extends Component<TProps> {
               <Input
                 data-padding-for-status
                 type="password"
-                value={store.password}
-                onChange={onChangePassword}
+                value={this.state.password}
+                onChange={this.onChangePassword}
                 placeholder="Введите свой пароль"
               />
               <div
-                data-error={!!store.errors.password}
+                data-error={!!this.state.errors.password}
                 className="auth__input-status"
               />
             </div>
 
-            <InputError message={store.errors.password} />
+            <InputError message={this.state.errors.password} />
           </div>
 
           <div className="auth__input-block">
@@ -171,17 +164,17 @@ class Register extends Component<TProps> {
               <Input
                 data-padding-for-status
                 type="password"
-                value={store.repeatPassword}
-                onChange={onChangeRepeatPassword}
+                value={this.state.repeatPassword}
+                onChange={this.onChangeRepeatPassword}
                 placeholder="Введите свой пароль снова"
               />
               <div
-                data-error={!!store.errors.repeatPassword}
+                data-error={!!this.state.errors.repeatPassword}
                 className="auth__input-status"
               />
             </div>
 
-            <InputError message={store.errors.repeatPassword} />
+            <InputError message={this.state.errors.repeatPassword} />
           </div>
 
           <div className="auth__input-block">
@@ -190,44 +183,47 @@ class Register extends Component<TProps> {
             <div className="auth__input-wrapper">
               <Input
                 data-padding-for-status
-                value={store.promoCode}
-                onChange={onChangePromoCode}
+                value={this.state.promoCode}
+                onChange={this.onChangePromoCode}
                 placeholder="Введите промо-код"
               />
               <div
-                data-error={!!store.errors.promoCode}
+                data-error={!!this.state.errors.promoCode}
                 className="auth__input-status"
               />
             </div>
 
-            <InputError message={store.errors.promoCode} />
+            <InputError message={this.state.errors.promoCode} />
           </div>
 
           <div className="auth__input-block auth__input-block_checkbox">
-            <Checkbox checked={store.agreement} onChange={onChangeAgreement}>
+            <Checkbox
+              checked={this.state.agreement}
+              onChange={this.onChangeAgreement}
+            >
               Я согласен с{" "}
-              <i onClick={onClickGoAgreement} className="auth__link">
+              <i onClick={this.onClickGoAgreement} className="auth__link">
                 правилами сервера
               </i>
             </Checkbox>
 
             <div
-              data-error={!!store.errors.agreement}
+              data-error={!!this.state.errors.agreement}
               className="auth__input-error"
             >
-              {store.errors.agreement}
+              {this.state.errors.agreement}
             </div>
           </div>
 
           <div className="auth__input-block auth__input-block_button">
-            <Button disabled={store.loading} onClick={onClickSubmit}>
-              {store.loading ? "Загрузка" : "Создать"}
+            <Button disabled={this.state.loading} onClick={this.onClickSubmit}>
+              {this.state.loading ? "Загрузка" : "Создать"}
             </Button>
           </div>
         </ShellBody>
 
         <ShellFooter TitleElement={<>Уже есть аккаунт?</>}>
-          <Button disabled={store.loading} onClick={onClickGoLogin}>
+          <Button disabled={this.state.loading} onClick={this.onClickGoLogin}>
             Войти
           </Button>
         </ShellFooter>

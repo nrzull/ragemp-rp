@@ -106,29 +106,16 @@ class App extends Component<{}, TRootState> {
       this.setState({ register: { ...this.state.register, show: payload } });
     });
 
-    on(events.UI_REGISTER_SUBMIT_OK, () => {
-      this.setState(
-        {
-          login: {
-            ...this.state.login,
-            username: this.state.register.username,
-            password: this.state.register.password,
-            remember: true
-          },
-          register: {
-            ...this.state.register,
-            show: false
-          }
-        },
-        () => {
-          login.service.submit(this.state.login);
-        }
-      );
-    });
+    on(events.UI_LOGIN_CREDENTIALS_GET, payload => {
+      if (!payload) return;
 
-    on(events.UI_REGISTER_SUBMIT_ERROR, payload => {
       this.setState({
-        register: { ...this.state.register, loading: false, errors: payload }
+        login: {
+          ...this.state.login,
+          username: payload.username,
+          password: payload.password,
+          remember: true
+        }
       });
     });
 
@@ -163,35 +150,17 @@ class App extends Component<{}, TRootState> {
     this.setState({ login: { ...login, show: this.state.login.show } });
   };
 
+  registerCache = (register: TRootState["register"]) => {
+    this.setState({
+      register: { ...register, show: this.state.register.show }
+    });
+  };
+
   loginSetShow = (show: boolean) =>
     this.setState({ login: { ...this.state.login, show } });
 
   registerSetShow = (show: boolean) =>
     this.setState({ register: { ...this.state.register, show } });
-
-  registerSetUsername = (username: string) =>
-    this.setState({ register: { ...this.state.register, username } });
-
-  registerSetPassword = (password: string) =>
-    this.setState({ register: { ...this.state.register, password } });
-
-  registerSetEmail = (email: string) =>
-    this.setState({ register: { ...this.state.register, email } });
-
-  registerSetRepeatPassword = (repeatPassword: string) =>
-    this.setState({ register: { ...this.state.register, repeatPassword } });
-
-  registerSetPromoCode = (promoCode: string) =>
-    this.setState({ register: { ...this.state.register, promoCode } });
-
-  registerSetLoading = (loading: boolean) =>
-    this.setState({ register: { ...this.state.register, loading } });
-
-  registerSetAgreement = (agreement: boolean) =>
-    this.setState({ register: { ...this.state.register, agreement } });
-
-  registerSetErrors = (errors: any = {}) =>
-    this.setState({ register: { ...this.state.register, errors } });
 
   agreementSetShow = (payload: boolean) =>
     this.setState({ agreement: { ...this.state.agreement, show: payload } });
@@ -221,16 +190,10 @@ class App extends Component<{}, TRootState> {
 
               {this.state.register.show && (
                 <register.Register
-                  store={this.state.register}
+                  cache={this.state.register}
                   actions={{
+                    registerCache: this.registerCache,
                     registerSetShow: this.registerSetShow,
-                    registerSetUsername: this.registerSetUsername,
-                    registerSetPassword: this.registerSetPassword,
-                    registerSetLoading: this.registerSetLoading,
-                    registerSetPromoCode: this.registerSetPromoCode,
-                    registerSetRepeatPassword: this.registerSetRepeatPassword,
-                    registerSetEmail: this.registerSetEmail,
-                    registerSetAgreement: this.registerSetAgreement,
                     loginSetShow: this.loginSetShow,
                     agreementSetShow: this.agreementSetShow
                   }}

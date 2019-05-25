@@ -49,7 +49,10 @@ const config = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: "ts-loader"
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true
+        }
       },
 
       {
@@ -78,7 +81,7 @@ const config = {
   },
   plugins: [
     new HtmlPlugin({ template: resolve(SRC, "index.html") }),
-    // new ForkTsCheckerPlugin(),
+    new ForkTsCheckerPlugin(),
     new IgnoreNotFoundExportPlugin()
   ],
   stats: { modules: false, children: false },
