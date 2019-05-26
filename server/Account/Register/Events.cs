@@ -9,21 +9,24 @@ namespace Project.Server.Account.Register
     class Events : Script
     {
         [RemoteEvent(Shared.Events.REGISTER_SUBMIT)]
-        public void OnUiRegisterSubmit(Client player, string data)
+        public void OnSubmit(Client player, string data)
         {
 
             NAPI.Task.Run(() =>
             {
-                if (Middlewares.EventsBlocker.Block(player, Shared.Events.REGISTER_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
+                if (Middlewares.EventsBlocker.Block(player, Shared.Events.REGISTER_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000))
                 {
-                    // TODO уведомить о блокировке если такова имеется
-                    Bus.TriggerUi(player, Shared.Events.LOGIN_SUBMIT_ERROR); // Remove it
+                    return;
+                }
+
+                if (Middlewares.Auth.Check(player))
+                {
                     return;
                 }
 
                 try
                 {
-                    Schemes.SubmitPayload payload = JsonConvert.DeserializeObject<Schemes.SubmitPayload>(data);
+                    var payload = JsonConvert.DeserializeObject<Schemes.SubmitPayload>(data);
                     Service.RegisterAccount(player, payload);
                 }
                 catch (Exception ex)

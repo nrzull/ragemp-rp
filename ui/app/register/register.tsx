@@ -207,12 +207,7 @@ class Register extends Component<TProps, TState> {
               </i>
             </Checkbox>
 
-            <div
-              data-error={!!this.state.errors.agreement}
-              className="auth__input-error"
-            >
-              {this.state.errors.agreement}
-            </div>
+            <InputError message={this.state.errors.agreement} />
           </div>
 
           <div className="auth__input-block auth__input-block_button">

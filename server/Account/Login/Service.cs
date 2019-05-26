@@ -11,9 +11,6 @@ namespace Project.Server.Account.Login
     {
         public static void LogIn(Client player, Shared.Schemes.UiLoginSubmitPayload payload)
         {
-            // return if the player is already authorized
-            if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
-
             Dictionary<string, string> errors = ValidateFields(payload);
 
             if (errors.Count > 0)

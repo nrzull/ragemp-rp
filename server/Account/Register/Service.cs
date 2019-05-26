@@ -12,9 +12,6 @@ namespace Project.Server.Account.Register
     {
         public static void RegisterAccount(Client player, Schemes.SubmitPayload payload)
         {
-            // return if the player is already authorized
-            if (player.GetData(Account.Resources.ATTACHMENT_KEY)?.Entity != null) return;
-
             Dictionary<string, string> errors = ValidateFields(payload);
 
             if (errors.Count > 0)
@@ -23,23 +20,23 @@ namespace Project.Server.Account.Register
                 return;
             }
 
-            if (Account.Service.GetAccountEntityByUsername(payload.Username) != null)
+            if (Account.Service.GetAccountEntityByUsername(payload.Username) is Entity)
             {
-                errors.Add("username", Resources.ERROR_USERNAME_EXISTS);
+                errors.Add(nameof(payload.Username), Resources.ERROR_USERNAME_EXISTS);
                 Bus.TriggerUi(player, Shared.Events.REGISTER_SUBMIT_ERROR, errors);
                 return;
             }
 
-            if (GetAccountEntityByEmail(payload.Email) != null)
+            if (GetAccountEntityByEmail(payload.Email) is Entity)
             {
-                errors.Add("email", Resources.ERROR_EMAIL_EXISTS);
+                errors.Add(nameof(payload.Email), Resources.ERROR_EMAIL_EXISTS);
                 Bus.TriggerUi(player, Shared.Events.REGISTER_SUBMIT_ERROR, errors);
                 return;
             }
 
             using (var database = new Database())
             {
-                Account.Entity account = new Account.Entity(
+                var account = new Account.Entity(
                     email: payload.Email,
                     username: payload.Username,
                     password: BCrypt.Net.BCrypt.HashPassword(payload.Password),

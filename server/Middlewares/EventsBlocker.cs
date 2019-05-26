@@ -13,7 +13,7 @@ namespace Project.Server.Middlewares
             Client = 1
         }
 
-        public static int Block(Client player, string eventName, Receivers eventReciver, int blockTime)
+        public static bool Block(Client player, string eventName, Receivers eventReciver, int blockTime)
         {
             if (!player.HasData(eventName))
             {
@@ -23,7 +23,8 @@ namespace Project.Server.Middlewares
             TriggerEvent(player, eventName + "_BLOCK", eventReciver);
 
             int times = player.GetData(eventName);
-            player.SetData(eventName, times += 1);
+            times += 1;
+            player.SetData(eventName, times);
 
             if (times == 7)
             {
@@ -45,7 +46,8 @@ namespace Project.Server.Middlewares
                 }
             }, delayTime: blockTime);
 
-            return times;
+            if (times > 1) return true;
+            return false;
         }
 
         public static void TriggerEvent(Client player, string eventName, Receivers eventReciver)
