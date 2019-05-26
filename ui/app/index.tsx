@@ -102,11 +102,11 @@ class App extends Component<{}, TRootState> {
   }
 
   componentWillMount() {
-    on(events.UI_REGISTER_SHOW, payload => {
+    on(events.REGISTER_SHOW, payload => {
       this.setState({ register: { ...this.state.register, show: payload } });
     });
 
-    on(events.UI_LOGIN_CREDENTIALS_GET, payload => {
+    on(events.LOGIN_CREDENTIALS_GET, payload => {
       if (!payload) return;
 
       this.setState({
@@ -119,22 +119,22 @@ class App extends Component<{}, TRootState> {
       });
     });
 
-    on(events.UI_LOBBY_CREATOR_SHOW, payload => {
+    on(events.LOBBY_CREATOR_SHOW, payload => {
       this.setState({ creator: payload, selector: !payload });
     });
 
-    on(events.UI_LOGIN_SHOW, payload => {
+    on(events.LOGIN_SHOW, payload => {
       this.setState({ login: { ...this.state.login, show: payload } });
     });
 
-    on(events.UI_LOGIN_SUBMIT_OK, () => {
+    on(events.LOGIN_SUBMIT_OK, () => {
       this.setState({
         auth: false,
         login: { ...this.state.login, show: false }
       });
     });
 
-    on(events.UI_AUTH_SHOW, payload => {
+    on(events.AUTH_SHOW, payload => {
       this.setState({
         auth: payload,
         login: { ...this.state.login, show: payload }

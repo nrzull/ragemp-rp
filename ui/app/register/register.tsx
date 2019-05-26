@@ -30,14 +30,14 @@ type TState = TRootState["register"];
 
 class Register extends Component<TProps, TState> {
   componentWillMount() {
-    on(events.UI_REGISTER_SUBMIT_ERROR, this.onSubmitError);
-    on(events.UI_REGISTER_SUBMIT_OK, this.onSubmitOk);
+    on(events.REGISTER_SUBMIT_ERROR, this.onSubmitError);
+    on(events.REGISTER_SUBMIT_OK, this.onSubmitOk);
     this.setState({ ...this.props.cache });
   }
 
   componentWillUnmount() {
-    off(events.UI_REGISTER_SUBMIT_ERROR, this.onSubmitError);
-    off(events.UI_REGISTER_SUBMIT_OK, this.onSubmitOk);
+    off(events.REGISTER_SUBMIT_ERROR, this.onSubmitError);
+    off(events.REGISTER_SUBMIT_OK, this.onSubmitOk);
     this.props.actions.registerCache(this.state);
   }
 

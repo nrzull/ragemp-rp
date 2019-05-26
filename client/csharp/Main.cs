@@ -6,7 +6,7 @@ namespace Project.Client
     {
         public Main()
         {
-            Events.Add(Shared.Events.CLIENT_PLAYER_CONNECT, OnConnect);
+            Events.Add(Shared.Events.PLAYER_CONNECTED, OnConnect);
             Events.Add(Shared.Events.UI_LOADED, OnUiLoaded);
         }
 

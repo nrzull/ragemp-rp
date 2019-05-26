@@ -19,21 +19,21 @@ namespace Project.Server.Account.Register
 
             if (errors.Count > 0)
             {
-                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_SUBMIT_ERROR, errors);
+                Bus.TriggerUi(player, Shared.Events.REGISTER_SUBMIT_ERROR, errors);
                 return;
             }
 
             if (Account.Service.GetAccountEntityByUsername(payload.Username) != null)
             {
                 errors.Add("username", Resources.ERROR_USERNAME_EXISTS);
-                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_SUBMIT_ERROR, errors);
+                Bus.TriggerUi(player, Shared.Events.REGISTER_SUBMIT_ERROR, errors);
                 return;
             }
 
             if (GetAccountEntityByEmail(payload.Email) != null)
             {
                 errors.Add("email", Resources.ERROR_EMAIL_EXISTS);
-                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_SUBMIT_ERROR, errors);
+                Bus.TriggerUi(player, Shared.Events.REGISTER_SUBMIT_ERROR, errors);
                 return;
             }
 
@@ -50,7 +50,7 @@ namespace Project.Server.Account.Register
                 database.Accounts.Add(account);
                 database.SaveChanges();
 
-                Bus.TriggerUi(player, Shared.Events.UI_REGISTER_SUBMIT_OK);
+                Bus.TriggerUi(player, Shared.Events.REGISTER_SUBMIT_OK);
             }
         }
 

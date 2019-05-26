@@ -3,11 +3,11 @@ import * as bus from "@app/bus";
 import * as events from "@app/events";
 
 function init() {
-  bus.triggerClient(events.UI_LOBBY_CREATOR_INIT);
+  bus.triggerClient(events.LOBBY_CREATOR_INIT);
 }
 
 function customize(type: TCustomizeType, key: TCustomizeKey, value?: any) {
-  bus.triggerClient(events.UI_LOBBY_CREATOR_CUSTOMIZE, {
+  bus.triggerClient(events.LOBBY_CREATOR_CUSTOMIZE, {
     type,
     key,
     value

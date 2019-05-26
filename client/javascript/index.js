@@ -6,7 +6,7 @@ mp.events.add("JS_ACCOUNT_SEND_CREDENTIALS", () => {
 
   const payload = JSON.stringify(mp.storage.data.credentials);
 
-  browser.execute(`bus.emit("UI_LOGIN_CREDENTIALS_GET", ${payload})`);
+  browser.execute(`bus.emit("LOGIN_CREDENTIALS_GET", ${payload})`);
 });
 
 mp.events.add("JS_ACCOUNT_STORE_CREDENTIALS", payload => {
@@ -26,5 +26,3 @@ mp.events.add("JS_ACCOUNT_REMOVE_CREDENTIALS", () => {
   delete mp.storage.data.credentials;
   mp.storage.flush();
 });
-
-mp.events.add();

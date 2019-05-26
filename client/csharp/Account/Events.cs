@@ -7,7 +7,7 @@ namespace Project.Client.Account
     {
         public Events()
         {
-            RAGE.Events.Add(Shared.Events.UI_AUTH_SHOW, OnUiAuthShow);
+            RAGE.Events.Add(Shared.Events.AUTH_SHOW, OnUiAuthShow);
         }
 
         public void OnUiAuthShow(object[] args)
@@ -15,7 +15,7 @@ namespace Project.Client.Account
             var payload = JsonConvert.DeserializeObject<bool>((string)args[0]);
 
             Chat.Show(false);
-            Bus.TriggerUi(Shared.Events.UI_AUTH_SHOW, payload);
+            Bus.TriggerUi(Shared.Events.AUTH_SHOW, payload);
             RAGE.Ui.Cursor.Visible = true;
         }
     }

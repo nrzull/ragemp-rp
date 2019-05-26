@@ -7,9 +7,9 @@ namespace Project.Client.Character.Lobby.Creator
     {
         public Events()
         {
-            RAGE.Events.Add(Shared.Events.UI_LOBBY_CREATOR_INIT, OnUiLobbyCreatorInit);
+            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_INIT, OnUiLobbyCreatorInit);
 
-            RAGE.Events.Add(Shared.Events.UI_LOBBY_CREATOR_CUSTOMIZE, OnUiLobbyCreatorCustomize);
+            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_CUSTOMIZE, OnUiLobbyCreatorCustomize);
 
             RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_SUBMIT, OnLobbyCreatorSubmit);
         }

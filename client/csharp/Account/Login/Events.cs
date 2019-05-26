@@ -7,7 +7,7 @@ namespace Project.Client.Account.Login
     {
         public Events()
         {
-            RAGE.Events.Add(Shared.Events.CLIENT_LOGIN_SUBMIT_OK, OnUiLoginSubmitOk);
+            RAGE.Events.Add(Shared.Events.LOGIN_SUBMIT_OK, OnUiLoginSubmitOk);
         }
 
         public static void OnUiLoginSubmitOk(object[] args)
@@ -23,7 +23,7 @@ namespace Project.Client.Account.Login
                 RAGE.Events.CallLocal("JS_ACCOUNT_REMOVE_CREDENTIALS");
             }
 
-            Bus.TriggerUi(Shared.Events.UI_LOGIN_SUBMIT_OK);
+            Bus.TriggerUi(Shared.Events.LOGIN_SUBMIT_OK);
         }
     }
 }

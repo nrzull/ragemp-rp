@@ -18,7 +18,7 @@ namespace Project.Server.Account.Login
 
             if (errors.Count > 0)
             {
-                Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_ERROR, errors);
+                Bus.TriggerUi(player, Shared.Events.LOGIN_SUBMIT_ERROR, errors);
                 return;
             }
 
@@ -26,7 +26,7 @@ namespace Project.Server.Account.Login
             if (account == null || !BCrypt.Net.BCrypt.Verify(payload.Password, account.Password))
             {
                 errors.Add("username", Resources.ERROR_INCORRECT_USERNAME_OR_PASSWORD);
-                Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_ERROR, errors);
+                Bus.TriggerUi(player, Shared.Events.LOGIN_SUBMIT_ERROR, errors);
                 return;
             }
 
@@ -50,9 +50,9 @@ namespace Project.Server.Account.Login
                     })
                     .ToList();
 
-                Bus.TriggerClient(player, Shared.Events.CLIENT_LOGIN_SUBMIT_OK, payload);
+                Bus.TriggerClient(player, Shared.Events.LOGIN_SUBMIT_OK, payload);
 
-                Bus.TriggerClient(player, Shared.Events.CLIENT_LOBBY_SHOW, characters);
+                Bus.TriggerClient(player, Shared.Events.LOBBY_SHOW, characters);
             }
         }
 

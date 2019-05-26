@@ -12,7 +12,7 @@ namespace Project.Server.Account
         public void OnPlayerConnected(Client player)
         {
             player.SetData(Resources.ATTACHMENT_KEY, new Account.Attachment { });
-            player.TriggerEvent(Shared.Events.CLIENT_PLAYER_CONNECT);
+            player.TriggerEvent(Shared.Events.PLAYER_CONNECTED);
         }
 
         [ServerEvent(Event.PlayerDisconnected)]
@@ -24,7 +24,7 @@ namespace Project.Server.Account
         [RemoteEvent(Shared.Events.UI_LOADED)]
         public void OnUiLoaded(Client player)
         {
-            Bus.TriggerClient(player, Shared.Events.UI_AUTH_SHOW, true);
+            Bus.TriggerClient(player, Shared.Events.AUTH_SHOW, true);
             // TODO continue logic
         }
     }

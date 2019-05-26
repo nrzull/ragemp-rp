@@ -9,12 +9,12 @@ namespace Project.Server.Account.Login
 {
     class Events : Script
     {
-        [RemoteEvent(Shared.Events.SERVER_LOGIN_SUBMIT)]
+        [RemoteEvent(Shared.Events.LOGIN_SUBMIT)]
         public void OnUiLoginSubmit(Client player, string data)
         {
             Task.Run(() =>
             {
-                if (Middlewares.EventsBlocker.Block(player, Shared.Events.SERVER_LOGIN_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
+                if (Middlewares.EventsBlocker.Block(player, Shared.Events.LOGIN_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
                 {
                     // TODO уведомить о блокировке если такова имеется
                     return;

@@ -3,31 +3,27 @@ namespace Project.Shared
     class Events
     {
         public const string DEBUG_CONSOLE_MESSAGE = "DEBUG_CONSOLE_MESSAGE";
-
-        public const string SERVER_LOGIN_SUBMIT = "SERVER_LOGIN_SUBMIT";
-        public const string SERVER_REGISTER_SUBMIT = "SERVER_REGISTER_SUBMIT";
-
-        public const string CLIENT_PLAYER_CONNECT = "CLIENT_PLAYER_CONNECT";
-        public const string CLIENT_LOBBY_SHOW = "CLIENT_LOBBY_SHOW";
-        public const string CLIENT_LOGIN_SUBMIT_OK = "CLIENT_LOGIN_SUBMIT_OK";
+        public const string PLAYER_CONNECTED = "PLAYER_CONNECTED";
 
         public const string UI_LOADED = "UI_LOADED";
-        public const string UI_AUTH_SHOW = "UI_AUTH_SHOW";
+        public const string AUTH_SHOW = "AUTH_SHOW";
 
-        public const string UI_LOGIN_SHOW = "UI_LOGIN_SHOW";
-        public const string UI_LOGIN_SUBMIT_OK = "UI_LOGIN_SUBMIT_OK";
-        public const string UI_LOGIN_SUBMIT_ERROR = "UI_LOGIN_SUBMIT_ERROR";
+        public const string LOGIN_SHOW = "LOGIN_SHOW";
+        public const string LOGIN_SUBMIT = "LOGIN_SUBMIT";
+        public const string LOGIN_SUBMIT_OK = "LOGIN_SUBMIT_OK";
+        public const string LOGIN_SUBMIT_ERROR = "LOGIN_SUBMIT_ERROR";
 
-        public const string UI_REGISTER_SHOW = "UI_REGISTER_SHOW";
-        public const string UI_REGISTER_SUBMIT_OK = "UI_REGISTER_SUBMIT_OK";
-        public const string UI_REGISTER_SUBMIT_ERROR = "UI_REGISTER_SUBMIT_ERROR";
+        public const string REGISTER_SHOW = "REGISTER_SHOW";
+        public const string REGISTER_SUBMIT = "REGISTER_SUBMIT";
+        public const string REGISTER_SUBMIT_OK = "REGISTER_SUBMIT_OK";
+        public const string REGISTER_SUBMIT_ERROR = "REGISTER_SUBMIT_ERROR";
 
-        public const string UI_LOBBY_CREATOR_SHOW = "UI_LOBBY_CREATOR_SHOW";
-        public const string UI_LOBBY_CREATOR_INIT = "UI_LOBBY_CREATOR_INIT";
-        public const string UI_LOBBY_CREATOR_INIT_OK = "UI_LOBBY_CREATOR_INIT_OK";
+        public const string LOBBY_SHOW = "LOBBY_SHOW";
+        public const string LOBBY_CREATOR_SHOW = "LOBBY_CREATOR_SHOW";
+        public const string LOBBY_CREATOR_INIT = "LOBBY_CREATOR_INIT";
+        public const string LOBBY_CREATOR_INIT_OK = "LOBBY_CREATOR_INIT_OK";
 
-        public const string UI_LOBBY_CREATOR_CUSTOMIZE = "UI_LOBBY_CREATOR_CUSTOMIZE";
-
+        public const string LOBBY_CREATOR_CUSTOMIZE = "LOBBY_CREATOR_CUSTOMIZE";
         public const string LOBBY_CREATOR_SUBMIT = "LOBBY_CREATOR_SUBMIT";
     }
 }

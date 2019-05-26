@@ -8,16 +8,16 @@ namespace Project.Server.Account.Register
 {
     class Events : Script
     {
-        [RemoteEvent(Shared.Events.SERVER_REGISTER_SUBMIT)]
+        [RemoteEvent(Shared.Events.REGISTER_SUBMIT)]
         public void OnUiRegisterSubmit(Client player, string data)
         {
 
             NAPI.Task.Run(() =>
             {
-                if (Middlewares.EventsBlocker.Block(player, Shared.Events.SERVER_REGISTER_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
+                if (Middlewares.EventsBlocker.Block(player, Shared.Events.REGISTER_SUBMIT, Middlewares.EventsBlocker.Receivers.CEF, 1000) > 1)
                 {
                     // TODO уведомить о блокировке если такова имеется
-                    Bus.TriggerUi(player, Shared.Events.UI_LOGIN_SUBMIT_ERROR); // Remove it
+                    Bus.TriggerUi(player, Shared.Events.LOGIN_SUBMIT_ERROR); // Remove it
                     return;
                 }
 

@@ -29,12 +29,12 @@ type TState = TRootState["login"];
 
 class Login extends Component<TProps, TState> {
   componentWillMount() {
-    on(events.UI_LOGIN_SUBMIT_ERROR, this.onSubmitError);
+    on(events.LOGIN_SUBMIT_ERROR, this.onSubmitError);
     this.setState({ ...this.props.cache });
   }
 
   componentWillUnmount() {
-    off(events.UI_LOGIN_SUBMIT_ERROR, this.onSubmitError);
+    off(events.LOGIN_SUBMIT_ERROR, this.onSubmitError);
     this.props.actions.loginCache(this.state);
   }
 

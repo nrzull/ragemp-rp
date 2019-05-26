@@ -25,7 +25,7 @@ namespace Project.Client.Character.Lobby.Creator
         public static void Start(List<Shared.Schemes.LobbySelectCharacters> characters = null)
         {
             if (characters != null) Characters = characters;
-            Bus.TriggerUi(Shared.Events.UI_LOBBY_CREATOR_SHOW, true);
+            Bus.TriggerUi(Shared.Events.LOBBY_CREATOR_SHOW, true);
         }
 
         public static void Init()
@@ -51,7 +51,7 @@ namespace Project.Client.Character.Lobby.Creator
             };
 
             if (sex) payload.Sex = Sex.Default;
-            Bus.TriggerUi(Shared.Events.UI_LOBBY_CREATOR_INIT_OK, payload);
+            Bus.TriggerUi(Shared.Events.LOBBY_CREATOR_INIT_OK, payload);
         }
 
         public static void Submit(Schemes.SubmitPayload payload)

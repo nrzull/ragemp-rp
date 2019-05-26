@@ -23,6 +23,7 @@ namespace Project.Server.Character.Lobby.Creator
 
                 if (character is Character.Entity)
                 {
+                    // TODO notify
                     Console.WriteLine($"{fullName} already existing");
                     return;
                 }
@@ -35,7 +36,16 @@ namespace Project.Server.Character.Lobby.Creator
                 db.Accounts.Update(accountAttachment.Entity);
                 db.SaveChanges();
 
-                Console.WriteLine($"{fullName} was created");
+                var charactersCount = db.Entry(accountAttachment.Entity).Collection(v => v.Characters).Query().Count();
+
+                if (charactersCount > 1)
+                {
+                    Console.WriteLine($"{fullName} was created, move to lobby select");
+                }
+                else
+                {
+                    Console.WriteLine($"{fullName} was created, start play");
+                }
             }
         }
     }

@@ -9,5 +9,5 @@ export function submit(payload: {
   promoCode: string;
   agreement: boolean;
 }) {
-  bus.triggerServer(events.SERVER_REGISTER_SUBMIT, payload);
+  bus.triggerServer(events.REGISTER_SUBMIT, payload);
 }

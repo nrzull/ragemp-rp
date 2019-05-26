@@ -109,4 +109,5 @@ export interface TOnInitOkPayload {
   skinMix: TMix;
   shapeMix: TMix;
   eyeColor: TEyeColor;
+  charactersCount: number;
 }

@@ -8,7 +8,7 @@ namespace Project.Client.Character.Lobby
     {
         public Events()
         {
-            RAGE.Events.Add(Shared.Events.CLIENT_LOBBY_SHOW, OnLobbyShow);
+            RAGE.Events.Add(Shared.Events.LOBBY_SHOW, OnLobbyShow);
         }
 
         public void OnLobbyShow(object[] args)
