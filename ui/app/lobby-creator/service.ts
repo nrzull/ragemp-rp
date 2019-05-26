@@ -18,4 +18,8 @@ function submit(payload: { firstName: string; lastName: string }) {
   bus.triggerClient(events.LOBBY_CREATOR_SUBMIT, payload);
 }
 
-export { customize, init, submit };
+function cancel() {
+  bus.triggerClient(events.LOBBY_CREATOR_CANCEL);
+}
+
+export { customize, init, submit, cancel };

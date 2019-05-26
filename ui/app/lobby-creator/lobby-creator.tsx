@@ -92,7 +92,9 @@ class LobbyCreator extends Component<any, TState> {
     });
   };
 
-  onClickCancel = () => {};
+  onClickCancel = () => {
+    service.cancel();
+  };
 
   onChangeFaceFeature = (event: ChangeEvent<HTMLInputElement>) => {
     const key = event.currentTarget.getAttribute(

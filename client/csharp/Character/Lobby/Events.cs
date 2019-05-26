@@ -8,14 +8,14 @@ namespace Project.Client.Character.Lobby
     {
         public Events()
         {
-            RAGE.Events.Add(Shared.Events.LOBBY_SHOW, OnLobbyShow);
+            RAGE.Events.Add(Shared.Events.LOBBY_START, OnStart);
         }
 
-        public void OnLobbyShow(object[] args)
+        public void OnStart(object[] args)
         {
             var characters = JsonConvert.DeserializeObject<List<Shared.Schemes.LobbySelectCharacters>>((string)args[0]);
 
-            Service.ShowLobby(characters);
+            Service.Start(characters);
         }
     }
 }

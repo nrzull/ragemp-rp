@@ -7,30 +7,35 @@ namespace Project.Client.Character.Lobby.Creator
     {
         public Events()
         {
-            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_INIT, OnUiLobbyCreatorInit);
-
-            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_CUSTOMIZE, OnUiLobbyCreatorCustomize);
-
-            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_SUBMIT, OnLobbyCreatorSubmit);
+            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_INIT, OnInit);
+            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_CUSTOMIZE, OnCustomize);
+            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_SUBMIT, OnSubmit);
+            RAGE.Events.Add(Shared.Events.LOBBY_CREATOR_CANCEL, OnCancel);
         }
 
-        public void OnUiLobbyCreatorInit(object[] args)
+        public void OnInit(object[] args)
         {
             Service.Init();
         }
 
-        public void OnUiLobbyCreatorCustomize(object[] args)
+        public void OnCustomize(object[] args)
         {
             var payload = JsonConvert.DeserializeObject<Schemes.CustomizePayload>((string)args[0]);
 
             Service.Customize(payload);
         }
 
-        public void OnLobbyCreatorSubmit(object[] args)
+        public void OnSubmit(object[] args)
         {
             var payload = JsonConvert.DeserializeObject<Schemes.SubmitPayload>((string)args[0]);
 
             Service.Submit(payload);
+        }
+
+        public void OnCancel(object[] args)
+        {
+            Bus.TriggerUi(Shared.Events.LOBBY_CREATOR_SHOW, false);
+            Lobby.Service.Start(Service.Characters);
         }
     }
 }

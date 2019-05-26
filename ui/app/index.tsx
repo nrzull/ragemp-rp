@@ -11,6 +11,7 @@ import * as agreement from "@app/agreement";
 import * as login from "@app/login";
 import * as register from "@app/register";
 import * as lobbyCreator from "@app/lobby-creator";
+import * as lobbySelector from "@app/lobby-selector";
 
 export interface TRootState {
   auth: boolean;
@@ -120,7 +121,11 @@ class App extends Component<{}, TRootState> {
     });
 
     on(events.LOBBY_CREATOR_SHOW, payload => {
-      this.setState({ creator: payload, selector: !payload });
+      this.setState({ creator: payload });
+    });
+
+    on(events.LOBBY_SELECTOR_SHOW, payload => {
+      this.setState({ selector: payload });
     });
 
     on(events.LOGIN_SHOW, payload => {
@@ -171,6 +176,12 @@ class App extends Component<{}, TRootState> {
         {this.state.creator && (
           <div className="lobby lobby_create">
             <lobbyCreator.LobbyCreator />
+          </div>
+        )}
+
+        {this.state.selector && (
+          <div className="lobby lobby_create">
+            <lobbySelector.LobbySelector />
           </div>
         )}
 

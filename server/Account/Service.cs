@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
+using GTANetworkAPI;
 
 namespace Project.Server.Account
 {
@@ -46,6 +47,11 @@ namespace Project.Server.Account
             }
 
             return null;
+        }
+
+        public static Attachment GetAttachment(Client player)
+        {
+            return player.GetData(Resources.ATTACHMENT_KEY);
         }
     }
 }

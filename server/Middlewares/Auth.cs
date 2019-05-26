@@ -6,10 +6,8 @@ namespace Project.Server.Middlewares
     {
         public static bool Check(Client player)
         {
-            Account.Attachment attachment = player.GetData(Account.Resources.ATTACHMENT_KEY);
-
+            var attachment = Account.Service.GetAttachment(player);
             if (attachment.Entity is Account.Entity) return true;
-
             return false;
         }
     }

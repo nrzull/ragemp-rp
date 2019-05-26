@@ -1,6 +1,6 @@
 namespace Project.Server.Account
 {
-    class Attachment
+    public class Attachment
     {
         public Entity Entity { get; set; }
     }

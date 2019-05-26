@@ -36,16 +36,8 @@ namespace Project.Server.Character.Lobby.Creator
                 db.Accounts.Update(accountAttachment.Entity);
                 db.SaveChanges();
 
-                var charactersCount = db.Entry(accountAttachment.Entity).Collection(v => v.Characters).Query().Count();
-
-                if (charactersCount > 1)
-                {
-                    Console.WriteLine($"{fullName} was created, move to lobby select");
-                }
-                else
-                {
-                    Console.WriteLine($"{fullName} was created, start play");
-                }
+                Bus.TriggerUi(player, Shared.Events.LOBBY_CREATOR_SHOW, false);
+                Lobby.Service.Start(player);
             }
         }
     }
