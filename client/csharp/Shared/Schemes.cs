@@ -18,6 +18,12 @@ namespace Project.Shared
             public string Sex { get; set; }
         }
 
+        public class LobbySelectorPlay
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
         public class CharacterCustomization
         {
             public int Hair { get; set; }
