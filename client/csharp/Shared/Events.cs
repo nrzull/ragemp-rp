@@ -28,5 +28,9 @@ namespace Project.Shared
         public const string LOBBY_CREATOR_CANCEL = "LOBBY_CREATOR_CANCEL";
 
         public const string LOBBY_SELECTOR_SHOW = "LOBBY_SELECTOR_SHOW";
+        public const string LOBBY_SELECTOR_INIT = "LOBBY_SELECTOR_INIT";
+        public const string LOBBY_SELECTOR_INIT_OK = "LOBBY_SELECTOR_INIT_OK";
+        public const string LOBBY_SELECTOR_PLAY = "LOBBY_SELECTOR_PLAY";
+        public const string LOBBY_SELECTOR_CREATE = "LOBBY_SELECTOR_CREATE";
     }
 }
