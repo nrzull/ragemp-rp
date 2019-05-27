@@ -37,7 +37,15 @@ namespace Project.Server.Character.Lobby.Creator
                 db.SaveChanges();
 
                 Bus.TriggerUi(player, Shared.Events.LOBBY_CREATOR_SHOW, false);
-                Lobby.Service.Start(player);
+
+                if (Character.Service.GetCharactersCount(accountAttachment.Entity) > 1)
+                {
+                    Lobby.Service.Start(player);
+                }
+                else
+                {
+                    Lobby.Selector.Service.Play(player, character);
+                }
             }
         }
     }

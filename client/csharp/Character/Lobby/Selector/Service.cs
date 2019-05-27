@@ -20,5 +20,10 @@ namespace Project.Client.Character.Lobby.Selector
 
             Bus.TriggerUi(Shared.Events.LOBBY_SELECTOR_SHOW, true);
         }
+
+        public static void Init()
+        {
+            Bus.TriggerUi(Shared.Events.LOBBY_SELECTOR_INIT_OK, Lobby.Service.Characters);
+        }
     }
 }

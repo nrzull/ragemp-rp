@@ -35,7 +35,7 @@ namespace Project.Client.Character.Lobby.Creator
         public void OnCancel(object[] args)
         {
             Bus.TriggerUi(Shared.Events.LOBBY_CREATOR_SHOW, false);
-            Lobby.Service.Start(Service.Characters);
+            Selector.Service.Start();
         }
     }
 }
