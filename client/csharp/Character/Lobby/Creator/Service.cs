@@ -165,8 +165,6 @@ namespace Project.Client.Character.Lobby.Creator
             }
         }
 
-
-
         static void CustomizeHeadOverlay(string key, int value)
         {
             foreach (var field in HeadOverlays.GetType().GetFields())
@@ -176,73 +174,41 @@ namespace Project.Client.Character.Lobby.Creator
                 var headOverlay = (Schemes.HeadOverlay)field.GetValue(HeadOverlays);
 
                 headOverlay.Current = value;
-                RenderHeadOverlay(headOverlay);
+
+                Lobby.Service.RenderHeadOverlay(new Shared.Schemes.HeadOverlay
+                {
+                    Index = headOverlay.Index,
+                    Value = headOverlay.Values.ElementAt(headOverlay.Current)
+                });
+
                 break;
             }
-        }
-
-        static void RenderHeadOverlay(Schemes.HeadOverlay headOverlay)
-        {
-            RAGE.Elements.Player.LocalPlayer.SetHeadOverlay(headOverlay.Index, headOverlay.Values.ElementAt(headOverlay.Current), 1);
         }
 
         static void CustomizeSex(string sex)
         {
             Sex.Current = sex;
-            RenderSex();
+            Lobby.Service.RenderSex(Sex.Current);
             Reset(sex: false);
             SendInitialDataToUi(sex: false);
-        }
-
-        static void RenderSex()
-        {
-            if (Sex.Current == "male")
-            {
-                RAGE.Elements.Player.LocalPlayer.Model = RAGE.Game.Misc.GetHashKey("mp_m_freemode_01");
-            }
-            else
-            {
-                RAGE.Elements.Player.LocalPlayer.Model = RAGE.Game.Misc.GetHashKey("mp_f_freemode_01");
-            }
         }
 
         static void CustomizeHair(int value)
         {
             Hair.Current = value;
-            RenderHair();
-        }
-
-        static void RenderHair()
-        {
-            RAGE.Elements.Player.LocalPlayer.SetComponentVariation(Hair.Index, Hair.Values[Hair.Current], 0, 0);
+            Lobby.Service.RenderHair(Hair.Values[Hair.Current]);
         }
 
         static void CustomizeColor(int value)
         {
             Color.Current = value;
-            RenderColor();
-        }
-
-        static void RenderColor()
-        {
-            RAGE.Elements.Player.LocalPlayer.SetHairColor(Color.Values[Color.Current], 0);
-
-            RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.FacialHair.Index, 1, Color.Values[Color.Current], 0);
-
-            RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.ChestHair.Index, 1, Color.Values[Color.Current], 0);
-
-            RAGE.Elements.Player.LocalPlayer.SetHeadOverlayColor(HeadOverlays.Eyebrows.Index, 1, Color.Values[Color.Current], 0);
+            Lobby.Service.RenderColor(Color.Values[Color.Current]);
         }
 
         static void CustomizeEyeColor(int value)
         {
             EyeColor.Current = value;
-            RenderEyeColor();
-        }
-
-        static void RenderEyeColor()
-        {
-            RAGE.Elements.Player.LocalPlayer.SetEyeColor(EyeColor.Values[EyeColor.Current]);
+            Lobby.Service.RenderEyeColor(EyeColor.Current);
         }
 
         static void CustomizeBlendData(string key, dynamic value)
@@ -251,12 +217,7 @@ namespace Project.Client.Character.Lobby.Creator
             if (key == "mother") BlendData.SetMother((int)value);
             if (key == "shape-mix") BlendData.SetShapeMix((float)value);
             if (key == "skin-mix") BlendData.SetSkinMix((float)value);
-            RenderBlendData();
-        }
-
-        static void RenderBlendData()
-        {
-            RAGE.Elements.Player.LocalPlayer.SetHeadBlendData(BlendData.Current.Item1, BlendData.Current.Item2, BlendData.Current.Item3, BlendData.Current.Item4, BlendData.Current.Item5, BlendData.Current.Item6, BlendData.Current.Item7, BlendData.Current.Item8, BlendData.Current.Item9, BlendData.Current.Item10);
+            Lobby.Service.RenderBlendData(BlendData.Current);
         }
 
         static void Reset(bool sex = true)
@@ -270,7 +231,7 @@ namespace Project.Client.Character.Lobby.Creator
             if (sex)
             {
                 Sex = new Schemes.Sex { };
-                RenderSex();
+                Lobby.Service.RenderSex(Sex.Current);
             }
 
             Schemes.Hair TargetHair;
@@ -285,7 +246,7 @@ namespace Project.Client.Character.Lobby.Creator
                 Values = TargetHair.Values
             };
 
-            RenderBlendData();
+            Lobby.Service.RenderBlendData(BlendData.Current);
 
             foreach (var item in FaceFeatures.GetType().GetFields())
             {
@@ -302,11 +263,17 @@ namespace Project.Client.Character.Lobby.Creator
             {
                 var headOverlay = (Schemes.HeadOverlay)item.GetValue(HeadOverlays);
 
-                RenderHeadOverlay(headOverlay);
+
+                Lobby.Service.RenderHeadOverlay(new Shared.Schemes.HeadOverlay
+                {
+                    Index = headOverlay.Index,
+                    Value = headOverlay.Values.ElementAt(headOverlay.Current)
+                });
             }
 
-            RenderHair();
-            RenderColor();
+            Lobby.Service.RenderHair(Hair.Values[Hair.Current]);
+            Lobby.Service.RenderColor(Color.Values[Color.Current]);
+            Lobby.Service.RenderEyeColor(EyeColor.Current);
         }
     }
 }
