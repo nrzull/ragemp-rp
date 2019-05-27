@@ -2,7 +2,7 @@ namespace Project.Server.Account
 {
     public static class Resources
     {
-        public const string ATTACHMENT_KEY = "Account";
+        public const string ATTACHMENT_KEY = "ACCOUNT_ATTACHMENT";
 
         public const string USERNAME_REGEX = "^[a-zA-Z0-9]+$";
 
