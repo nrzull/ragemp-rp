@@ -5,12 +5,8 @@ namespace Project.Client.Character.Lobby.Selector
 {
     public static class Service
     {
-        static List<Shared.Schemes.LobbySelectCharacters> Characters;
-
-        public static void Start(List<Shared.Schemes.LobbySelectCharacters> characters = null)
+        public static void Start()
         {
-            if (characters != null) Characters = characters;
-
             var headPosition = RAGE.Elements.Player.LocalPlayer.GetBoneCoords(12844, 0, 0, 0);
 
             float positionXOffset = 0.15f;

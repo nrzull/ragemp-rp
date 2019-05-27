@@ -8,7 +8,9 @@ namespace Project.Client.Character.Lobby
     {
         public static int Camera { get; set; }
 
-        public static void Start(List<Shared.Schemes.LobbySelectCharacters> characters)
+        public static List<Shared.Schemes.LobbySelectCharacters> Characters;
+
+        public static void Start(List<Shared.Schemes.LobbySelectCharacters> characters = null)
         {
             RAGE.Elements.Player localPlayer = RAGE.Elements.Player.LocalPlayer;
 
@@ -23,14 +25,21 @@ namespace Project.Client.Character.Lobby
 
             Utils.ToggleInterface(false);
 
+            if (characters != null) Characters = characters;
+
             if (characters.Count > 0)
             {
-                Selector.Service.Start(characters);
+                Selector.Service.Start();
             }
             else
             {
-                Creator.Service.Start(characters);
+                Creator.Service.Start();
             }
+        }
+
+        public static void RenderFaceFeature(Shared.Schemes.FaceFeature faceFeature)
+        {
+            RAGE.Elements.Player.LocalPlayer.SetFaceFeature(faceFeature.Index, faceFeature.Value);
         }
     }
 }

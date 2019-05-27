@@ -19,12 +19,9 @@ namespace Project.Client.Character.Lobby.Creator
         static Schemes.Color Color;
         static Schemes.Hair Hair;
         static Schemes.EyeColor EyeColor;
-        public static List<Shared.Schemes.LobbySelectCharacters> Characters;
 
-        public static void Start(List<Shared.Schemes.LobbySelectCharacters> characters = null)
+        public static void Start()
         {
-            if (characters != null) Characters = characters;
-
             var headPosition = RAGE.Elements.Player.LocalPlayer.GetBoneCoords(12844, 0, 0, 0);
 
             float positionXOffset = 0.15f;
@@ -54,7 +51,7 @@ namespace Project.Client.Character.Lobby.Creator
                 Hair = Hair,
                 Color = Color,
                 EyeColor = EyeColor,
-                CharactersCount = Characters?.Count(),
+                CharactersCount = Lobby.Service.Characters?.Count(),
                 Fathers = new Schemes.ParentPayload("father"),
                 Mothers = new Schemes.ParentPayload("mother"),
                 SkinMix = new Schemes.Mix { Min = BlendData.MixMin, Max = BlendData.MixMax, Current = BlendData.MixDefault },
@@ -157,15 +154,18 @@ namespace Project.Client.Character.Lobby.Creator
                 var faceFeature = (Schemes.FaceFeature)field.GetValue(FaceFeatures);
 
                 faceFeature.Current = value;
-                RenderFaceFeature(faceFeature);
+
+                Lobby.Service.RenderFaceFeature(new Shared.Schemes.FaceFeature
+                {
+                    Value = faceFeature.Current,
+                    Index = faceFeature.Index
+                });
+
                 break;
             }
         }
 
-        static void RenderFaceFeature(Schemes.FaceFeature faceFeature)
-        {
-            RAGE.Elements.Player.LocalPlayer.SetFaceFeature(faceFeature.Index, faceFeature.Current);
-        }
+
 
         static void CustomizeHeadOverlay(string key, int value)
         {
@@ -291,7 +291,11 @@ namespace Project.Client.Character.Lobby.Creator
             {
                 var faceFeature = (Schemes.FaceFeature)item.GetValue(FaceFeatures);
 
-                RenderFaceFeature(faceFeature);
+                Lobby.Service.RenderFaceFeature(new Shared.Schemes.FaceFeature
+                {
+                    Value = faceFeature.Current,
+                    Index = faceFeature.Index
+                });
             }
 
             foreach (var item in HeadOverlays.GetType().GetFields())
